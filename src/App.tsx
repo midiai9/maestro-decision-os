@@ -835,13 +835,12 @@ function Insights() {
     { Icon: TrendingUp, t: "Previsão Probabilística", d: "Forecast com incerteza explícita e simulação de cenários para decisões baseadas em probabilidades." },
     { Icon: Target, t: "Prescrição por Impacto", d: "Recomendações priorizadas por ROI esperado, viabilidade e alinhamento estratégico." },
   ];
-  const pratica: Array<{ Icon: typeof Search | null; t: string; highlight?: boolean }> = [
+  const pratica: Array<{ Icon: typeof Search; t: string }> = [
     { Icon: AlertCircle, t: "Identificação automática de queda de margem por cluster" },
     { Icon: FlaskConical, t: "Simulação de política comercial antes da ativação" },
     { Icon: BarChart3, t: "Forecast de vendas com faixa de risco e cenários alternativos" },
     { Icon: Filter, t: "Detecção de gargalos de conversão e priorização de ação" },
     { Icon: Calculator, t: "Projeção de impacto antes da execução de campanha" },
-    { Icon: null, t: "Antes de executar, o Maestro mede, simula e prioriza.", highlight: true },
   ];
   return (
     <Section id="insights">
