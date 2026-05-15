@@ -1199,15 +1199,31 @@ function Workflow6() {
         ))}
       </div>
 
-      <div className="mt-12 grid md:grid-cols-3 gap-5">
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          "O Maestro atua como um gestor especialista, não como um chatbot.",
-          "Cada interação percorre contextualização, validação e priorização.",
-          "Permite decisões complexas com rapidez — sem abrir mão de rigor analítico.",
+          {
+            Icon: UserCog,
+            content: (
+              <>O Maestro atua como um <strong className="text-white font-semibold">gestor especialista</strong>, não como um chatbot.</>
+            ),
+          },
+          {
+            Icon: Workflow,
+            content: (
+              <>Cada interação percorre <strong className="text-white font-semibold">contextualização, validação e priorização</strong>.</>
+            ),
+          },
+          {
+            Icon: Gauge,
+            content: (
+              <>Permite <strong className="text-white font-semibold">decisões complexas com rapidez</strong> — sem abrir mão de <strong className="text-white font-semibold">rigor analítico</strong>.</>
+            ),
+          },
         ].map((b, i) => (
-          <Reveal key={b} delay={i * 0.05}>
-            <div className="surface-card p-6 h-full">
-              <p className="text-sm text-offwhite/85 leading-relaxed">{b}</p>
+          <Reveal key={i} delay={i * 0.05}>
+            <div className={`glow-card ${["", "delay-1", "delay-2"][i]} p-8 min-h-[180px] h-full flex flex-col gap-4`}>
+              <b.Icon className="w-10 h-10" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <p className="text-base md:text-lg text-white/85 leading-relaxed">{b.content}</p>
             </div>
           </Reveal>
         ))}
