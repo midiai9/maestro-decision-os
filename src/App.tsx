@@ -799,7 +799,9 @@ function CX() {
 function DecisionTeams() {
   const attrs = ["Domínio Específico", "Execução Integrada", "Insights Preditivos", "Ações Priorizadas", "Decisões Baseadas em Dados", "Aprendizado Controlado"];
   return (
-    <Section id="teams">
+    <Section id="decision-teams">
+      {/* anchor alias */}
+      <span id="teams" className="sr-only" aria-hidden="true" />
       <Reveal><Tag><Bot size={12} /> Digital Decision Teams</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro Decision Teams</h2>
