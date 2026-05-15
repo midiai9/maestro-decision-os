@@ -456,19 +456,12 @@ function Paradoxo() {
           </Reveal>
         ))}
       </div>
-      <Reveal delay={0.8}>
-        <div className="mt-8 surface-card p-8 md:p-10 rounded-2xl border-l-4 border-l-[#EF4444]">
-          <div className="flex items-start gap-3 flex-wrap">
-            <AlertCircle className="w-6 h-6 text-[#EF4444] flex-shrink-0 mt-1" strokeWidth={1.5} />
-            <p className="flex-1 min-w-0">
-              <span className="font-bold text-[#EF4444] text-xl md:text-2xl">O resultado?</span>{" "}
-              <span className="text-white/90 text-lg md:text-xl font-normal">
-                Decisões tardias, fragmentadas e pouco acionáveis que comprometem a competitividade estratégica.
-              </span>
-            </p>
-          </div>
-        </div>
-      </Reveal>
+      <HighlightBox
+        variant="danger"
+        miniTag="✦ O resultado?"
+        miniTagColor="#EF4444"
+        bottomLine={<>Decisões tardias, fragmentadas e pouco acionáveis que comprometem a competitividade estratégica.</>}
+      />
     </Section>
   );
 }
