@@ -43,3 +43,15 @@ jobs:
           lftp -u ${{ secrets.SFTP_USER }},${{ secrets.SFTP_PASS }} \
             -e "mirror -e -R ./ ./; quit" \
             ${{ secrets.SFTP_HOST }}
+
+      - name: Ajustar permissões via lftp
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USER: ${{ secrets.SFTP_USER }}
+          SFTP_PASS: ${{ secrets.SFTP_PASS }}
+        run: |
+          lftp -u "$SFTP_USER,$SFTP_PASS" "$SFTP_HOST" <<EOF
+          chmod -R 644 *
+          find . -type d -exec chmod 755 {} \;
+          quit
+          EOF
