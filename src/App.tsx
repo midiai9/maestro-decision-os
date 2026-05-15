@@ -364,15 +364,26 @@ function Hero({ onDemo }: { onDemo: () => void }) {
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.8, delay, ease },
   });
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {});
+    }
+  }, []);
   return (
     <section id="top" className="relative min-h-screen w-full overflow-hidden">
       <video
+        ref={videoRef}
         src="/maestro.mp4"
         autoPlay
         loop
         muted
         playsInline
         preload="auto"
+        disablePictureInPicture
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover"
       />
