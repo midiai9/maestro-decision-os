@@ -1835,32 +1835,8 @@ function Ganhos() {
       </Reveal>
 
       <div className="mt-12 grid lg:grid-cols-2 gap-6 items-stretch">
-        {/* Gráfico */}
-        <Reveal>
-          <div className="rounded-2xl p-10 h-full flex flex-col" style={{ backgroundColor: "#0F1B3D" }}>
-            <p className="text-xs uppercase tracking-widest text-white/60 mb-8 font-semibold">Indicadores</p>
-            <div className="space-y-7 flex-1 flex flex-col justify-center">
-              {bars.map((b, i) => (
-                <div key={b.l}>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-white text-sm">{b.l}</span>
-                    <span className="font-bold" style={{ color: "#00D4FF" }}>+{b.v}%</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${b.v}%` }}
-                      viewport={{ once: true, margin: "-80px" }}
-                      transition={{ duration: 1.2, delay: i * 0.2, ease: "easeOut" }}
-                      className="h-full rounded-full"
-                      style={{ background: "linear-gradient(90deg, #8B1FA9, #00D4FF)" }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Reveal>
+        {/* Gráfico (sem Reveal por fora — anima sozinho via IntersectionObserver) */}
+        <GanhosChart bars={bars} />
 
         {/* Grid 2x2 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
