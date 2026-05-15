@@ -316,7 +316,12 @@ function Nav({ onDemo }: { onDemo: () => void }) {
                 className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">O que dizem</a>
 
               <button
-                onClick={() => { setMobileOpen(false); onDemo(); }}
+                onClick={() => {
+                  setMobileOpen(false);
+                  setTimeout(() => {
+                    document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
                 className="mt-6 w-full px-4 py-3.5 rounded-full bg-white text-[#0F1B3D] font-semibold inline-flex items-center justify-center gap-2"
               >
                 Agendar Demo <ArrowRight size={16} />
