@@ -209,7 +209,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
           <a href="#industrias" className="hover:text-white">Indústrias</a>
           <a href="#o-que-dizem" className="hover:text-white">O que dizem</a>
           <button
-            onClick={onDemo}
+            onClick={() => document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' })}
             className="ml-2 px-4 py-2 rounded-full bg-white text-[#0F1B3D] text-xs font-semibold uppercase tracking-wider hover:scale-[1.03] transition-transform inline-flex items-center gap-1.5"
           >
             Agendar Demo <ArrowRight size={14} />
