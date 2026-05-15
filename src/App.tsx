@@ -572,8 +572,8 @@ function CustoInacao() {
     { Icon: Target, t: "Oportunidades Não Capturadas", d: "Janelas de conversão fechadas, clientes de alto valor não identificados, momentos críticos ignorados." },
     { Icon: Users, t: "Dependência de Análise Manual", d: "Times estratégicos consumidos por tarefas operacionais. Decisões atrasadas por falta de capacidade analítica." },
   ];
-  const Card = ({ it }: { it: typeof items[number] }) => (
-    <div className="bg-[#0F1B3D] rounded-2xl p-6 min-h-[260px] h-full flex flex-col gap-4">
+  const Card = ({ it, i }: { it: typeof items[number]; i: number }) => (
+    <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 min-h-[260px] h-full flex flex-col gap-4`}>
       <it.Icon className="w-8 h-8" style={{ color: "#EF4444" }} strokeWidth={1.5} />
       <h3 className="font-display text-lg font-medium">{it.t}</h3>
       <p className="text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
