@@ -71,6 +71,7 @@ import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
 import { WhatsAppButton } from "@/components/landing/WhatsAppButton";
 import { HighlightBox } from "@/components/landing/HighlightBox";
+import { SolutionsNav } from "@/components/landing/SolutionsNav";
 // rebuild: 15-mai-0341
 
 export default function Index() {
@@ -81,6 +82,7 @@ export default function Index() {
     <main className="gradient-purple min-h-screen text-white overflow-hidden">
       <DemoModal open={openDemo} onClose={() => setOpenDemo(false)} />
       <Nav onDemo={openModal} />
+      <SolutionsNav />
       <Hero onDemo={openModal} />
       <Paradoxo />
       <Mudanca />
@@ -145,6 +147,17 @@ function Nav({ onDemo }: { onDemo: () => void }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   const goTop = (e: React.MouseEvent) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -205,8 +218,9 @@ function Nav({ onDemo }: { onDemo: () => void }) {
   );
 
   return (
+    <>
     <header
-      className={`left-0 right-0 z-40 transition-all duration-300 ${
+      className={`left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "fixed top-0 bg-[#0F1B3D]/85 backdrop-blur-md shadow-lg shadow-black/30 border-b border-white/5"
           : "absolute top-0 bg-transparent"
@@ -248,111 +262,110 @@ function Nav({ onDemo }: { onDemo: () => void }) {
       </div>
       {scrolled && <div className="menu-glow-line" />}
 
-      {/* Mobile fullscreen overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="xl:hidden fixed inset-0 z-50 bg-[#0F1B3D]/95 backdrop-blur-md overflow-y-auto"
-          >
-            <div className="flex items-center justify-between px-6 py-6 border-b border-white/5">
-              <img src="/aodigital.png" alt="Always On" className="h-6 w-auto" />
-              <button
-                aria-label="Fechar menu"
-                onClick={() => setMobileOpen(false)}
-                className="text-white p-2"
-              >
-                <XIcon className="w-6 h-6" />
-              </button>
-            </div>
-            <nav className="px-6 py-8 flex flex-col gap-1 text-white">
-              {/* Sobre accordion */}
-              <button
-                onClick={() => setMobileSobreOpen((v) => !v)}
-                className="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
-              >
-                Sobre
-                <ChevronDown size={18} className={`transition-transform ${mobileSobreOpen ? "rotate-180" : ""}`} />
-              </button>
-              {mobileSobreOpen && (
-                <div className="pl-4 flex flex-col gap-1">
-                  {SOBRE.map(({ Icon, label, href }) => (
-                    <a key={href} href={href} onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
-                      <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                      <span className="text-base">{label}</span>
-                    </a>
-                  ))}
-                </div>
-              )}
-
-              {/* Soluções accordion */}
-              <button
-                onClick={() => setMobileSolOpen((v) => !v)}
-                className="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
-              >
-                Soluções
-                <ChevronDown size={18} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
-              </button>
-              {mobileSolOpen && (
-                <div className="pl-4 flex flex-col gap-1">
-                  {SOLUCOES.map(({ Icon, label, href }) => (
-                    <a key={href} href={href} onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
-                      <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                      <span className="text-base">{label}</span>
-                    </a>
-                  ))}
-                </div>
-              )}
-
-              <a href="#comparativo" onClick={() => setMobileOpen(false)}
-                className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Comparativo</a>
-
-              {/* Porque accordion */}
-              <button
-                onClick={() => setMobilePorqueOpen((v) => !v)}
-                className="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
-              >
-                Porque
-                <ChevronDown size={18} className={`transition-transform ${mobilePorqueOpen ? "rotate-180" : ""}`} />
-              </button>
-              {mobilePorqueOpen && (
-                <div className="pl-4 flex flex-col gap-1">
-                  {PORQUE.map(({ Icon, label, href }) => (
-                    <a key={href} href={href} onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
-                      <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                      <span className="text-base">{label}</span>
-                    </a>
-                  ))}
-                </div>
-              )}
-
-              <a href="#industrias" onClick={() => setMobileOpen(false)}
-                className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Indústrias</a>
-              <a href="#o-que-dizem" onClick={() => setMobileOpen(false)}
-                className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">O que dizem</a>
-
-              <button
-                onClick={() => {
-                  setMobileOpen(false);
-                  setTimeout(() => {
-                    document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                }}
-                className="mt-6 w-full px-4 py-3.5 rounded-full bg-white text-[#0F1B3D] font-semibold inline-flex items-center justify-center gap-2"
-              >
-                Agendar Demo <ArrowRight size={16} />
-              </button>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
+
+    {mobileOpen && (
+      <div className="fixed inset-0 z-[100] xl:hidden">
+        {/* Opaque backdrop */}
+        <div className="absolute inset-0 bg-[#0F1B3D]" />
+
+        {/* Menu content */}
+        <div className="relative h-full w-full flex flex-col overflow-y-auto">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+            <img src="/aodigital.png" alt="Always On" className="h-7 w-auto" />
+            <button
+              aria-label="Fechar menu"
+              onClick={() => setMobileOpen(false)}
+              className="text-white p-2"
+            >
+              <XIcon className="w-7 h-7" />
+            </button>
+          </div>
+          <nav className="flex-1 px-6 py-6 space-y-1 text-white">
+            {/* Sobre accordion */}
+            <button
+              onClick={() => setMobileSobreOpen((v) => !v)}
+              className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
+            >
+              Sobre
+              <ChevronDown size={18} className={`transition-transform ${mobileSobreOpen ? "rotate-180" : ""}`} />
+            </button>
+            {mobileSobreOpen && (
+              <div className="pl-4 flex flex-col gap-1">
+                {SOBRE.map(({ Icon, label, href }) => (
+                  <a key={href} href={href} onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
+                    <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                    <span className="text-base">{label}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {/* Soluções accordion */}
+            <button
+              onClick={() => setMobileSolOpen((v) => !v)}
+              className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
+            >
+              Soluções
+              <ChevronDown size={18} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
+            </button>
+            {mobileSolOpen && (
+              <div className="pl-4 flex flex-col gap-1">
+                {SOLUCOES.map(({ Icon, label, href }) => (
+                  <a key={href} href={href} onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
+                    <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                    <span className="text-base">{label}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+
+            <a href="#comparativo" onClick={() => setMobileOpen(false)}
+              className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Comparativo</a>
+
+            {/* Porque accordion */}
+            <button
+              onClick={() => setMobilePorqueOpen((v) => !v)}
+              className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
+            >
+              Porque
+              <ChevronDown size={18} className={`transition-transform ${mobilePorqueOpen ? "rotate-180" : ""}`} />
+            </button>
+            {mobilePorqueOpen && (
+              <div className="pl-4 flex flex-col gap-1">
+                {PORQUE.map(({ Icon, label, href }) => (
+                  <a key={href} href={href} onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
+                    <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                    <span className="text-base">{label}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+
+            <a href="#industrias" onClick={() => setMobileOpen(false)}
+              className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Indústrias</a>
+            <a href="#o-que-dizem" onClick={() => setMobileOpen(false)}
+              className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">O que dizem</a>
+
+            <button
+              onClick={() => {
+                setMobileOpen(false);
+                setTimeout(() => {
+                  document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              }}
+              className="mt-6 w-full px-4 py-3.5 rounded-full bg-white text-[#0F1B3D] font-semibold inline-flex items-center justify-center gap-2"
+            >
+              Agendar Demo <ArrowRight size={16} />
+            </button>
+          </nav>
+        </div>
+      </div>
+    )}
+    </>
   );
 }
 
@@ -464,16 +477,30 @@ function Paradoxo() {
           Nunca tivemos tantos dados disponíveis, mas as decisões estratégicas nunca foram tão lentas e fragmentadas.
         </p>
       </Reveal>
-      <div className="mt-14 grid sm:grid-cols-2 gap-5">
+      {/* Desktop grid */}
+      <div className="mt-14 hidden md:grid sm:grid-cols-2 gap-5">
         {items.map((it, i) => (
           <Reveal key={it.t} delay={0.1 + i * 0.1}>
-            <div className="surface-card p-8 h-full">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-8 h-full`}>
               <it.Icon className="w-8 h-8 text-[#00D4FF] mb-6" strokeWidth={1.5} />
               <h3 className="font-display text-xl font-medium">{it.t}</h3>
               <p className="mt-3 text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
             </div>
           </Reveal>
         ))}
+      </div>
+      {/* Mobile carousel */}
+      <div className="mt-10 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {items.map((it, i) => (
+            <div key={it.t} className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 min-h-[220px] flex flex-col gap-3`}>
+              <it.Icon className="w-8 h-8 text-[#00D4FF]" strokeWidth={1.5} />
+              <h3 className="font-display text-xl font-medium text-white">{it.t}</h3>
+              <p className="text-white/70 text-sm leading-relaxed">{it.d}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
       </div>
       <HighlightBox
         variant="danger"
@@ -895,7 +922,8 @@ function Insights() {
         </p>
       </Reveal>
 
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Desktop */}
+      <div className="mt-12 hidden md:grid grid-cols-1 md:grid-cols-2 gap-6">
         {caps.map((c, i) => (
           <Reveal key={c.t} delay={i * 0.05}>
             <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-8 min-h-[240px] flex flex-col`}>
@@ -906,11 +934,25 @@ function Insights() {
           </Reveal>
         ))}
       </div>
+      {/* Mobile carousel */}
+      <div className="mt-10 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {caps.map((c, i) => (
+            <div key={c.t} className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 min-h-[220px] flex flex-col`}>
+              <c.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <h3 className="font-display text-xl font-medium text-white">{c.t}</h3>
+              <p className="mt-3 text-white/70 text-sm leading-relaxed">{c.d}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
+      </div>
 
       <Reveal delay={0.3}>
         <h3 className="mt-16 font-display text-2xl">Insights na Prática</h3>
       </Reveal>
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      {/* Desktop */}
+      <div className="mt-6 hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {pratica.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.04}>
             <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-5 min-h-[140px] h-full flex flex-col items-start gap-3`}>
@@ -919,6 +961,18 @@ function Insights() {
             </div>
           </Reveal>
         ))}
+      </div>
+      {/* Mobile carousel */}
+      <div className="mt-6 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {pratica.map((p, i) => (
+            <div key={p.t} className={`snap-center flex-shrink-0 w-[70vw] max-w-[280px] glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-5 min-h-[160px] flex flex-col items-start gap-3`}>
+              <p.Icon className="w-6 h-6 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <p className="text-white/85 text-sm">{p.t}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
       </div>
 
       <HighlightBox
@@ -968,7 +1022,8 @@ function CX() {
         </p>
       </Reveal>
 
-      <div className="mt-14 grid md:grid-cols-2 gap-5">
+      {/* Desktop */}
+      <div className="mt-14 hidden md:grid grid-cols-1 md:grid-cols-2 gap-5">
         {pilares.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.05}>
             <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-7 min-h-[320px] flex flex-col`}>
@@ -985,6 +1040,26 @@ function CX() {
             </div>
           </Reveal>
         ))}
+      </div>
+      {/* Mobile carousel */}
+      <div className="mt-10 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {pilares.map((p, i) => (
+            <div key={p.t} className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 min-h-[300px] flex flex-col`}>
+              <p.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <h3 className="font-display text-base font-medium text-white">{p.t}</h3>
+              <ul className="mt-4 space-y-2">
+                {p.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-2 text-sm text-white/80">
+                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: "var(--brand-purple-light)" }} />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
       </div>
 
       <Reveal delay={0.3}>
@@ -1186,7 +1261,8 @@ function Workflow6() {
         <p className="mt-3 text-xl text-offwhite/80">Como funciona na prática</p>
       </Reveal>
 
-      <div className="mt-14 grid md:grid-cols-3 lg:grid-cols-6 gap-4">
+      {/* Desktop */}
+      <div className="mt-14 hidden md:grid md:grid-cols-3 lg:grid-cols-6 gap-4">
         {steps.map((s, i) => (
           <Reveal key={s} delay={i * 0.05}>
             <div className="surface-card p-5 h-full relative">
@@ -1197,6 +1273,20 @@ function Workflow6() {
             </div>
           </Reveal>
         ))}
+      </div>
+      {/* Mobile carousel */}
+      <div className="mt-10 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {steps.map((s, i) => (
+            <div key={s} className={`snap-center flex-shrink-0 w-[70vw] max-w-[280px] glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-5 min-h-[160px] flex flex-col gap-2`}>
+              <span className="text-xs font-display font-semibold" style={{ color: "var(--brand-purple-light)" }}>
+                ETAPA {i + 1}
+              </span>
+              <p className="text-sm font-medium text-white">{s}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
       </div>
 
       <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
