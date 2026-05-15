@@ -1624,11 +1624,11 @@ function Footer({ onDemo }: { onDemo: () => void }) {
     >
       <div className="mx-auto max-w-7xl grid md:grid-cols-4 gap-10">
         <div>
-          <p className="font-display text-2xl font-semibold text-white">Always On</p>
-          <p className="mt-3 text-sm max-w-xs">
+          <img src="/aodigital.png" alt="Always On" className="h-8 w-auto" />
+          <p className="mt-2 text-xs uppercase tracking-widest text-white/60">Maestro AI OS</p>
+          <p className="mt-4 text-sm max-w-xs">
             Decisão orientada por dados, operada por times de IA.
           </p>
-          <p className="mt-3 text-xs uppercase tracking-widest text-white/50">Maestro AI OS</p>
         </div>
 
         <div>
@@ -1648,8 +1648,16 @@ function Footer({ onDemo }: { onDemo: () => void }) {
         <div>
           <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Navegação</p>
           <ul className="space-y-2.5 text-sm">
+            <li><a href="#racional" className="hover:text-white">Racional</a></li>
+            <li><a href="#nao-somos" className="hover:text-white">Não Somos</a></li>
+            <li><a href="#data-flow" className="hover:text-white">Soluções</a></li>
+            <li><a href="#metodologia" className="hover:text-white">Metodologia</a></li>
+            <li><a href="#comparativo" className="hover:text-white">Comparativo</a></li>
+            <li><a href="#seguranca" className="hover:text-white">Segurança</a></li>
+            <li><a href="#porque-maestro" className="hover:text-white">Porque Maestro?</a></li>
             <li><a href="#industrias" className="hover:text-white">Indústrias</a></li>
             <li><a href="#ganhos" className="hover:text-white">Ganhos</a></li>
+            <li><a href="#o-que-dizem" className="hover:text-white">O que dizem</a></li>
             <li>
               <button onClick={onDemo} className="hover:text-white text-left">
                 Agendar Demo
