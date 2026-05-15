@@ -1349,12 +1349,47 @@ function Diferenciacao() {
         <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-light max-w-3xl">05 Motivos pelos quais o Maestro é Único</h2>
       </Reveal>
 
+      <Reveal delay={0.15}>
+        <p className="mt-6 text-lg text-offwhite/85 max-w-3xl">
+          Não é apenas tecnologia. É arquitetura estratégica que cria barreiras naturais de entrada e vantagem competitiva sustentável.
+        </p>
+      </Reveal>
+
+      {/* Desktop / tablet grid */}
+      <div className="mt-14 hidden md:grid md:grid-cols-3 xl:grid-cols-5 gap-5">
+        {items.map((it, i) => (
+          <Reveal key={it.t} delay={i * 0.05}>
+            <div className="bg-[#0F1B3D] rounded-2xl p-6 min-h-[320px] flex flex-col gap-3">
+              <span className="font-display text-3xl" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
+              <h3 className="font-display text-lg font-medium">{it.t}</h3>
+              <p className="text-sm text-offwhite/80 leading-relaxed">{it.d}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
+      {/* Mobile carousel */}
+      <div className="mt-14 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {items.map((it, i) => (
+            <div key={it.t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
+              <div className="bg-[#0F1B3D] rounded-2xl p-6 min-h-[320px] flex flex-col gap-3">
+                <span className="font-display text-3xl" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
+                <h3 className="font-display text-lg font-medium">{it.t}</h3>
+                <p className="text-sm text-offwhite/80 leading-relaxed">{it.d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
+      </div>
+
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative overflow-hidden my-12 md:my-16 rounded-3xl border border-[#00D4FF]/30 p-10 md:p-16 bg-gradient-to-br from-[#8B1FA9]/40 via-[#6B1583]/30 to-[#0F1B3D]/60"
+        className="relative overflow-hidden mt-16 rounded-3xl border border-[#00D4FF]/30 p-10 md:p-16 bg-gradient-to-br from-[#8B1FA9]/40 via-[#6B1583]/30 to-[#0F1B3D]/60"
       >
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-[#00D4FF]/10 rounded-full blur-3xl" />
         <div className="relative text-center">
@@ -1369,24 +1404,6 @@ function Diferenciacao() {
           </p>
         </div>
       </motion.div>
-
-      <Reveal delay={0.15}>
-        <p className="text-lg text-offwhite/85 max-w-3xl mx-auto text-center">
-          Não é apenas tecnologia. É arquitetura estratégica que cria barreiras naturais de entrada e vantagem competitiva sustentável.
-        </p>
-      </Reveal>
-
-      <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {items.map((it, i) => (
-          <Reveal key={it.t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full">
-              <span className="font-display text-3xl text-brand-purple-light" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
-              <h3 className="mt-3 font-display text-lg font-medium">{it.t}</h3>
-              <p className="mt-3 text-sm text-offwhite/80 leading-relaxed">{it.d}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
 
       <Reveal delay={0.3}>
         <p className="mt-12 max-w-3xl text-2xl md:text-3xl font-display font-light leading-snug border-l-4 pl-6" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
