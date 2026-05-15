@@ -370,7 +370,7 @@ function Paradoxo() {
     { t: "IA Sem Ação", d: "Insights que raramente viram execução", Icon: Bot },
   ];
   return (
-    <Section>
+    <Section id="racional">
       <Reveal><Tag><AlertTriangle size={12} /> Desafio Estratégico</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">
@@ -609,7 +609,7 @@ function NaoE() {
     { t: "Não é Ferramenta Isolada", d: "Ferramentas resolvem problemas pontuais. Maestro é uma camada estratégica que unifica dados, inteligência e execução em toda a empresa." },
   ];
   return (
-    <Section>
+    <Section id="nao-somos">
       <Reveal><Tag><XIcon size={12} /> Posicionamento</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">O Que o Maestro NÃO É</h2>
@@ -1011,7 +1011,7 @@ function Workflow6() {
     "Ativação via processos, sistemas e integrações",
   ];
   return (
-    <Section>
+    <Section id="metodologia">
       <Reveal><Tag><Workflow size={12} /> Workflow</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light">Do Dado à Decisão</h2>
@@ -1071,7 +1071,7 @@ function ComparaCopilots() {
     ["Risco", "Alto (uso ad-hoc)", "Controlado (enterprise-grade)"],
   ];
   return (
-    <Section>
+    <Section id="comparativo">
       <Reveal>
         <h2 className="text-4xl md:text-5xl font-light max-w-3xl">Maestro AI OS vs Copilots & GenAI Tools</h2>
       </Reveal>
@@ -1169,7 +1169,7 @@ function Seguranca() {
     { Icon: UserCog, t: "Governança Nativa", d: "Controles de acesso, aprovação e compliance por design" },
   ];
   return (
-    <Section>
+    <Section id="seguranca">
       <Reveal><Tag><Shield size={12} /> Enterprise Grade</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Segurança e Governança</h2>
@@ -1218,7 +1218,7 @@ function Diferenciacao() {
     { t: "Dados Soberanos (Datamart First)", d: "Processamento no ambiente do cliente, zero retenção de dados proprietários. Posicionamento que SaaS tradicionais não replicam sem refazer modelo de negócio." },
   ];
   return (
-    <Section>
+    <Section id="porque-maestro">
       <Reveal><Tag>◆ Diferencial Competitivo</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">05 Motivos pelos quais o Maestro é Único</h2>
@@ -1513,7 +1513,7 @@ function ValidacaoCTA({ onDemo }: { onDemo: () => void }) {
   ];
   return (
     <>
-      <Section>
+      <Section id="o-que-dizem">
         <Reveal><Tag><Award size={12} /> Validação</Tag></Reveal>
         <Reveal delay={0.1}>
           <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">O Que o Mercado Diz</h2>
