@@ -76,21 +76,21 @@ export default function Index() {
 /* ============ NAV ============ */
 function Nav({ onDemo }: { onDemo: () => void }) {
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-md bg-brand-purple/40 border-b border-white/10">
-      <div className="mx-auto max-w-7xl px-6 md:px-10 h-16 flex items-center justify-between">
-        <a href="#top" className="font-display text-lg font-semibold tracking-tight">
+    <header className="absolute top-0 left-0 right-0 z-20">
+      <div className="mx-auto max-w-7xl px-6 md:px-10 py-6 flex items-center justify-between">
+        <a href="#top" className="font-display text-lg font-semibold tracking-tight text-white">
           Always On <span className="opacity-60">·</span>{" "}
-          <span className="text-offwhite">Maestro AI OS</span>
+          <span className="text-white">Maestro AI OS</span>
         </a>
-        <nav className="hidden md:flex items-center gap-8 text-sm text-offwhite">
+        <nav className="hidden md:flex items-center gap-8 text-sm text-white/80">
           <a href="#arquitetura" className="hover:text-white">Arquitetura</a>
           <a href="#teams" className="hover:text-white">Teams</a>
           <a href="#industrias" className="hover:text-white">Indústrias</a>
           <a href="#impacto" className="hover:text-white">Impacto</a>
+          <button onClick={onDemo} className="hover:text-white inline-flex items-center gap-1.5">
+            Agendar Demo <ArrowRight size={14} />
+          </button>
         </nav>
-        <button onClick={onDemo} className="btn-primary-light !py-2.5 !px-4 text-sm">
-          Agendar Demo <ArrowRight size={16} />
-        </button>
       </div>
     </header>
   );
@@ -98,85 +98,74 @@ function Nav({ onDemo }: { onDemo: () => void }) {
 
 /* ============ 1. HERO ============ */
 function Hero({ onDemo }: { onDemo: () => void }) {
-  {/* deploy-check: 15-mai-02h36 */}
+  const ease = [0.22, 1, 0.36, 1] as const;
+  const fadeUp = (delay: number) => ({
+    initial: { opacity: 0, y: 24 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, delay, ease },
+  });
   return (
-    <section id="top" className="relative px-6 md:px-10 pt-16 md:pt-24 pb-24 md:pb-32">
-      <div className="mx-auto max-w-7xl grid lg:grid-cols-12 gap-12 items-center">
-        <div className="lg:col-span-7">
-          <Reveal>
-            <Tag>Maestro AI OS</Tag>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h1 className="mt-6 text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] tracking-tight">
-              Camada estratégica de{" "}
-              <span className="font-medium">decisão</span> baseada em dados,{" "}
-              <span className="text-offwhite/80">operada por times de IA.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <p className="mt-6 text-lg md:text-xl text-offwhite/85 max-w-xl">
-              Da análise à ação. Da intuição à decisão orientada por dados.
-            </p>
-          </Reveal>
-          <Reveal delay={0.3}>
-            <div className="mt-10 flex flex-wrap items-center gap-5">
-              <button onClick={onDemo} className="btn-primary-light">
-                Agendar Demo Estratégica <ArrowRight size={18} />
-              </button>
-              <a href="#arquitetura" className="btn-ghost">
-                Explorar a arquitetura <ArrowDown size={16} />
-              </a>
-            </div>
-            <p className="mt-4 text-xs text-offwhite/60">
-              Demo executiva de 30 min · sem compromisso · NDA disponível · v.15mai-0245
-            </p>
-          </Reveal>
-        </div>
+    <section id="top" className="relative min-h-screen w-full overflow-hidden">
+      <video
+        src="/maestro.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <motion.div
+        initial={{ backgroundColor: "rgba(0,0,0,0.8)" }}
+        animate={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+        transition={{ duration: 1.5, ease }}
+        className="absolute inset-0"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70" />
+      <div className="absolute inset-0 bg-[#8B1FA9]/20" />
 
-        <div className="lg:col-span-5">
-          <Reveal delay={0.2}>
-            <HeroVisual />
-          </Reveal>
-        </div>
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center max-w-5xl mx-auto px-6">
+        <motion.div {...fadeUp(0)}>
+          <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2 text-xs uppercase tracking-widest text-white mb-8">
+            Maestro AI OS
+          </span>
+        </motion.div>
+        <motion.h1
+          {...fadeUp(0.1)}
+          className="text-white font-normal text-4xl md:text-7xl lg:text-8xl leading-tight tracking-tight max-w-5xl mb-8"
+        >
+          Camada estratégica de{" "}
+          <span className="font-semibold text-white">decisão</span> baseada em dados, operada por times de IA.
+        </motion.h1>
+        <motion.p
+          {...fadeUp(0.2)}
+          className="text-white/80 text-base md:text-xl max-w-2xl mb-10"
+        >
+          Da análise à ação. Da intuição à decisão orientada por dados.
+        </motion.p>
+        <motion.div
+          {...fadeUp(0.3)}
+          className="flex flex-col md:flex-row gap-4 items-center"
+        >
+          <button
+            onClick={onDemo}
+            className="bg-white text-[#0F1B3D] rounded-full px-8 py-4 font-semibold transition-transform hover:scale-[1.02] inline-flex items-center gap-2"
+          >
+            Agendar Demo Estratégica <ArrowRight size={18} />
+          </button>
+          <a
+            href="#arquitetura"
+            className="text-white hover:underline inline-flex items-center gap-1.5"
+          >
+            Explorar a arquitetura <ArrowDown size={16} />
+          </a>
+        </motion.div>
+        <motion.p {...fadeUp(0.4)} className="text-white/60 text-sm mt-6">
+          Demo executiva de 30 min · sem compromisso · NDA disponível
+        </motion.p>
       </div>
     </section>
-  );
-}
-
-function HeroVisual() {
-  return (
-    <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 bg-navy">
-      <img
-        src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=80"
-        alt="Arquitetura de decisão"
-        loading="lazy"
-        className="absolute inset-0 w-full h-full object-cover opacity-50"
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(160deg, oklch(0.20 0.07 270 / 0.4), oklch(0.46 0.20 320 / 0.7))",
-        }}
-      />
-      <div className="absolute inset-0 p-6 flex flex-col justify-end">
-        <div className="grid grid-cols-4 gap-2 mb-4">
-          {[80, 65, 90, 45].map((h, i) => (
-            <motion.div
-              key={i}
-              initial={{ height: 0 }}
-              whileInView={{ height: `${h}px` }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.3 + i * 0.1 }}
-              className="rounded-md"
-              style={{ background: "oklch(1 0 0 / 0.5)" }}
-            />
-          ))}
-        </div>
-        <p className="text-xs uppercase tracking-widest text-white/70">Decision OS · live</p>
-        <p className="font-display text-xl mt-1">Orquestração em tempo real</p>
-      </div>
-    </div>
   );
 }
 
