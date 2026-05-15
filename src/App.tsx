@@ -630,7 +630,7 @@ function DataFlow() {
     { Icon: Rocket, t: "Base para IA escalável" },
   ];
   return (
-    <Section>
+    <Section id="data-flow">
       <Reveal><Tag><Database size={12} /> Infraestrutura Estratégica</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro Data Flow</h2>
