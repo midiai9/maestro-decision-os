@@ -595,7 +595,7 @@ function CustoInacao() {
       <div className="mt-14 hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
         {items.map((it, i) => (
           <Reveal key={it.t} delay={i * 0.05}>
-            <Card it={it} />
+            <Card it={it} i={i} />
           </Reveal>
         ))}
       </div>
@@ -603,9 +603,9 @@ function CustoInacao() {
       {/* Mobile carousel */}
       <div className="mt-14 md:hidden">
         <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-          {items.map((it) => (
+          {items.map((it, i) => (
             <div key={it.t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
-              <Card it={it} />
+              <Card it={it} i={i} />
             </div>
           ))}
         </div>
