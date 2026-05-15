@@ -58,6 +58,14 @@ import {
   BrainCircuit,
   User,
   ExternalLink,
+  MessageSquare,
+  Cpu,
+  Cloud,
+  Briefcase,
+  Sprout,
+  BookOpen,
+  ThumbsUp,
+  Gauge,
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
@@ -507,12 +515,13 @@ function Mudanca() {
 /* ============ 4. POR QUE AGORA ============ */
 function PorQueAgora() {
   const steps = [
-    { t: "LLMs Tornaram SQL Natural Operacional", d: "Acesso à análise deixou de depender de especialistas técnicos. Linguagem natural escalou inteligência analítica." },
-    { t: "AutoML Democratizou Previsão", d: "Modelos preditivos agora são gerados e atualizados automaticamente, com rigor estatístico e velocidade operacional." },
-    { t: "Cloud Eliminou Barreiras de Infraestrutura", d: "Processamento em escala sem CAPEX massivo. Comece pequeno. Escale com valor comprovado." },
-    { t: "O Board Exige Eficiência", d: "Fazer mais com menos deixou de ser meta. Virou obrigação estratégica." },
-    { t: "Margens Sob Pressão Estrutural", d: "Competição intensa. Custos crescentes. Decisão lenta virou desvantagem competitiva." },
+    { Icon: MessageSquare, t: "LLMs Tornaram SQL Natural Operacional", d: "Acesso à análise deixou de depender de especialistas técnicos. Linguagem natural escalou inteligência analítica." },
+    { Icon: Cpu, t: "AutoML Democratizou Previsão", d: "Modelos preditivos agora são gerados e atualizados automaticamente, com rigor estatístico e velocidade operacional." },
+    { Icon: Cloud, t: "Cloud Eliminou Barreiras de Infraestrutura", d: "Processamento em escala sem CAPEX massivo. Comece pequeno. Escale com valor comprovado." },
+    { Icon: Briefcase, t: "O Board Exige Eficiência", d: "Fazer mais com menos deixou de ser meta. Virou obrigação estratégica." },
+    { Icon: TrendingDown, t: "Margens Sob Pressão Estrutural", d: "Competição intensa. Custos crescentes. Decisão lenta virou desvantagem competitiva." },
   ];
+  const delays = ["", "delay-1", "delay-2", "delay-3", "delay-4"];
   return (
     <Section>
       <Reveal><Tag><Clock size={12} /> Timing Estratégico</Tag></Reveal>
@@ -534,7 +543,8 @@ function PorQueAgora() {
                 <div className="flex-shrink-0 w-10 h-10 rounded-full grid place-items-center font-display text-sm font-semibold relative z-10" style={{ background: "var(--brand-purple-light)", color: "white" }}>
                   {i + 1}
                 </div>
-                <div className="surface-card p-6 flex-1">
+                <div className={`glow-card ${delays[i]} p-6 flex-1`}>
+                  <s.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
                   <h3 className="font-display text-lg font-medium">{s.t}</h3>
                   <p className="mt-2 text-offwhite/80 text-sm leading-relaxed">{s.d}</p>
                 </div>
@@ -562,8 +572,8 @@ function CustoInacao() {
     { Icon: Target, t: "Oportunidades Não Capturadas", d: "Janelas de conversão fechadas, clientes de alto valor não identificados, momentos críticos ignorados." },
     { Icon: Users, t: "Dependência de Análise Manual", d: "Times estratégicos consumidos por tarefas operacionais. Decisões atrasadas por falta de capacidade analítica." },
   ];
-  const Card = ({ it }: { it: typeof items[number] }) => (
-    <div className="bg-[#0F1B3D] rounded-2xl p-6 min-h-[260px] h-full flex flex-col gap-4">
+  const Card = ({ it, i }: { it: typeof items[number]; i: number }) => (
+    <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 min-h-[260px] h-full flex flex-col gap-4`}>
       <it.Icon className="w-8 h-8" style={{ color: "#EF4444" }} strokeWidth={1.5} />
       <h3 className="font-display text-lg font-medium">{it.t}</h3>
       <p className="text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
@@ -585,7 +595,7 @@ function CustoInacao() {
       <div className="mt-14 hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
         {items.map((it, i) => (
           <Reveal key={it.t} delay={i * 0.05}>
-            <Card it={it} />
+            <Card it={it} i={i} />
           </Reveal>
         ))}
       </div>
@@ -593,9 +603,9 @@ function CustoInacao() {
       {/* Mobile carousel */}
       <div className="mt-14 md:hidden">
         <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-          {items.map((it) => (
+          {items.map((it, i) => (
             <div key={it.t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
-              <Card it={it} />
+              <Card it={it} i={i} />
             </div>
           ))}
         </div>
@@ -621,7 +631,7 @@ function NossaTese() {
     "Executam com Governança e Escala",
   ];
   const Card = ({ p, i }: { p: string; i: number }) => (
-    <div className="surface-card p-6 min-h-[180px] h-full flex items-center gap-4">
+    <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 min-h-[180px] h-full flex items-center gap-4`}>
       <span className="font-display text-2xl text-brand-purple-light flex-shrink-0" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
       <p className="font-display text-base lg:text-lg leading-snug">{p}</p>
     </div>
@@ -693,7 +703,7 @@ function NaoE() {
       <div className="mt-14 grid md:grid-cols-2 gap-5">
         {items.map((it, i) => (
           <Reveal key={it.t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-7 h-full`}>
               <div className="flex items-center gap-3">
                 <span className="w-9 h-9 rounded-lg grid place-items-center" style={{ background: "oklch(0.65 0.22 25 / 0.15)", color: "var(--danger)" }}>
                   <XIcon size={18} />
@@ -706,13 +716,13 @@ function NaoE() {
         ))}
       </div>
 
-      <Reveal delay={0.3}>
-        <div className="mt-10 rounded-2xl p-10" style={{ background: "oklch(0.16 0.06 270)" }}>
-          <p className="text-xl md:text-2xl font-display font-light">
-            Maestro AI OS é uma <strong className="text-white">fundação estratégica — não uma feature</strong>. É a diferença entre ter respostas e ter decisões acionáveis com impacto mensurável.
-          </p>
-        </div>
-      </Reveal>
+      <HighlightBox
+        variant="danger"
+        miniTag="✦ Maestro AI OS"
+        miniTagColor="#EF4444"
+        topLine="Maestro AI OS é uma fundação estratégica — não uma feature."
+        bottomLine={<>É a diferença entre ter respostas e ter decisões acionáveis com impacto mensurável.</>}
+      />
     </Section>
   );
 }
@@ -797,7 +807,7 @@ function DataFlow() {
       <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {caps.map((c, i) => (
           <Reveal key={c} delay={i * 0.04}>
-            <div className="surface-card p-6 h-full">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 h-full`}>
               <div className="flex items-center gap-3">
                 <CheckCircle2 size={18} className="text-brand-purple-light" style={{ color: "var(--brand-purple-light)" }} />
                 <p className="font-medium">{c}</p>
@@ -810,7 +820,7 @@ function DataFlow() {
       <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {impactos.map(({ Icon, t }, i) => (
           <Reveal key={t} delay={i * 0.05}>
-            <div className="surface-card p-6 h-full">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 h-full`}>
               <Icon size={22} style={{ color: "var(--brand-purple-light)" }} />
               <p className="mt-3 text-sm font-medium">{t}</p>
             </div>
@@ -860,7 +870,7 @@ function Insights() {
       <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
         {caps.map((c, i) => (
           <Reveal key={c.t} delay={i * 0.05}>
-            <div className="surface-card p-8 min-h-[240px] flex flex-col">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-8 min-h-[240px] flex flex-col`}>
               <c.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
               <h3 className="font-display text-xl md:text-2xl font-medium">{c.t}</h3>
               <p className="mt-3 text-white/70 text-sm leading-relaxed">{c.d}</p>
@@ -875,7 +885,7 @@ function Insights() {
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {pratica.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.04}>
-            <div className="rounded-xl p-5 min-h-[140px] h-full flex flex-col items-start gap-3 bg-[#0F1B3D]">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-5 min-h-[140px] h-full flex flex-col items-start gap-3`}>
               <p.Icon className="w-5 h-5 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
               <p className="text-white/85 text-sm">{p.t}</p>
             </div>
@@ -933,7 +943,7 @@ function CX() {
       <div className="mt-14 grid md:grid-cols-2 gap-5">
         {pilares.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.05}>
-            <div className="surface-card p-7 min-h-[320px] flex flex-col">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-7 min-h-[320px] flex flex-col`}>
               <p.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
               <h3 className="font-display text-lg font-medium">{p.t}</h3>
               <ul className="mt-4 space-y-2">
@@ -1004,7 +1014,7 @@ function DecisionTeams() {
       <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {attrs.map((a, i) => (
           <Reveal key={a.t} delay={i * 0.04}>
-            <div className="rounded-2xl p-6 flex items-center gap-4 h-full bg-[#0F1B3D]">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 flex items-center gap-4 h-full`}>
               <a.Icon className="w-6 h-6 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
               <span className="font-medium">{a.t}</span>
             </div>
@@ -1033,16 +1043,50 @@ function DecisionTeams() {
           Times pré-construídos, prontos para acelerar valor em domínios estratégicos comuns. Cada Team é especializado em um domínio de negócio.
         </p>
       </Reveal>
-      <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {teams.map((t, i) => (
-          <Reveal key={t.t} delay={i * 0.05}>
-            <div className="rounded-2xl p-6 h-full" style={{ backgroundColor: "#0F1B3D" }}>
-              <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-              <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
-              <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
+
+      {/* Desktop: 3 + 2 centered */}
+      <div className="mt-10 hidden md:block">
+        <div className="grid md:grid-cols-3 gap-5">
+          {teams.slice(0, 3).map((t, i) => (
+            <Reveal key={t.t} delay={i * 0.05}>
+              <div className={`glow-card ${["", "delay-1", "delay-2"][i % 3]} p-6 h-full`}>
+                <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+                <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
+                <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        {teams.length > 3 && (
+          <div className="mt-5 grid md:grid-cols-3 gap-5">
+            <div className="hidden md:block" />
+            {teams.slice(3, 5).map((t, i) => (
+              <Reveal key={t.t} delay={i * 0.05}>
+                <div className={`glow-card ${["delay-3", "delay-4"][i % 2]} p-6 h-full`}>
+                  <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+                  <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
+                  <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Mobile carousel */}
+      <div className="mt-10 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {teams.map((t, i) => (
+            <div key={t.t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
+              <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 h-full`}>
+                <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+                <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
+                <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
+              </div>
             </div>
-          </Reveal>
-        ))}
+          ))}
+        </div>
+        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
       </div>
     </Section>
   );
@@ -1051,11 +1095,11 @@ function DecisionTeams() {
 /* ============ 14. MATURIDADE ============ */
 function Maturidade() {
   const niveis = [
-    { t: "Básico", d: "Suporte analítico e respostas assistidas" },
-    { t: "Aprendendo", d: "Reconhecimento de padrões e contexto recorrente" },
-    { t: "Capaz", d: "Recomendações consistentes e priorizadas" },
-    { t: "Avançado", d: "Execução assistida e otimização contínua" },
-    { t: "Especialista", d: "Autonomia ampliada com supervisão e governança plena" },
+    { Icon: Sprout, t: "Básico", d: "Suporte analítico e respostas assistidas" },
+    { Icon: BookOpen, t: "Aprendendo", d: "Reconhecimento de padrões e contexto recorrente" },
+    { Icon: ThumbsUp, t: "Capaz", d: "Recomendações consistentes e priorizadas" },
+    { Icon: Zap, t: "Avançado", d: "Execução assistida e otimização contínua" },
+    { Icon: Award, t: "Especialista", d: "Autonomia ampliada com supervisão e governança plena" },
   ];
   return (
     <Section>
@@ -1073,7 +1117,8 @@ function Maturidade() {
         <div className="grid md:grid-cols-5 gap-5">
           {niveis.map((n, i) => (
             <Reveal key={n.t} delay={i * 0.05}>
-              <div className="text-center">
+              <div className="text-center flex flex-col items-center">
+                <n.Icon className="w-7 h-7 mb-2" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
                 <div className="mx-auto w-10 h-10 rounded-full grid place-items-center font-display font-semibold relative z-10" style={{ background: "var(--brand-purple-light)" }}>
                   {i + 1}
                 </div>

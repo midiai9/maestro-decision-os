@@ -145,6 +145,56 @@
   .scrollbar-hide::-webkit-scrollbar { display: none; }
 }
 
+@keyframes glow-flow {
+  0% { background-position: 0% 50%; opacity: 0.7; }
+  50% { background-position: 100% 50%; opacity: 1; }
+  100% { background-position: 0% 50%; opacity: 0.7; }
+}
+
+.glow-card {
+  position: relative;
+  border-radius: 1rem;
+  background: #0F1B3D;
+  z-index: 0;
+}
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg, #8B1FA9 0%, #B847D4 25%, #00D4FF 50%, #B847D4 75%, #8B1FA9 100%);
+  background-size: 200% 100%;
+  animation: glow-flow 4s ease-in-out infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+}
+.glow-card::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #8B1FA9 0%, #B847D4 25%, #00D4FF 50%, #B847D4 75%, #8B1FA9 100%);
+  background-size: 200% 100%;
+  animation: glow-flow 4s ease-in-out infinite;
+  filter: blur(12px);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -2;
+}
+.glow-card-danger::before,
+.glow-card-danger::after {
+  background: linear-gradient(90deg, #EF4444 0%, #DC2626 25%, #F87171 50%, #DC2626 75%, #EF4444 100%);
+  background-size: 200% 100%;
+}
+.glow-card.delay-1::before, .glow-card.delay-1::after { animation-delay: 0.5s; }
+.glow-card.delay-2::before, .glow-card.delay-2::after { animation-delay: 1s; }
+.glow-card.delay-3::before, .glow-card.delay-3::after { animation-delay: 1.5s; }
+.glow-card.delay-4::before, .glow-card.delay-4::after { animation-delay: 2s; }
+
 @keyframes purple-glow-flow {
   0% { background-position: 0% 50%; opacity: 0.6; }
   50% { background-position: 100% 50%; opacity: 1; }
