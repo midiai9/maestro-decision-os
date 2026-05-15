@@ -1204,7 +1204,7 @@ function ComparaCopilots() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-white/15">
               {rows.map((r, i) => (
                 <tr key={r[0]} className={`hover:bg-white/[0.03] ${i % 2 === 1 ? "bg-white/[0.02]" : ""}`}>
                   <td className="p-4 font-medium text-white/90 align-top">{r[0]}</td>
