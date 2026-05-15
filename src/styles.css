@@ -141,4 +141,6 @@
     transition: opacity .2s ease, transform .2s ease;
   }
   .btn-ghost:hover { opacity: 1; transform: translateX(2px); }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
 }

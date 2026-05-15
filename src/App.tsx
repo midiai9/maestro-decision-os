@@ -40,6 +40,11 @@ import {
   Linkedin,
   Globe,
   TrendingDown,
+  TrendingUp,
+  Ban,
+  Star,
+  PieChart,
+  Package,
   Network,
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
@@ -62,19 +67,19 @@ export default function Index() {
       <CustoInacao />
       <NossaTese />
       <NaoE />
+      <Workflow6 />
+      <Seguranca />
       <Arquitetura />
       <DataFlow />
       <Insights />
       <CX />
       <DecisionTeams />
       <Maturidade />
-      <Workflow6 />
       <ModelosAdocao />
       <ComparaCopilots />
-      <Seguranca />
       <Diferenciacao />
-      <Industrias />
       <Ganhos />
+      <Industrias />
       <ValidacaoCTA onDemo={openModal} />
       <Footer onDemo={openModal} />
       <WhatsAppButton />
@@ -90,22 +95,26 @@ const SOLUCOES = [
   { Icon: Bot, label: "Maestro Decision Teams", href: "#decision-teams" },
 ];
 
-const NAV_LINKS: Array<{ label: string; href: string }> = [
-  { label: "Racional", href: "#racional" },
-  { label: "Não Somos", href: "#nao-somos" },
-  { label: "Metodologia", href: "#metodologia" },
-  { label: "Comparativo", href: "#comparativo" },
-  { label: "Segurança", href: "#seguranca" },
-  { label: "Porque Maestro?", href: "#porque-maestro" },
-  { label: "Indústrias", href: "#industrias" },
-  { label: "Ganhos", href: "#ganhos" },
-  { label: "O que dizem", href: "#o-que-dizem" },
+const SOBRE = [
+  { Icon: Lightbulb, label: "Racional", href: "#racional" },
+  { Icon: Ban, label: "Não Somos", href: "#nao-somos" },
+  { Icon: Workflow, label: "Metodologia", href: "#metodologia" },
+  { Icon: Shield, label: "Segurança", href: "#seguranca" },
+];
+
+const PORQUE = [
+  { Icon: Star, label: "05 Motivos", href: "#porque-maestro" },
+  { Icon: TrendingUp, label: "Ganhos", href: "#ganhos" },
 ];
 
 function Nav({ onDemo }: { onDemo: () => void }) {
   const [solOpen, setSolOpen] = useState(false);
+  const [sobreOpen, setSobreOpen] = useState(false);
+  const [porqueOpen, setPorqueOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSolOpen, setMobileSolOpen] = useState(false);
+  const [mobileSobreOpen, setMobileSobreOpen] = useState(false);
+  const [mobilePorqueOpen, setMobilePorqueOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -120,9 +129,59 @@ function Nav({ onDemo }: { onDemo: () => void }) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Render menu link (Racional, Não Somos): order is Racional, Não Somos, Soluções, then rest
-  const linksBeforeSolucoes = NAV_LINKS.slice(0, 2);
-  const linksAfterSolucoes = NAV_LINKS.slice(2);
+  type DD = { Icon: typeof Database; label: string; href: string };
+  const Dropdown = ({
+    label,
+    items,
+    open,
+    setOpen,
+  }: {
+    label: string;
+    items: DD[];
+    open: boolean;
+    setOpen: (v: boolean) => void;
+  }) => (
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        className="hover:text-white inline-flex items-center gap-1 uppercase tracking-wider"
+      >
+        {label} <ChevronDown size={14} className={`transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.18 }}
+            className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[280px]"
+          >
+            <div
+              className="rounded-xl p-4 backdrop-blur-md border border-white/10 shadow-2xl flex flex-col gap-1"
+              style={{ backgroundColor: "rgba(15,27,61,0.95)" }}
+            >
+              {items.map(({ Icon, label, href }) => (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer normal-case tracking-normal"
+                >
+                  <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                  <span className="text-white text-sm font-medium">{label}</span>
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 
   return (
     <header
@@ -134,11 +193,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
     >
       <div className={`mx-auto max-w-7xl px-6 md:px-10 flex items-center justify-between transition-all duration-300 ${scrolled ? "py-3" : "py-6"}`}>
         <a href="#top" onClick={goTop} className="flex items-center gap-3 cursor-pointer">
-          <img
-            src="/aodigital.png"
-            alt="Always On"
-            className="h-6 md:h-8 w-auto"
-          />
+          <img src="/aodigital.png" alt="Always On" className="h-6 md:h-8 w-auto" />
           <span className="hidden md:inline text-white/30 mx-1">·</span>
           <span className="hidden md:inline text-sm uppercase tracking-widest text-white/80">
             Maestro AI OS
@@ -147,52 +202,12 @@ function Nav({ onDemo }: { onDemo: () => void }) {
 
         {/* Desktop ≥ xl */}
         <nav className="hidden xl:flex items-center gap-x-5 text-xs uppercase tracking-wider text-white/80">
-          {linksBeforeSolucoes.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-white">{l.label}</a>
-          ))}
-          <div
-            className="relative"
-            onMouseEnter={() => setSolOpen(true)}
-            onMouseLeave={() => setSolOpen(false)}
-          >
-            <button
-              onClick={() => setSolOpen((v) => !v)}
-              className="hover:text-white inline-flex items-center gap-1 uppercase tracking-wider"
-            >
-              Soluções <ChevronDown size={14} className={`transition-transform ${solOpen ? "rotate-180" : ""}`} />
-            </button>
-            <AnimatePresence>
-              {solOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.18 }}
-                  className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[280px]"
-                >
-                  <div
-                    className="rounded-xl p-4 backdrop-blur-md border border-white/10 flex flex-col gap-1"
-                    style={{ backgroundColor: "rgba(15,27,61,0.95)" }}
-                  >
-                    {SOLUCOES.map(({ Icon, label, href }) => (
-                      <a
-                        key={href}
-                        href={href}
-                        onClick={() => setSolOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer normal-case tracking-normal"
-                      >
-                        <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                        <span className="text-white text-sm font-medium">{label}</span>
-                      </a>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-          {linksAfterSolucoes.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-white">{l.label}</a>
-          ))}
+          <Dropdown label="Sobre" items={SOBRE} open={sobreOpen} setOpen={setSobreOpen} />
+          <Dropdown label="Soluções" items={SOLUCOES} open={solOpen} setOpen={setSolOpen} />
+          <a href="#comparativo" className="hover:text-white">Comparativo</a>
+          <Dropdown label="Porque" items={PORQUE} open={porqueOpen} setOpen={setPorqueOpen} />
+          <a href="#industrias" className="hover:text-white">Indústrias</a>
+          <a href="#o-que-dizem" className="hover:text-white">O que dizem</a>
           <button
             onClick={onDemo}
             className="ml-2 px-4 py-2 rounded-full bg-white text-[#0F1B3D] text-xs font-semibold uppercase tracking-wider hover:scale-[1.03] transition-transform inline-flex items-center gap-1.5"
@@ -232,16 +247,27 @@ function Nav({ onDemo }: { onDemo: () => void }) {
               </button>
             </div>
             <nav className="px-6 py-8 flex flex-col gap-1 text-white">
-              {linksBeforeSolucoes.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg"
-                >
-                  {l.label}
-                </a>
-              ))}
+              {/* Sobre accordion */}
+              <button
+                onClick={() => setMobileSobreOpen((v) => !v)}
+                className="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
+              >
+                Sobre
+                <ChevronDown size={18} className={`transition-transform ${mobileSobreOpen ? "rotate-180" : ""}`} />
+              </button>
+              {mobileSobreOpen && (
+                <div className="pl-4 flex flex-col gap-1">
+                  {SOBRE.map(({ Icon, label, href }) => (
+                    <a key={href} href={href} onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
+                      <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                      <span className="text-base">{label}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+
+              {/* Soluções accordion */}
               <button
                 onClick={() => setMobileSolOpen((v) => !v)}
                 className="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
@@ -252,28 +278,43 @@ function Nav({ onDemo }: { onDemo: () => void }) {
               {mobileSolOpen && (
                 <div className="pl-4 flex flex-col gap-1">
                   {SOLUCOES.map(({ Icon, label, href }) => (
-                    <a
-                      key={href}
-                      href={href}
-                      onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90"
-                    >
+                    <a key={href} href={href} onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
                       <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
                       <span className="text-base">{label}</span>
                     </a>
                   ))}
                 </div>
               )}
-              {linksAfterSolucoes.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg"
-                >
-                  {l.label}
-                </a>
-              ))}
+
+              <a href="#comparativo" onClick={() => setMobileOpen(false)}
+                className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Comparativo</a>
+
+              {/* Porque accordion */}
+              <button
+                onClick={() => setMobilePorqueOpen((v) => !v)}
+                className="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
+              >
+                Porque
+                <ChevronDown size={18} className={`transition-transform ${mobilePorqueOpen ? "rotate-180" : ""}`} />
+              </button>
+              {mobilePorqueOpen && (
+                <div className="pl-4 flex flex-col gap-1">
+                  {PORQUE.map(({ Icon, label, href }) => (
+                    <a key={href} href={href} onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
+                      <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                      <span className="text-base">{label}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+
+              <a href="#industrias" onClick={() => setMobileOpen(false)}
+                className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Indústrias</a>
+              <a href="#o-que-dizem" onClick={() => setMobileOpen(false)}
+                className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">O que dizem</a>
+
               <button
                 onClick={() => { setMobileOpen(false); onDemo(); }}
                 className="mt-6 w-full px-4 py-3.5 rounded-full bg-white text-[#0F1B3D] font-semibold inline-flex items-center justify-center gap-2"
@@ -325,10 +366,9 @@ function Hero({ onDemo }: { onDemo: () => void }) {
         </motion.div>
         <motion.h1
           {...fadeUp(0.1)}
-          className="text-white font-normal text-4xl md:text-7xl lg:text-8xl leading-tight tracking-tight max-w-5xl mb-8"
+          className="text-white font-light text-4xl md:text-7xl lg:text-8xl leading-tight tracking-tight max-w-5xl mb-8"
         >
-          Camada estratégica de{" "}
-          <span className="font-semibold text-white">decisão</span> baseada em dados, operada por times de IA.
+          Transforme dados em <span className="font-semibold text-white">decisões</span> estratégicas.
         </motion.h1>
         <motion.p
           {...fadeUp(0.2)}
@@ -347,10 +387,10 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             Agendar Demo Estratégica <ArrowRight size={18} />
           </button>
           <a
-            href="#arquitetura"
+            href="#racional"
             className="text-white hover:underline inline-flex items-center gap-1.5"
           >
-            Explorar a arquitetura <ArrowDown size={16} />
+            Saiba + <ArrowDown size={16} />
           </a>
         </motion.div>
         <motion.p {...fadeUp(0.4)} className="text-white/60 text-sm mt-6">
@@ -503,11 +543,19 @@ function PorQueAgora() {
 /* ============ 5. CUSTO INAÇÃO ============ */
 function CustoInacao() {
   const items = [
-    { t: "Margem Corroída por Atraso", d: "Promoções tardias, preços desatualizados e oportunidades de upsell perdidas reduzem margem silenciosamente." },
-    { t: "Orçamento Mal Alocado", d: "Investimento em canais de baixo retorno enquanto oportunidades de alto impacto ficam sem recursos." },
-    { t: "Estoque Mal Planejado", d: "Excesso onde não vende, falta onde há demanda — capital parado e vendas perdidas simultaneamente." },
-    { t: "Oportunidades Não Capturadas", d: "Janelas de conversão fechadas, clientes de alto valor não identificados, momentos críticos ignorados." },
+    { Icon: TrendingDown, t: "Margem Corroída por Atraso", d: "Promoções tardias, preços desatualizados e oportunidades de upsell perdidas reduzem margem silenciosamente." },
+    { Icon: PieChart, t: "Orçamento Mal Alocado", d: "Investimento em canais de baixo retorno enquanto oportunidades de alto impacto ficam sem recursos." },
+    { Icon: Package, t: "Estoque Mal Planejado", d: "Excesso onde não vende, falta onde há demanda — capital parado e vendas perdidas simultaneamente." },
+    { Icon: Target, t: "Oportunidades Não Capturadas", d: "Janelas de conversão fechadas, clientes de alto valor não identificados, momentos críticos ignorados." },
+    { Icon: Users, t: "Dependência de Análise Manual", d: "Times estratégicos consumidos por tarefas operacionais. Decisões atrasadas por falta de capacidade analítica." },
   ];
+  const Card = ({ it }: { it: typeof items[number] }) => (
+    <div className="bg-[#0F1B3D] rounded-2xl p-6 min-h-[260px] h-full flex flex-col gap-4">
+      <it.Icon className="w-8 h-8" style={{ color: "#EF4444" }} strokeWidth={1.5} />
+      <h3 className="font-display text-lg font-medium">{it.t}</h3>
+      <p className="text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
+    </div>
+  );
   return (
     <Section>
       <Reveal><Tag><Shield size={12} /> Urgência</Tag></Reveal>
@@ -520,25 +568,26 @@ function CustoInacao() {
         </p>
       </Reveal>
 
-      <div className="mt-14 grid md:grid-cols-2 gap-5">
+      {/* Desktop / tablet grid */}
+      <div className="mt-14 hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
         {items.map((it, i) => (
           <Reveal key={it.t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full">
-              <h3 className="font-display text-lg font-medium">{it.t}</h3>
-              <p className="mt-3 text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
-            </div>
+            <Card it={it} />
           </Reveal>
         ))}
       </div>
 
-      <Reveal delay={0.25}>
-        <div className="mt-5 surface-card p-8">
-          <h3 className="font-display text-xl font-medium">Dependência de Análise Manual</h3>
-          <p className="mt-3 text-offwhite/80 max-w-3xl">
-            Times estratégicos consumidos por tarefas operacionais, decisões atrasadas por falta de capacidade analítica.
-          </p>
+      {/* Mobile carousel */}
+      <div className="mt-14 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {items.map((it) => (
+            <div key={it.t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
+              <Card it={it} />
+            </div>
+          ))}
         </div>
-      </Reveal>
+        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
+      </div>
 
       <Reveal delay={0.3}>
         <p className="mt-12 max-w-3xl text-2xl md:text-3xl font-display font-light leading-snug border-l-4 pl-6" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
@@ -556,7 +605,14 @@ function NossaTese() {
     "Transformam Dados em Contexto de Negócio",
     "Antecipam Cenários com Modelos Explicáveis",
     "Operam com Times Digitais Especializados",
+    "Executam com Governança e Escala",
   ];
+  const Card = ({ p, i }: { p: string; i: number }) => (
+    <div className="surface-card p-6 min-h-[180px] h-full flex items-center gap-4">
+      <span className="font-display text-2xl text-brand-purple-light flex-shrink-0" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
+      <p className="font-display text-base lg:text-lg leading-snug">{p}</p>
+    </div>
+  );
   return (
     <Section>
       <Reveal>
@@ -571,22 +627,26 @@ function NossaTese() {
         </p>
       </Reveal>
 
-      <div className="mt-14 grid md:grid-cols-2 gap-5">
+      {/* Desktop / tablet grid */}
+      <div className="mt-14 hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
         {pilares.map((p, i) => (
           <Reveal key={p} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full flex items-start gap-4">
-              <span className="font-display text-2xl text-brand-purple-light">0{i + 1}</span>
-              <p className="font-display text-lg leading-snug">{p}</p>
-            </div>
+            <Card p={p} i={i} />
           </Reveal>
         ))}
       </div>
-      <Reveal delay={0.25}>
-        <div className="mt-5 surface-card p-7 flex items-start gap-4">
-          <span className="font-display text-2xl text-brand-purple-light">05</span>
-          <p className="font-display text-lg leading-snug">Executam com Governança e Escala</p>
+
+      {/* Mobile carousel */}
+      <div className="mt-14 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {pilares.map((p, i) => (
+            <div key={p} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
+              <Card p={p} i={i} />
+            </div>
+          ))}
         </div>
-      </Reveal>
+        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
+      </div>
 
       <Reveal delay={0.35}>
         <div className="mt-12 rounded-2xl p-10" style={{ background: "var(--brand-purple-light)" }}>
@@ -1177,21 +1237,42 @@ function Seguranca() {
         </div>
       </Reveal>
 
-      <div className="mt-6 grid sm:grid-cols-2 gap-5">
-        {items.map(({ Icon, t, d }, i) => (
-          <Reveal key={t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full flex items-start gap-4">
-              <span className="w-11 h-11 rounded-lg grid place-items-center flex-shrink-0" style={{ background: "var(--brand-purple-light)" }}>
-                <Icon size={20} />
-              </span>
-              <div>
-                <h3 className="font-display text-lg font-medium">{t}</h3>
-                <p className="mt-2 text-sm text-offwhite/80">{d}</p>
-              </div>
+      {(() => {
+        const SegCard = ({ Icon, t, d }: { Icon: typeof Lock; t: string; d: string }) => (
+          <div className="surface-card p-7 h-full flex items-start gap-4">
+            <span className="w-11 h-11 rounded-lg grid place-items-center flex-shrink-0" style={{ background: "var(--brand-purple-light)" }}>
+              <Icon size={20} />
+            </span>
+            <div>
+              <h3 className="font-display text-lg font-medium">{t}</h3>
+              <p className="mt-2 text-sm text-offwhite/80">{d}</p>
             </div>
-          </Reveal>
-        ))}
-      </div>
+          </div>
+        );
+        return (
+          <>
+            {/* Desktop / tablet grid 2x2 */}
+            <div className="mt-6 hidden md:grid sm:grid-cols-2 gap-5">
+              {items.map(({ Icon, t, d }, i) => (
+                <Reveal key={t} delay={i * 0.05}>
+                  <SegCard Icon={Icon} t={t} d={d} />
+                </Reveal>
+              ))}
+            </div>
+            {/* Mobile carousel */}
+            <div className="mt-6 md:hidden">
+              <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+                {items.map(({ Icon, t, d }) => (
+                  <div key={t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
+                    <SegCard Icon={Icon} t={t} d={d} />
+                  </div>
+                ))}
+              </div>
+              <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
+            </div>
+          </>
+        );
+      })()}
     </Section>
   );
 }
