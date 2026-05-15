@@ -38,7 +38,8 @@ jobs:
 
       - name: Deploy via FTP
         run: |
+          cd dist
           sudo apt-get install -y lftp
           lftp -u ${{ secrets.SFTP_USER }},${{ secrets.SFTP_PASS }} \
-            -e "mirror -e -R ./dist ./; quit" \
+            -e "mirror -e -R ./ ./; quit" \
             ${{ secrets.SFTP_HOST }}
