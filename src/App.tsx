@@ -1095,11 +1095,11 @@ function DecisionTeams() {
 /* ============ 14. MATURIDADE ============ */
 function Maturidade() {
   const niveis = [
-    { t: "Básico", d: "Suporte analítico e respostas assistidas" },
-    { t: "Aprendendo", d: "Reconhecimento de padrões e contexto recorrente" },
-    { t: "Capaz", d: "Recomendações consistentes e priorizadas" },
-    { t: "Avançado", d: "Execução assistida e otimização contínua" },
-    { t: "Especialista", d: "Autonomia ampliada com supervisão e governança plena" },
+    { Icon: Sprout, t: "Básico", d: "Suporte analítico e respostas assistidas" },
+    { Icon: BookOpen, t: "Aprendendo", d: "Reconhecimento de padrões e contexto recorrente" },
+    { Icon: ThumbsUp, t: "Capaz", d: "Recomendações consistentes e priorizadas" },
+    { Icon: Zap, t: "Avançado", d: "Execução assistida e otimização contínua" },
+    { Icon: Award, t: "Especialista", d: "Autonomia ampliada com supervisão e governança plena" },
   ];
   return (
     <Section>
@@ -1117,7 +1117,8 @@ function Maturidade() {
         <div className="grid md:grid-cols-5 gap-5">
           {niveis.map((n, i) => (
             <Reveal key={n.t} delay={i * 0.05}>
-              <div className="text-center">
+              <div className="text-center flex flex-col items-center">
+                <n.Icon className="w-7 h-7 mb-2" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
                 <div className="mx-auto w-10 h-10 rounded-full grid place-items-center font-display font-semibold relative z-10" style={{ background: "var(--brand-purple-light)" }}>
                   {i + 1}
                 </div>
