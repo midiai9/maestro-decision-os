@@ -36,7 +36,6 @@ import {
   Car,
   Factory,
   Mail,
-  Phone,
   Linkedin,
   Globe,
 } from "lucide-react";
