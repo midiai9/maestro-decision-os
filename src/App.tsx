@@ -39,6 +39,7 @@ import {
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
+// rebuild: 15-mai-0341
 
 export default function Index() {
   const [openDemo, setOpenDemo] = useState(false);
