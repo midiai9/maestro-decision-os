@@ -870,7 +870,7 @@ function Insights() {
       <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
         {caps.map((c, i) => (
           <Reveal key={c.t} delay={i * 0.05}>
-            <div className="surface-card p-8 min-h-[240px] flex flex-col">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-8 min-h-[240px] flex flex-col`}>
               <c.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
               <h3 className="font-display text-xl md:text-2xl font-medium">{c.t}</h3>
               <p className="mt-3 text-white/70 text-sm leading-relaxed">{c.d}</p>
@@ -885,7 +885,7 @@ function Insights() {
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {pratica.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.04}>
-            <div className="rounded-xl p-5 min-h-[140px] h-full flex flex-col items-start gap-3 bg-[#0F1B3D]">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-5 min-h-[140px] h-full flex flex-col items-start gap-3`}>
               <p.Icon className="w-5 h-5 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
               <p className="text-white/85 text-sm">{p.t}</p>
             </div>
