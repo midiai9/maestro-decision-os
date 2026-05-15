@@ -98,6 +98,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
 
 /* ============ 1. HERO ============ */
 function Hero({ onDemo }: { onDemo: () => void }) {
+  {/* deploy-check: 15-mai-02h36 */}
   return (
     <section id="top" className="relative px-6 md:px-10 pt-16 md:pt-24 pb-24 md:pb-32">
       <div className="mx-auto max-w-7xl grid lg:grid-cols-12 gap-12 items-center">
