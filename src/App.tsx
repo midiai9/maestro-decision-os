@@ -544,14 +544,11 @@ function PorQueAgora() {
         </div>
       </div>
 
-      <Reveal delay={0.3}>
-        <div className="mt-12 rounded-2xl p-8 text-center" style={{ background: "linear-gradient(135deg, var(--brand-purple-dark), var(--brand-purple-light))" }}>
-          <p className="text-xl md:text-2xl font-display font-light">
-            A tecnologia amadureceu. A pressão aumentou. A decisão precisa evoluir.
-            <br />Não é sobre inovação — é sobre <strong>sobrevivência competitiva.</strong>
-          </p>
-        </div>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Por Que Agora"
+        topLine="A tecnologia amadureceu. A pressão aumentou. A decisão precisa evoluir."
+        bottomLine={<>Não é sobre inovação — é sobre sobrevivência competitiva.</>}
+      />
     </Section>
   );
 }
