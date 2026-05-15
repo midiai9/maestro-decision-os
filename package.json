@@ -1,0 +1,9 @@
+{
+  "name": "maestro-static",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node serve.cjs",
+    "build": "mkdir -p dist && cp -r index.html assets favicon.ico .htaccess dist/ 2>/dev/null || true"
+  }
+}
