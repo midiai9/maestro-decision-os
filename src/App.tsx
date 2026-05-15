@@ -1014,7 +1014,7 @@ function DecisionTeams() {
       <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {attrs.map((a, i) => (
           <Reveal key={a.t} delay={i * 0.04}>
-            <div className="rounded-2xl p-6 flex items-center gap-4 h-full bg-[#0F1B3D]">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 flex items-center gap-4 h-full`}>
               <a.Icon className="w-6 h-6 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
               <span className="font-medium">{a.t}</span>
             </div>
@@ -1043,16 +1043,50 @@ function DecisionTeams() {
           Times pré-construídos, prontos para acelerar valor em domínios estratégicos comuns. Cada Team é especializado em um domínio de negócio.
         </p>
       </Reveal>
-      <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {teams.map((t, i) => (
-          <Reveal key={t.t} delay={i * 0.05}>
-            <div className="rounded-2xl p-6 h-full" style={{ backgroundColor: "#0F1B3D" }}>
-              <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-              <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
-              <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
+
+      {/* Desktop: 3 + 2 centered */}
+      <div className="mt-10 hidden md:block">
+        <div className="grid md:grid-cols-3 gap-5">
+          {teams.slice(0, 3).map((t, i) => (
+            <Reveal key={t.t} delay={i * 0.05}>
+              <div className={`glow-card ${["", "delay-1", "delay-2"][i % 3]} p-6 h-full`}>
+                <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+                <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
+                <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        {teams.length > 3 && (
+          <div className="mt-5 grid md:grid-cols-3 gap-5">
+            <div className="hidden md:block" />
+            {teams.slice(3, 5).map((t, i) => (
+              <Reveal key={t.t} delay={i * 0.05}>
+                <div className={`glow-card ${["delay-3", "delay-4"][i % 2]} p-6 h-full`}>
+                  <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+                  <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
+                  <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Mobile carousel */}
+      <div className="mt-10 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {teams.map((t, i) => (
+            <div key={t.t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
+              <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 h-full`}>
+                <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+                <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
+                <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
+              </div>
             </div>
-          </Reveal>
-        ))}
+          ))}
+        </div>
+        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
       </div>
     </Section>
   );
