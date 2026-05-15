@@ -82,6 +82,7 @@ export default function Index() {
     <main className="gradient-purple min-h-screen text-white overflow-hidden">
       <DemoModal open={openDemo} onClose={() => setOpenDemo(false)} />
       <Nav onDemo={openModal} />
+      <SolutionsNav />
       <Hero onDemo={openModal} />
       <Paradoxo />
       <Mudanca />
