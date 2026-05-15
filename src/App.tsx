@@ -67,14 +67,13 @@ export default function Index() {
       <Insights />
       <CX />
       <DecisionTeams />
-      <Portfolio />
       <Maturidade />
       <Workflow6 />
+      <ModelosAdocao />
       <ComparaCopilots />
       <Seguranca />
       <Diferenciacao />
       <Industrias />
-      <ModelosAdocao />
       <Ganhos />
       <ValidacaoCTA onDemo={openModal} />
       <Footer onDemo={openModal} />
