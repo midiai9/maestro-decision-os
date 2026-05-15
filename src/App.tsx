@@ -980,7 +980,14 @@ function CX() {
 
 /* ============ 12. DECISION TEAMS ============ */
 function DecisionTeams() {
-  const attrs = ["Domínio Específico", "Execução Integrada", "Insights Preditivos", "Ações Priorizadas", "Decisões Baseadas em Dados", "Aprendizado Controlado"];
+  const attrs: Array<{ Icon: typeof Sparkles; t: string }> = [
+    { Icon: Crosshair, t: "Domínio Específico" },
+    { Icon: Workflow, t: "Execução Integrada" },
+    { Icon: Sparkles, t: "Insights Preditivos" },
+    { Icon: ListChecks, t: "Ações Priorizadas" },
+    { Icon: Database, t: "Decisões Baseadas em Dados" },
+    { Icon: BrainCircuit, t: "Aprendizado Controlado" },
+  ];
   const teams = [
     { t: "Maestro IA Sales Team", d: "Qualificação de carteira, cross-sell preditivo e otimização de política comercial", Icon: Target },
     { t: "Maestro IA Trade & PDV Team", d: "Gestão de ponto de venda, execução no varejo e otimização de presença", Icon: ShoppingCart },
@@ -1003,20 +1010,25 @@ function DecisionTeams() {
           Times digitais especializados, estruturados para assumir responsabilidades contínuas de decisão e execução dentro de domínios estratégicos do negócio.
         </p>
       </Reveal>
-      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {attrs.map((a, i) => (
-          <Reveal key={a} delay={i * 0.04}>
-            <div className="surface-card p-6 flex items-center gap-3 h-full">
-              <Sparkles size={16} style={{ color: "var(--brand-purple-light)" }} />
-              <span className="font-medium">{a}</span>
+          <Reveal key={a.t} delay={i * 0.04}>
+            <div className="rounded-2xl p-6 flex items-center gap-4 h-full bg-[#0F1B3D]">
+              <a.Icon className="w-6 h-6 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <span className="font-medium">{a.t}</span>
             </div>
           </Reveal>
         ))}
       </div>
       <Reveal delay={0.3}>
-        <p className="mt-12 font-display text-2xl md:text-3xl font-light max-w-3xl border-l-4 pl-6" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
-          Não são ferramentas que sugerem. <strong>São times digitais que operam decisões.</strong>
-        </p>
+        <div className="mt-16 py-12 px-10 bg-gradient-to-r from-[#0F1B3D] to-[#1A2B5C] border-l-4 border-l-[#00D4FF] rounded-2xl">
+          <p className="text-2xl md:text-4xl text-white/60 font-light mb-3">
+            Não são ferramentas que sugerem.
+          </p>
+          <p className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white to-[#00D4FF] bg-clip-text text-transparent">
+            São times digitais que operam decisões.
+          </p>
+        </div>
       </Reveal>
 
       {/* Sub-seção fundida: Portfólio */}
