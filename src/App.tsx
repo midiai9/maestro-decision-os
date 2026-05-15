@@ -1085,14 +1085,10 @@ function Maturidade() {
         </div>
       </div>
 
-      <Reveal delay={0.3}>
-        <div className="mt-12 surface-card p-8 flex items-start gap-4">
-          <Shield size={22} style={{ color: "var(--brand-purple-light)" }} className="flex-shrink-0 mt-1" />
-          <p className="text-offwhite/85">
-            <strong className="text-white">Governança por Design:</strong> cada avanço de nível exige <strong className="text-white">validações formais</strong>, critérios de performance e <strong className="text-white">trilhas completas de auditoria</strong>.
-          </p>
-        </div>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Governança por Design"
+        bottomLine={<>Cada avanço de nível exige validações formais, critérios de performance e trilhas completas de auditoria.</>}
+      />
     </Section>
   );
 }
