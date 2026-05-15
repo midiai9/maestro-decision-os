@@ -1688,7 +1688,7 @@ function ValidacaoCTA({ onDemo }: { onDemo: () => void }) {
         </div>
       </Section>
 
-      <section className="relative px-6 md:px-10 py-24 md:py-32" style={{ background: "linear-gradient(135deg, var(--brand-purple-dark), var(--brand-purple) 50%, var(--brand-purple-light))" }}>
+      <section id="cta-final" className="relative px-6 md:px-10 py-24 md:py-32" style={{ background: "linear-gradient(135deg, var(--brand-purple-dark), var(--brand-purple) 50%, var(--brand-purple-light))" }}>
         <div className="mx-auto max-w-5xl text-center">
           <Reveal>
             <h2 className="text-4xl md:text-6xl font-light leading-[1.1] tracking-tight">
