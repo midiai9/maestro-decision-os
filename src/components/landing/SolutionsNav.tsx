@@ -67,10 +67,10 @@ export function SolutionsNav() {
         isVisible
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 -translate-y-2 pointer-events-none"
-      } bg-[#0F1B3D]/65 backdrop-blur-xl border-b border-white/[0.06]`}
+      } bg-[#8B1FA9]/75 backdrop-blur-xl border-y border-white/[0.10] shadow-[0_4px_20px_rgba(0,0,0,0.15)]`}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative">
-        <span className="hidden lg:block absolute left-6 top-1/2 -translate-y-1/2 text-[10px] uppercase tracking-[0.25em] text-white/30 whitespace-nowrap pointer-events-none">
+        <span className="hidden lg:block absolute left-6 top-1/2 -translate-y-1/2 text-[10px] uppercase tracking-[0.25em] text-white/45 whitespace-nowrap pointer-events-none">
           Maestro AI OS
         </span>
         <div className="flex items-center gap-1.5 md:gap-2 md:justify-center overflow-x-auto scrollbar-hide py-2 md:py-2.5">
@@ -82,8 +82,8 @@ export function SolutionsNav() {
                 onClick={() => handleClick(id)}
                 className={`flex items-center gap-1.5 md:gap-2 px-2.5 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 ${
                   active
-                    ? "bg-[#00D4FF]/12 text-[#00D4FF] border border-[#00D4FF]/35 shadow-[0_0_10px_rgba(0,212,255,0.15)]"
-                    : "text-white/55 hover:text-white hover:bg-white/5 border border-transparent"
+                    ? "bg-[#00D4FF]/15 text-[#00D4FF] border border-[#00D4FF]/50 shadow-[0_0_14px_rgba(0,212,255,0.30)]"
+                    : "text-white/75 hover:text-white hover:bg-white/10 border border-white/[0.08]"
                 }`}
               >
                 <Icon size={13} className="md:w-4 md:h-4" strokeWidth={2} />
