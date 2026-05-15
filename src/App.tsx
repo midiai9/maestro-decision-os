@@ -390,7 +390,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
           className="flex flex-col md:flex-row gap-4 items-center"
         >
           <button
-            onClick={onDemo}
+            onClick={() => document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' })}
             className="bg-white text-[#0F1B3D] rounded-full px-8 py-4 font-semibold transition-transform hover:scale-[1.02] inline-flex items-center gap-2"
           >
             Agendar Demo Estratégica <ArrowRight size={18} />
