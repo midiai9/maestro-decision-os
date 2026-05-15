@@ -72,14 +72,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Maestro AI OS · Camada Estratégica de Decisão Empresarial · Always On" },
+      { name: "description", content: "Maestro AI OS é a arquitetura de IA que orquestra dados, inteligência e execução em uma camada única de decisão empresarial. Da análise à ação, com governança enterprise." },
+      { name: "author", content: "Always On" },
+      { property: "og:title", content: "Maestro AI OS · Always On" },
+      { property: "og:description", content: "Camada estratégica de decisão baseada em dados, operada por times de IA." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
