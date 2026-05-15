@@ -951,7 +951,8 @@ function Insights() {
       <Reveal delay={0.3}>
         <h3 className="mt-16 font-display text-2xl">Insights na Prática</h3>
       </Reveal>
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      {/* Desktop */}
+      <div className="mt-6 hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {pratica.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.04}>
             <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-5 min-h-[140px] h-full flex flex-col items-start gap-3`}>
@@ -960,6 +961,18 @@ function Insights() {
             </div>
           </Reveal>
         ))}
+      </div>
+      {/* Mobile carousel */}
+      <div className="mt-6 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {pratica.map((p, i) => (
+            <div key={p.t} className={`snap-center flex-shrink-0 w-[70vw] max-w-[280px] glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-5 min-h-[160px] flex flex-col items-start gap-3`}>
+              <p.Icon className="w-6 h-6 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <p className="text-white/85 text-sm">{p.t}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
       </div>
 
       <HighlightBox
