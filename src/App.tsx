@@ -374,7 +374,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70" />
       <div className="absolute inset-0 bg-[#8B1FA9]/20" />
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center max-w-5xl mx-auto px-6">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center max-w-4xl mx-auto px-6 py-20 md:py-28">
         <motion.div {...fadeUp(0)}>
           <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2 text-xs uppercase tracking-widest text-white mb-8">
             Maestro AI OS
@@ -382,7 +382,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
         </motion.div>
         <motion.h1
           {...fadeUp(0.1)}
-          className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] tracking-tight text-white max-w-5xl mb-8"
+          className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-[1.15] tracking-tight text-white max-w-4xl mb-8"
         >
           <span className="font-light text-white/85">Transforme dados em{" "}</span>
           <span className="font-bold bg-gradient-to-r from-white via-[#E8E4F0] to-[#00D4FF] bg-clip-text text-transparent">
