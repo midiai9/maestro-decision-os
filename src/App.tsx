@@ -46,6 +46,17 @@ import {
   PieChart,
   Package,
   Network,
+  Search,
+  GitMerge,
+  FlaskConical,
+  Filter,
+  Calculator,
+  Radio,
+  BarChart2,
+  Crosshair,
+  ListChecks,
+  BrainCircuit,
+  User,
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
@@ -363,7 +374,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70" />
       <div className="absolute inset-0 bg-[#8B1FA9]/20" />
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center max-w-5xl mx-auto px-6">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center max-w-4xl mx-auto px-6 py-20 md:py-28">
         <motion.div {...fadeUp(0)}>
           <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2 text-xs uppercase tracking-widest text-white mb-8">
             Maestro AI OS
@@ -371,7 +382,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
         </motion.div>
         <motion.h1
           {...fadeUp(0.1)}
-          className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] tracking-tight text-white max-w-5xl mb-8"
+          className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-[1.15] tracking-tight text-white max-w-4xl mb-8"
         >
           <span className="font-light text-white/85">Transforme dados em{" "}</span>
           <span className="font-bold bg-gradient-to-r from-white via-[#E8E4F0] to-[#00D4FF] bg-clip-text text-transparent">
@@ -826,18 +837,18 @@ function DataFlow() {
 /* ============ 10. INSIGHTS ============ */
 function Insights() {
   const caps = [
-    { t: "Diagnóstico Inteligente", d: "Identifica padrões, anomalias e gargalos com contexto de negócio e priorização por impacto." },
-    { t: "Análise Contextualizada", d: "Cruza múltiplas fontes para visão holística, conectando causa e efeito com rigor estatístico." },
-    { t: "Previsão Probabilística", d: "Forecast com incerteza explícita e simulação de cenários para decisões baseadas em probabilidades." },
-    { t: "Prescrição por Impacto", d: "Recomendações priorizadas por ROI esperado, viabilidade e alinhamento estratégico." },
+    { Icon: Search, t: "Diagnóstico Inteligente", d: "Identifica padrões, anomalias e gargalos com contexto de negócio e priorização por impacto." },
+    { Icon: GitMerge, t: "Análise Contextualizada", d: "Cruza múltiplas fontes para visão holística, conectando causa e efeito com rigor estatístico." },
+    { Icon: TrendingUp, t: "Previsão Probabilística", d: "Forecast com incerteza explícita e simulação de cenários para decisões baseadas em probabilidades." },
+    { Icon: Target, t: "Prescrição por Impacto", d: "Recomendações priorizadas por ROI esperado, viabilidade e alinhamento estratégico." },
   ];
-  const pratica = [
-    "Identificação automática de queda de margem por cluster",
-    "Simulação de política comercial antes da ativação",
-    "Forecast de vendas com faixa de risco e cenários alternativos",
-    "Detecção de gargalos de conversão e priorização de ação",
-    "Projeção de impacto antes da execução de campanha",
-    "Antes de executar, o Maestro mede, simula e prioriza.",
+  const pratica: Array<{ Icon: typeof Search | null; t: string; highlight?: boolean }> = [
+    { Icon: AlertCircle, t: "Identificação automática de queda de margem por cluster" },
+    { Icon: FlaskConical, t: "Simulação de política comercial antes da ativação" },
+    { Icon: BarChart3, t: "Forecast de vendas com faixa de risco e cenários alternativos" },
+    { Icon: Filter, t: "Detecção de gargalos de conversão e priorização de ação" },
+    { Icon: Calculator, t: "Projeção de impacto antes da execução de campanha" },
+    { Icon: null, t: "Antes de executar, o Maestro mede, simula e prioriza.", highlight: true },
   ];
   return (
     <Section id="insights">
@@ -854,12 +865,13 @@ function Insights() {
         </p>
       </Reveal>
 
-      <div className="mt-12 grid md:grid-cols-2 gap-5">
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
         {caps.map((c, i) => (
           <Reveal key={c.t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full">
-              <h3 className="font-display text-xl font-medium">{c.t}</h3>
-              <p className="mt-3 text-offwhite/80 text-sm leading-relaxed">{c.d}</p>
+            <div className="surface-card p-8 min-h-[240px] flex flex-col">
+              <c.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <h3 className="font-display text-xl md:text-2xl font-medium">{c.t}</h3>
+              <p className="mt-3 text-white/70 text-sm leading-relaxed">{c.d}</p>
             </div>
           </Reveal>
         ))}
@@ -868,12 +880,19 @@ function Insights() {
       <Reveal delay={0.3}>
         <h3 className="mt-16 font-display text-2xl">Insights na Prática</h3>
       </Reveal>
-      <div className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {pratica.map((p, i) => (
-          <Reveal key={p} delay={i * 0.04}>
-            <div className={`surface-card p-5 h-full ${i === pratica.length - 1 ? "italic" : ""}`}>
-              <p className="text-sm">{p}</p>
-            </div>
+          <Reveal key={p.t} delay={i * 0.04}>
+            {p.highlight ? (
+              <div className="rounded-xl p-5 min-h-[100px] italic border-l-2 border-l-[#00D4FF] bg-[#0F1B3D]/60 flex items-center">
+                <p className="text-white/85 text-sm">{p.t}</p>
+              </div>
+            ) : (
+              <div className="rounded-xl p-5 min-h-[100px] flex items-start gap-3 bg-[#0F1B3D]">
+                {p.Icon && <p.Icon className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />}
+                <p className="text-white/85 text-sm">{p.t}</p>
+              </div>
+            )}
           </Reveal>
         ))}
       </div>
@@ -885,18 +904,22 @@ function Insights() {
 function CX() {
   const pilares = [
     {
+      Icon: User,
       t: "Customer Profile Vivo (Progressive Profiling)",
       bullets: ["Dados online + offline + IoT + loja física", "Atualização near real-time", "Enriquecimento contínuo", "Visão omnichannel unificada"],
     },
     {
+      Icon: Users,
       t: "Segmentação Inteligente (LLM + SQL + Estatística)",
       bullets: ["Linguagem natural vira query", "Segmentação 1:1 e 1:N", "Presets estratégicos", "Controle estatístico"],
     },
     {
+      Icon: Radio,
       t: "Orquestração com Inteligência de Frequência",
       bullets: ["Identifica saturação por CPF", "Limite ideal por canal", "Distribuição estatística", "Reduz descadastro"],
     },
     {
+      Icon: BarChart2,
       t: "Análise de Campanhas com IA",
       bullets: ["Lift automático vs grupo controle", "Alertas de performance", "Recomenda pausar/escalar", "Análise por canal, horário e jornada"],
     },
@@ -919,7 +942,8 @@ function CX() {
       <div className="mt-14 grid md:grid-cols-2 gap-5">
         {pilares.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full">
+            <div className="surface-card p-7 min-h-[320px] flex flex-col">
+              <p.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
               <h3 className="font-display text-lg font-medium">{p.t}</h3>
               <ul className="mt-4 space-y-2">
                 {p.bullets.map((b) => (
@@ -935,8 +959,19 @@ function CX() {
       </div>
 
       <Reveal delay={0.3}>
-        <div className="mt-10 rounded-2xl p-6 text-center font-display text-lg md:text-xl" style={{ background: "linear-gradient(90deg, var(--brand-purple-dark), var(--brand-purple-light))" }}>
-          Cada interação: <strong>Contextual · Oportuna · Personalizada · Mensurável</strong>
+        <div className="mt-12 py-10 px-8 bg-gradient-to-r from-[#8B1FA9]/40 via-[#6B1583]/30 to-[#0F1B3D]/60 border border-[#00D4FF]/30 rounded-2xl text-center">
+          <span className="text-xs uppercase tracking-[0.3em] text-[#00D4FF] font-bold mb-4 block">
+            ✦ Cada interação
+          </span>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-2xl md:text-4xl font-bold">
+            <span className="text-white">Contextual</span>
+            <span className="text-[#00D4FF]">·</span>
+            <span className="text-white">Oportuna</span>
+            <span className="text-[#00D4FF]">·</span>
+            <span className="text-white">Personalizada</span>
+            <span className="text-[#00D4FF]">·</span>
+            <span className="bg-gradient-to-r from-white to-[#00D4FF] bg-clip-text text-transparent">Mensurável</span>
+          </div>
         </div>
       </Reveal>
     </Section>
@@ -945,7 +980,14 @@ function CX() {
 
 /* ============ 12. DECISION TEAMS ============ */
 function DecisionTeams() {
-  const attrs = ["Domínio Específico", "Execução Integrada", "Insights Preditivos", "Ações Priorizadas", "Decisões Baseadas em Dados", "Aprendizado Controlado"];
+  const attrs: Array<{ Icon: typeof Sparkles; t: string }> = [
+    { Icon: Crosshair, t: "Domínio Específico" },
+    { Icon: Workflow, t: "Execução Integrada" },
+    { Icon: Sparkles, t: "Insights Preditivos" },
+    { Icon: ListChecks, t: "Ações Priorizadas" },
+    { Icon: Database, t: "Decisões Baseadas em Dados" },
+    { Icon: BrainCircuit, t: "Aprendizado Controlado" },
+  ];
   const teams = [
     { t: "Maestro IA Sales Team", d: "Qualificação de carteira, cross-sell preditivo e otimização de política comercial", Icon: Target },
     { t: "Maestro IA Trade & PDV Team", d: "Gestão de ponto de venda, execução no varejo e otimização de presença", Icon: ShoppingCart },
@@ -968,20 +1010,25 @@ function DecisionTeams() {
           Times digitais especializados, estruturados para assumir responsabilidades contínuas de decisão e execução dentro de domínios estratégicos do negócio.
         </p>
       </Reveal>
-      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {attrs.map((a, i) => (
-          <Reveal key={a} delay={i * 0.04}>
-            <div className="surface-card p-6 flex items-center gap-3 h-full">
-              <Sparkles size={16} style={{ color: "var(--brand-purple-light)" }} />
-              <span className="font-medium">{a}</span>
+          <Reveal key={a.t} delay={i * 0.04}>
+            <div className="rounded-2xl p-6 flex items-center gap-4 h-full bg-[#0F1B3D]">
+              <a.Icon className="w-6 h-6 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <span className="font-medium">{a.t}</span>
             </div>
           </Reveal>
         ))}
       </div>
       <Reveal delay={0.3}>
-        <p className="mt-12 font-display text-2xl md:text-3xl font-light max-w-3xl border-l-4 pl-6" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
-          Não são ferramentas que sugerem. <strong>São times digitais que operam decisões.</strong>
-        </p>
+        <div className="mt-16 py-12 px-10 bg-gradient-to-r from-[#0F1B3D] to-[#1A2B5C] border-l-4 border-l-[#00D4FF] rounded-2xl">
+          <p className="text-2xl md:text-4xl text-white/60 font-light mb-3">
+            Não são ferramentas que sugerem.
+          </p>
+          <p className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white to-[#00D4FF] bg-clip-text text-transparent">
+            São times digitais que operam decisões.
+          </p>
+        </div>
       </Reveal>
 
       {/* Sub-seção fundida: Portfólio */}
@@ -1157,9 +1204,9 @@ function ComparaCopilots() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-white/15">
               {rows.map((r, i) => (
-                <tr key={r[0]} className={`hover:bg-white/[0.03] ${i % 2 === 1 ? "bg-white/[0.02]" : ""}`}>
+                <tr key={r[0]} className={`hover:bg-white/[0.05] ${i % 2 === 1 ? "bg-white/[0.04]" : ""}`}>
                   <td className="p-4 font-medium text-white/90 align-top">{r[0]}</td>
                   <td className="p-4 text-sm text-white/70 bg-[#0F1B3D]/50 align-top">
                     <div className="flex items-start gap-2">
@@ -1169,7 +1216,7 @@ function ComparaCopilots() {
                   </td>
                   <td
                     className="p-4 text-sm text-white font-medium border-l-2 border-l-[#00D4FF] align-top"
-                    style={{ background: "linear-gradient(180deg, rgba(139,31,169,0.30), rgba(107,21,131,0.30))" }}
+                    style={{ background: "linear-gradient(180deg, #1A0B2E, #0A0419)" }}
                   >
                     <div className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#10D981" }} />
@@ -1199,7 +1246,7 @@ function ComparaCopilots() {
                 </div>
                 <div
                   className="rounded-lg p-3 border-l-2 border-l-[#00D4FF]"
-                  style={{ background: "linear-gradient(180deg, rgba(139,31,169,0.30), rgba(107,21,131,0.30))" }}
+                  style={{ background: "linear-gradient(180deg, #1A0B2E, #0A0419)" }}
                 >
                   <p className="text-[10px] uppercase tracking-widest text-white/80 mb-2 font-bold">Maestro</p>
                   <div className="flex items-start gap-1.5">
@@ -1302,12 +1349,47 @@ function Diferenciacao() {
         <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-light max-w-3xl">05 Motivos pelos quais o Maestro é Único</h2>
       </Reveal>
 
+      <Reveal delay={0.15}>
+        <p className="mt-6 text-lg text-offwhite/85 max-w-3xl">
+          Não é apenas tecnologia. É arquitetura estratégica que cria barreiras naturais de entrada e vantagem competitiva sustentável.
+        </p>
+      </Reveal>
+
+      {/* Desktop / tablet grid */}
+      <div className="mt-14 hidden md:grid md:grid-cols-3 xl:grid-cols-5 gap-5">
+        {items.map((it, i) => (
+          <Reveal key={it.t} delay={i * 0.05}>
+            <div className="bg-[#0F1B3D] rounded-2xl p-6 min-h-[320px] flex flex-col gap-3">
+              <span className="font-display text-3xl" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
+              <h3 className="font-display text-lg font-medium">{it.t}</h3>
+              <p className="text-sm text-offwhite/80 leading-relaxed">{it.d}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
+      {/* Mobile carousel */}
+      <div className="mt-14 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {items.map((it, i) => (
+            <div key={it.t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
+              <div className="bg-[#0F1B3D] rounded-2xl p-6 min-h-[320px] flex flex-col gap-3">
+                <span className="font-display text-3xl" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
+                <h3 className="font-display text-lg font-medium">{it.t}</h3>
+                <p className="text-sm text-offwhite/80 leading-relaxed">{it.d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
+      </div>
+
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative overflow-hidden my-12 md:my-16 rounded-3xl border border-[#00D4FF]/30 p-10 md:p-16 bg-gradient-to-br from-[#8B1FA9]/40 via-[#6B1583]/30 to-[#0F1B3D]/60"
+        className="relative overflow-hidden mt-16 rounded-3xl border border-[#00D4FF]/30 p-10 md:p-16 bg-gradient-to-br from-[#8B1FA9]/40 via-[#6B1583]/30 to-[#0F1B3D]/60"
       >
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-[#00D4FF]/10 rounded-full blur-3xl" />
         <div className="relative text-center">
@@ -1322,24 +1404,6 @@ function Diferenciacao() {
           </p>
         </div>
       </motion.div>
-
-      <Reveal delay={0.15}>
-        <p className="text-lg text-offwhite/85 max-w-3xl mx-auto text-center">
-          Não é apenas tecnologia. É arquitetura estratégica que cria barreiras naturais de entrada e vantagem competitiva sustentável.
-        </p>
-      </Reveal>
-
-      <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {items.map((it, i) => (
-          <Reveal key={it.t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full">
-              <span className="font-display text-3xl text-brand-purple-light" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
-              <h3 className="mt-3 font-display text-lg font-medium">{it.t}</h3>
-              <p className="mt-3 text-sm text-offwhite/80 leading-relaxed">{it.d}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
 
       <Reveal delay={0.3}>
         <p className="mt-12 max-w-3xl text-2xl md:text-3xl font-display font-light leading-snug border-l-4 pl-6" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
