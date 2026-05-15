@@ -1144,14 +1144,6 @@ function ComparaCopilots() {
         ))}
       </div>
 
-      <Reveal delay={0.3}>
-        <div className="mt-10 flex flex-wrap items-center gap-4">
-          <span className="tag-pill">Por Que o Maestro</span>
-          <p className="font-display text-xl md:text-2xl font-light flex-1 min-w-[260px]">
-            Copilots ajudam pessoas a trabalhar melhor. <strong>O Maestro ajuda empresas a decidir melhor.</strong>
-          </p>
-        </div>
-      </Reveal>
     </Section>
   );
 }
