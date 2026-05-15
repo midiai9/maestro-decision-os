@@ -545,8 +545,9 @@ function PorQueAgora() {
         </p>
       </Reveal>
 
-      <div className="mt-14 relative">
-        <div className="absolute left-5 top-2 bottom-2 w-px bg-white/15 hidden md:block" />
+      {/* DESKTOP — timeline vertical */}
+      <div className="mt-14 relative hidden md:block">
+        <div className="absolute left-5 top-2 bottom-2 w-px bg-white/15" />
         <div className="space-y-5">
           {steps.map((s, i) => (
             <Reveal key={s.t} delay={i * 0.05}>
@@ -564,6 +565,22 @@ function PorQueAgora() {
           ))}
         </div>
       </div>
+
+      {/* MOBILE — carrossel horizontal */}
+      <div className="md:hidden mt-10 flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+        {steps.map((s, i) => (
+          <div
+            key={s.t}
+            className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${delays[i]} p-6 min-h-[280px] flex flex-col gap-3`}
+          >
+            <div className="text-3xl font-bold" style={{ color: "#B847D4" }}>0{i + 1}</div>
+            <s.Icon className="w-8 h-8" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+            <h3 className="font-display text-xl font-medium text-white">{s.t}</h3>
+            <p className="text-white/70 text-sm leading-relaxed">{s.d}</p>
+          </div>
+        ))}
+      </div>
+      <p className="md:hidden text-center text-xs text-white/40 mt-3">← deslize →</p>
 
       <HighlightBox
         miniTag="✦ Por Que Agora"
