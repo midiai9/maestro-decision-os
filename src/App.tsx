@@ -67,14 +67,13 @@ export default function Index() {
       <Insights />
       <CX />
       <DecisionTeams />
-      <Portfolio />
       <Maturidade />
       <Workflow6 />
+      <ModelosAdocao />
       <ComparaCopilots />
       <Seguranca />
       <Diferenciacao />
       <Industrias />
-      <ModelosAdocao />
       <Ganhos />
       <ValidacaoCTA onDemo={openModal} />
       <Footer onDemo={openModal} />
@@ -89,6 +88,18 @@ const SOLUCOES = [
   { Icon: Lightbulb, label: "Maestro Insights", href: "#insights" },
   { Icon: Users, label: "Maestro CX", href: "#cx" },
   { Icon: Bot, label: "Maestro Decision Teams", href: "#decision-teams" },
+];
+
+const NAV_LINKS: Array<{ label: string; href: string }> = [
+  { label: "Racional", href: "#racional" },
+  { label: "Não Somos", href: "#nao-somos" },
+  { label: "Metodologia", href: "#metodologia" },
+  { label: "Comparativo", href: "#comparativo" },
+  { label: "Segurança", href: "#seguranca" },
+  { label: "Porque Maestro?", href: "#porque-maestro" },
+  { label: "Indústrias", href: "#industrias" },
+  { label: "Ganhos", href: "#ganhos" },
+  { label: "O que dizem", href: "#o-que-dizem" },
 ];
 
 function Nav({ onDemo }: { onDemo: () => void }) {
@@ -109,6 +120,10 @@ function Nav({ onDemo }: { onDemo: () => void }) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Render menu link (Racional, Não Somos): order is Racional, Não Somos, Soluções, then rest
+  const linksBeforeSolucoes = NAV_LINKS.slice(0, 2);
+  const linksAfterSolucoes = NAV_LINKS.slice(2);
+
   return (
     <header
       className={`left-0 right-0 z-40 transition-all duration-300 ${
@@ -120,7 +135,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
       <div className={`mx-auto max-w-7xl px-6 md:px-10 flex items-center justify-between transition-all duration-300 ${scrolled ? "py-3" : "py-6"}`}>
         <a href="#top" onClick={goTop} className="flex items-center gap-3 cursor-pointer">
           <img
-            src="/alwayson-logo.png"
+            src="/aodigital.png"
             alt="Always On"
             className="h-6 md:h-8 w-auto"
           />
@@ -130,8 +145,11 @@ function Nav({ onDemo }: { onDemo: () => void }) {
           </span>
         </a>
 
-        {/* Desktop */}
-        <nav className="hidden md:flex items-center gap-8 text-sm text-white/80">
+        {/* Desktop ≥ xl */}
+        <nav className="hidden xl:flex items-center gap-x-5 text-xs uppercase tracking-wider text-white/80">
+          {linksBeforeSolucoes.map((l) => (
+            <a key={l.href} href={l.href} className="hover:text-white">{l.label}</a>
+          ))}
           <div
             className="relative"
             onMouseEnter={() => setSolOpen(true)}
@@ -139,7 +157,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
           >
             <button
               onClick={() => setSolOpen((v) => !v)}
-              className="hover:text-white inline-flex items-center gap-1"
+              className="hover:text-white inline-flex items-center gap-1 uppercase tracking-wider"
             >
               Soluções <ChevronDown size={14} className={`transition-transform ${solOpen ? "rotate-180" : ""}`} />
             </button>
@@ -161,7 +179,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
                         key={href}
                         href={href}
                         onClick={() => setSolOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer normal-case tracking-normal"
                       >
                         <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
                         <span className="text-white text-sm font-medium">{label}</span>
@@ -172,43 +190,67 @@ function Nav({ onDemo }: { onDemo: () => void }) {
               )}
             </AnimatePresence>
           </div>
-          <a href="#industrias" className="hover:text-white">Indústrias</a>
-          <a href="#ganhos" className="hover:text-white">Ganhos</a>
-          <button onClick={onDemo} className="hover:text-white inline-flex items-center gap-1.5">
+          {linksAfterSolucoes.map((l) => (
+            <a key={l.href} href={l.href} className="hover:text-white">{l.label}</a>
+          ))}
+          <button
+            onClick={onDemo}
+            className="ml-2 px-4 py-2 rounded-full bg-white text-[#0F1B3D] text-xs font-semibold uppercase tracking-wider hover:scale-[1.03] transition-transform inline-flex items-center gap-1.5"
+          >
             Agendar Demo <ArrowRight size={14} />
           </button>
         </nav>
 
-        {/* Mobile toggle */}
+        {/* Hamburger < xl */}
         <button
           aria-label="Abrir menu"
-          onClick={() => setMobileOpen((v) => !v)}
-          className="md:hidden text-white p-2 -mr-2"
+          onClick={() => setMobileOpen(true)}
+          className="xl:hidden text-white p-2 -mr-2"
         >
-          {mobileOpen ? <XIcon size={22} /> : <Menu size={22} />}
+          <Menu className="w-6 h-6" />
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile fullscreen overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mx-6 rounded-xl border border-white/10 backdrop-blur-md overflow-hidden"
-            style={{ backgroundColor: "rgba(15,27,61,0.95)" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="xl:hidden fixed inset-0 z-50 bg-[#0F1B3D]/95 backdrop-blur-md overflow-y-auto"
           >
-            <div className="p-4 flex flex-col gap-1 text-sm">
+            <div className="flex items-center justify-between px-6 py-6 border-b border-white/5">
+              <img src="/aodigital.png" alt="Always On" className="h-6 w-auto" />
+              <button
+                aria-label="Fechar menu"
+                onClick={() => setMobileOpen(false)}
+                className="text-white p-2"
+              >
+                <XIcon className="w-6 h-6" />
+              </button>
+            </div>
+            <nav className="px-6 py-8 flex flex-col gap-1 text-white">
+              {linksBeforeSolucoes.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg"
+                >
+                  {l.label}
+                </a>
+              ))}
               <button
                 onClick={() => setMobileSolOpen((v) => !v)}
-                className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-white/5 text-white font-medium"
+                className="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
               >
                 Soluções
-                <ChevronDown size={16} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
+                <ChevronDown size={18} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
               </button>
               {mobileSolOpen && (
-                <div className="pl-2 flex flex-col gap-1">
+                <div className="pl-4 flex flex-col gap-1">
                   {SOLUCOES.map(({ Icon, label, href }) => (
                     <a
                       key={href}
@@ -217,20 +259,28 @@ function Nav({ onDemo }: { onDemo: () => void }) {
                       className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90"
                     >
                       <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                      <span className="text-sm">{label}</span>
+                      <span className="text-base">{label}</span>
                     </a>
                   ))}
                 </div>
               )}
-              <a href="#industrias" onClick={() => setMobileOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white">Indústrias</a>
-              <a href="#ganhos" onClick={() => setMobileOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white">Ganhos</a>
+              {linksAfterSolucoes.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg"
+                >
+                  {l.label}
+                </a>
+              ))}
               <button
                 onClick={() => { setMobileOpen(false); onDemo(); }}
-                className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white inline-flex items-center gap-1.5 text-left"
+                className="mt-6 w-full px-4 py-3.5 rounded-full bg-white text-[#0F1B3D] font-semibold inline-flex items-center justify-center gap-2"
               >
-                Agendar Demo <ArrowRight size={14} />
+                Agendar Demo <ArrowRight size={16} />
               </button>
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
@@ -320,7 +370,7 @@ function Paradoxo() {
     { t: "IA Sem Ação", d: "Insights que raramente viram execução", Icon: Bot },
   ];
   return (
-    <Section>
+    <Section id="racional">
       <Reveal><Tag><AlertTriangle size={12} /> Desafio Estratégico</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">
@@ -559,7 +609,7 @@ function NaoE() {
     { t: "Não é Ferramenta Isolada", d: "Ferramentas resolvem problemas pontuais. Maestro é uma camada estratégica que unifica dados, inteligência e execução em toda a empresa." },
   ];
   return (
-    <Section>
+    <Section id="nao-somos">
       <Reveal><Tag><XIcon size={12} /> Posicionamento</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">O Que o Maestro NÃO É</h2>
@@ -827,6 +877,13 @@ function CX() {
 /* ============ 12. DECISION TEAMS ============ */
 function DecisionTeams() {
   const attrs = ["Domínio Específico", "Execução Integrada", "Insights Preditivos", "Ações Priorizadas", "Decisões Baseadas em Dados", "Aprendizado Controlado"];
+  const teams = [
+    { t: "Maestro IA Sales Team", d: "Qualificação de carteira, cross-sell preditivo e otimização de política comercial", Icon: Target },
+    { t: "Maestro IA Trade & PDV Team", d: "Gestão de ponto de venda, execução no varejo e otimização de presença", Icon: ShoppingCart },
+    { t: "Maestro IA Marketing Team", d: "Segmentação inteligente, ROI de campanhas e automação de jornadas", Icon: Rocket },
+    { t: "Maestro IA Customer Team", d: "Retenção preditiva, NPS driver analysis e experiência personalizada", Icon: Users },
+    { t: "Maestro IA Planning Team", d: "Forecasting, simulação de cenários e alocação otimizada de recursos", Icon: BarChart3 },
+  ];
   return (
     <Section id="decision-teams">
       <span id="teams" className="sr-only" aria-hidden="true" />
@@ -857,42 +914,25 @@ function DecisionTeams() {
           Não são ferramentas que sugerem. <strong>São times digitais que operam decisões.</strong>
         </p>
       </Reveal>
-    </Section>
-  );
-}
 
-/* ============ 13. PORTFÓLIO TEAMS ============ */
-function Portfolio() {
-  const teams = [
-    { t: "Maestro IA Sales Team", d: "Qualificação de carteira, cross-sell preditivo e otimização de política comercial", img: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80" },
-    { t: "Maestro IA Trade & PDV Team", d: "Gestão de ponto de venda, execução no varejo e otimização de presença", img: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80" },
-    { t: "Maestro IA Marketing Team", d: "Segmentação inteligente, ROI de campanhas e automação de jornadas", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" },
-    { t: "Maestro IA Customer Team", d: "Retenção preditiva, NPS driver analysis e experiência personalizada", img: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80" },
-    { t: "Maestro IA Planning Team", d: "Forecasting, simulação de cenários e alocação otimizada de recursos", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" },
-  ];
-  return (
-    <Section>
-      <Reveal>
-        <h2 className="text-4xl md:text-5xl font-light max-w-3xl">Portfólio Inicial do Maestro Teams</h2>
-      </Reveal>
+      {/* Sub-seção fundida: Portfólio */}
+      <hr className="my-12 border-t border-white/10" />
+      <Reveal><Tag>Portfólio Inicial</Tag></Reveal>
       <Reveal delay={0.1}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl border-l-4 pl-5" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
-          Vendemos times de decisão, não features. Cada Team é especializado em um domínio estratégico de negócio.
+        <h3 className="mt-6 text-3xl font-light max-w-3xl">Portfólio Inicial do Maestro Teams</h3>
+      </Reveal>
+      <Reveal delay={0.15}>
+        <p className="mt-4 text-base text-offwhite/85 max-w-3xl">
+          Times pré-construídos, prontos para acelerar valor em domínios estratégicos comuns. Cada Team é especializado em um domínio de negócio.
         </p>
       </Reveal>
-
-      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {teams.map((t, i) => (
           <Reveal key={t.t} delay={i * 0.05}>
-            <div className="surface-card overflow-hidden h-full">
-              <div className="aspect-[16/10] overflow-hidden relative">
-                <img src={t.img} alt={t.t} loading="lazy" className="w-full h-full object-cover opacity-70" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent, var(--navy))" }} />
-              </div>
-              <div className="p-6">
-                <h3 className="font-display text-lg font-medium">{t.t}</h3>
-                <p className="mt-2 text-sm text-offwhite/80">{t.d}</p>
-              </div>
+            <div className="rounded-2xl p-6 h-full" style={{ backgroundColor: "#0F1B3D" }}>
+              <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
+              <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
             </div>
           </Reveal>
         ))}
@@ -961,7 +1001,7 @@ function Workflow6() {
     "Ativação via processos, sistemas e integrações",
   ];
   return (
-    <Section>
+    <Section id="metodologia">
       <Reveal><Tag><Workflow size={12} /> Workflow</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light">Do Dado à Decisão</h2>
@@ -1021,7 +1061,7 @@ function ComparaCopilots() {
     ["Risco", "Alto (uso ad-hoc)", "Controlado (enterprise-grade)"],
   ];
   return (
-    <Section>
+    <Section id="comparativo">
       <Reveal>
         <h2 className="text-4xl md:text-5xl font-light max-w-3xl">Maestro AI OS vs Copilots & GenAI Tools</h2>
       </Reveal>
@@ -1039,7 +1079,13 @@ function ComparaCopilots() {
               <tr>
                 <th className="p-4 text-xs uppercase tracking-widest text-white/90 font-semibold bg-[#0F1B3D]/60">Dimensão</th>
                 <th className="p-4 text-xs uppercase tracking-widest text-white/60 font-semibold bg-[#0F1B3D]/50">Copilots / GenAI</th>
-                <th className="p-4 text-xs uppercase tracking-widest text-white font-bold bg-[#8B1FA9] border-l-2 border-l-[#00D4FF]">Maestro AI OS</th>
+                <th className="p-4 bg-[#8B1FA9] border-l-2 border-l-[#00D4FF]">
+                  <div className="flex items-center gap-3">
+                    <img src="/aodigital.png" alt="Always On" className="h-5 w-auto" />
+                    <span className="text-white/30">·</span>
+                    <span className="text-xs uppercase tracking-widest text-white font-bold">Maestro AI OS</span>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -1119,7 +1165,7 @@ function Seguranca() {
     { Icon: UserCog, t: "Governança Nativa", d: "Controles de acesso, aprovação e compliance por design" },
   ];
   return (
-    <Section>
+    <Section id="seguranca">
       <Reveal><Tag><Shield size={12} /> Enterprise Grade</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Segurança e Governança</h2>
@@ -1168,7 +1214,7 @@ function Diferenciacao() {
     { t: "Dados Soberanos (Datamart First)", d: "Processamento no ambiente do cliente, zero retenção de dados proprietários. Posicionamento que SaaS tradicionais não replicam sem refazer modelo de negócio." },
   ];
   return (
-    <Section>
+    <Section id="porque-maestro">
       <Reveal><Tag>◆ Diferencial Competitivo</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">05 Motivos pelos quais o Maestro é Único</h2>
@@ -1218,11 +1264,11 @@ function Industrias() {
     <Section id="industrias">
       <Reveal><Tag><Target size={12} /> Mercado-alvo</Tag></Reveal>
       <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Problemas Reais por Indústria</h2>
+        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Soluções Reais por Indústria</h2>
       </Reveal>
       <Reveal delay={0.15}>
         <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
-          O Maestro AI OS resolve dores estruturais que impactam margem, crescimento e risco em setores estratégicos.
+          Como o Maestro AI OS resolve dores estruturais que impactam margem, crescimento e risco em setores estratégicos.
         </p>
       </Reveal>
 
@@ -1265,18 +1311,34 @@ function Industrias() {
                 <CurIcon className="w-12 h-12" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
                 <h3 className="font-display text-3xl font-medium text-white">{cur.k}</h3>
               </div>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <p className="text-xs uppercase tracking-widest font-semibold mb-4" style={{ color: "rgba(248,113,113,0.8)" }}>
-                    Problemas
-                  </p>
-                  <p className="text-sm text-white/85 leading-relaxed">{cur.probs}</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl p-6" style={{ backgroundColor: "rgba(239,68,68,0.05)" }}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <AlertCircle className="w-5 h-5" style={{ color: "#EF4444" }} />
+                    <span className="text-xs uppercase tracking-widest font-bold" style={{ color: "#F87171" }}>Problemas</span>
+                  </div>
+                  <ul className="space-y-3">
+                    {cur.probs.split(" · ").map((p) => (
+                      <li key={p} className="flex items-start gap-2 text-sm text-white/85">
+                        <XCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#EF4444" }} />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <div>
-                  <p className="text-xs uppercase tracking-widest font-semibold mb-4" style={{ color: "#00D4FF" }}>
-                    Soluções Maestro
-                  </p>
-                  <p className="text-sm text-white leading-relaxed">{cur.sols}</p>
+                <div className="rounded-xl p-6" style={{ backgroundColor: "rgba(0,212,255,0.05)" }}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <CheckCircle2 className="w-5 h-5" style={{ color: "#00D4FF" }} />
+                    <span className="text-xs uppercase tracking-widest font-bold" style={{ color: "#00D4FF" }}>Soluções Maestro</span>
+                  </div>
+                  <ul className="space-y-3">
+                    {cur.sols.split(" · ").map((s) => (
+                      <li key={s} className="flex items-start gap-2 text-sm text-white font-medium">
+                        <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#00D4FF" }} />
+                        <span>{s}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </motion.div>
@@ -1463,7 +1525,7 @@ function ValidacaoCTA({ onDemo }: { onDemo: () => void }) {
   ];
   return (
     <>
-      <Section>
+      <Section id="o-que-dizem">
         <Reveal><Tag><Award size={12} /> Validação</Tag></Reveal>
         <Reveal delay={0.1}>
           <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">O Que o Mercado Diz</h2>
@@ -1562,11 +1624,11 @@ function Footer({ onDemo }: { onDemo: () => void }) {
     >
       <div className="mx-auto max-w-7xl grid md:grid-cols-4 gap-10">
         <div>
-          <p className="font-display text-2xl font-semibold text-white">Always On</p>
-          <p className="mt-3 text-sm max-w-xs">
+          <img src="/aodigital.png" alt="Always On" className="h-8 w-auto" />
+          <p className="mt-2 text-xs uppercase tracking-widest text-white/60">Maestro AI OS</p>
+          <p className="mt-4 text-sm max-w-xs">
             Decisão orientada por dados, operada por times de IA.
           </p>
-          <p className="mt-3 text-xs uppercase tracking-widest text-white/50">Maestro AI OS</p>
         </div>
 
         <div>
@@ -1586,8 +1648,16 @@ function Footer({ onDemo }: { onDemo: () => void }) {
         <div>
           <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Navegação</p>
           <ul className="space-y-2.5 text-sm">
+            <li><a href="#racional" className="hover:text-white">Racional</a></li>
+            <li><a href="#nao-somos" className="hover:text-white">Não Somos</a></li>
+            <li><a href="#data-flow" className="hover:text-white">Soluções</a></li>
+            <li><a href="#metodologia" className="hover:text-white">Metodologia</a></li>
+            <li><a href="#comparativo" className="hover:text-white">Comparativo</a></li>
+            <li><a href="#seguranca" className="hover:text-white">Segurança</a></li>
+            <li><a href="#porque-maestro" className="hover:text-white">Porque Maestro?</a></li>
             <li><a href="#industrias" className="hover:text-white">Indústrias</a></li>
             <li><a href="#ganhos" className="hover:text-white">Ganhos</a></li>
+            <li><a href="#o-que-dizem" className="hover:text-white">O que dizem</a></li>
             <li>
               <button onClick={onDemo} className="hover:text-white text-left">
                 Agendar Demo
