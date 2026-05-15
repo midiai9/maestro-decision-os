@@ -128,7 +128,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
               </a>
             </div>
             <p className="mt-4 text-xs text-offwhite/60">
-              Demo executiva de 30 min · sem compromisso · NDA disponível
+              Demo executiva de 30 min · sem compromisso · NDA disponível · v.15mai-0245
             </p>
           </Reveal>
         </div>
