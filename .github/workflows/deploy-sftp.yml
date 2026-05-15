@@ -40,5 +40,5 @@ jobs:
         run: |
           sudo apt-get install -y lftp
           lftp -u ${{ secrets.SFTP_USER }},${{ secrets.SFTP_PASS }} \
-            -e "mirror -e -R ./dist /maestro.aodigital.net.br/httpdocs; quit" \
+            -e "mirror -e -R ./dist ./; quit" \
             ${{ secrets.SFTP_HOST }}
