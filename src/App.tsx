@@ -1657,11 +1657,11 @@ function Ganhos() {
         </div>
       </div>
 
-      <Reveal delay={0.3}>
-        <p className="mt-12 font-display text-2xl md:text-3xl font-light">
-          Em mercados onde <strong>margem é pressionada</strong>, <strong>velocidade de decisão é vantagem estrutural</strong>.
-        </p>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Ganhos"
+        topLine="Em mercados onde margem é pressionada,"
+        bottomLine={<>velocidade de decisão é vantagem estrutural.</>}
+      />
     </Section>
   );
 }
