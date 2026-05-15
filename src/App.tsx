@@ -366,9 +366,13 @@ function Hero({ onDemo }: { onDemo: () => void }) {
         </motion.div>
         <motion.h1
           {...fadeUp(0.1)}
-          className="text-white font-light text-4xl md:text-7xl lg:text-8xl leading-tight tracking-tight max-w-5xl mb-8"
+          className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] tracking-tight text-white max-w-5xl mb-8"
         >
-          Transforme dados em <span className="font-semibold text-white">decisões</span> estratégicas.
+          <span className="font-light text-white/85">Transforme dados em{" "}</span>
+          <span className="font-bold bg-gradient-to-r from-white via-[#E8E4F0] to-[#00D4FF] bg-clip-text text-transparent">
+            Decisões Estratégicas
+          </span>
+          <span className="font-light text-white/85">{" "}com a melhor inteligência que existe.</span>
         </motion.h1>
         <motion.p
           {...fadeUp(0.2)}
