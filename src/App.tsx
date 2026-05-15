@@ -1809,6 +1809,65 @@ function ModelosAdocao() {
 }
 
 /* ============ 21. GANHOS ============ */
+function GanhosChart({ bars }: { bars: { l: string; v: number }[] }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [animate, setAnimate] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      const t = setTimeout(() => setAnimate(true), 200);
+      return () => clearTimeout(t);
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setAnimate(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.05, rootMargin: "0px 0px -10% 0px" }
+    );
+    observer.observe(el);
+    const fallback = setTimeout(() => {
+      setAnimate(true);
+      observer.disconnect();
+    }, 4000);
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallback);
+    };
+  }, []);
+  return (
+    <div ref={ref} className="rounded-2xl p-10 h-full flex flex-col" style={{ backgroundColor: "#0F1B3D" }}>
+      <p className="text-xs uppercase tracking-widest text-white/60 mb-8 font-semibold">Indicadores</p>
+      <div className="space-y-7 flex-1 flex flex-col justify-center">
+        {bars.map((b, i) => (
+          <div key={b.l}>
+            <div className="flex justify-between mb-2">
+              <span className="text-white text-sm">{b.l}</span>
+              <span className="font-bold" style={{ color: "#00D4FF" }}>+{b.v}%</span>
+            </div>
+            <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+              <div
+                className="h-full rounded-full"
+                style={{
+                  background: "linear-gradient(90deg, #8B1FA9, #00D4FF)",
+                  width: animate ? `${b.v}%` : "0%",
+                  transition: `width 1500ms ease-out ${i * 150}ms`,
+                }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Ganhos() {
   const bars = [
     { l: "Velocidade de Decisão", v: 60 },
