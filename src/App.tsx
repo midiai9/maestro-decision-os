@@ -754,7 +754,7 @@ function CX() {
     },
   ];
   return (
-    <Section>
+    <Section id="cx">
       <Reveal><Tag><Users size={12} /> Customer First</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro CX</h2>
