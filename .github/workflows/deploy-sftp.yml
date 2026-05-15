@@ -37,12 +37,10 @@ jobs:
           ls -la dist/
 
       - name: Deploy via FTP
-        uses: milanmk/actions-file-deployer@master
+        uses: netsuitecorp/upload-files-ftp-action@master
         with:
-          remote-protocol: ftp
-          remote-host: ${{ secrets.SFTP_HOST }}
-          remote-user: ${{ secrets.SFTP_USER }}
-          remote-password: ${{ secrets.SFTP_PASS }}
-          local-path: ./dist/
-          remote-path: /maestro.aodigital.net.br/httpdocs/
-          sftp: false
+          server: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USER }}
+          password: ${{ secrets.SFTP_PASS }}
+          server_dir: /maestro.aodigital.net.br/httpdocs/
+          local_dir: ./dist/
