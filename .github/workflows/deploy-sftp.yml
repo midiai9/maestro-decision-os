@@ -25,7 +25,7 @@ jobs:
       - name: Build do projeto
         run: bun run build
 
-      - name: Garantir .htaccess no dist
+      - name: Garantir .htaccess e favicon no dist
         run: |
           if [ -f public/.htaccess ] && [ ! -f dist/.htaccess ]; then
             cp public/.htaccess dist/.htaccess
@@ -37,12 +37,12 @@ jobs:
           ls -la dist/
 
       - name: Deploy via SFTP
-        uses: wangyucode/sftp-upload-action@v0.1.2
+        uses: SamKirkland/FTP-Deploy-Action@4.3.5
         with:
-          host: ${{ secrets.SFTP_HOST }}
+          server: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USER }}
           password: ${{ secrets.SFTP_PASS }}
-          localDir: 'dist/'
-          remoteDir: '/maestro.aodigital.net.br/httpdocs'
-          dryRun: false
-          forceUpload: true
+          local-dir: ./dist/
+          server-dir: /maestro.aodigital.net.br/httpdocs/
+          protocol: sftp
+          dangerous-clean-slate: false
