@@ -40,6 +40,11 @@ import {
   Linkedin,
   Globe,
   TrendingDown,
+  TrendingUp,
+  Ban,
+  Star,
+  PieChart,
+  Package,
   Network,
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
