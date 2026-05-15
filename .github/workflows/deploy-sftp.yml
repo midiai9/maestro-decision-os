@@ -1,4 +1,4 @@
-name: Build and Deploy via SFTP
+name: Build and Deploy via SSH
 
 on:
   push:
@@ -36,13 +36,14 @@ jobs:
           echo "Conteúdo final do dist/:"
           ls -la dist/
 
-      - name: Deploy via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@4.3.5
+      - name: Deploy via SSH (rsync)
+        uses: easingthemes/ssh-deploy@v4.1.10
         with:
-          server: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USER }}
-          password: ${{ secrets.SFTP_PASS }}
-          local-dir: ./dist/
-          server-dir: /maestro.aodigital.net.br/httpdocs/
-          protocol: sftp
-          dangerous-clean-slate: false
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST || 'servidori9.com.br' }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER || 'maestro-deploy' }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT || '22' }}
+          SOURCE: "dist/"
+          TARGET: "/maestro.aodigital.net.br/httpdocs"
+          ARGS: "-rlgoDzvc -i --delete-after"
+          EXCLUDE: ".git/, .github/, node_modules/"
