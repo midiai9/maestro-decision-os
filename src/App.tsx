@@ -1396,48 +1396,83 @@ function ValidacaoCTA({ onDemo }: { onDemo: () => void }) {
 }
 
 /* ============ FOOTER ============ */
-function Footer() {
+function Footer({ onDemo }: { onDemo: () => void }) {
+  const wa =
+    "https://wa.me/5511917830499?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Maestro%20AI%20OS";
   return (
-    <footer className="px-6 md:px-10 pt-20 pb-10 border-t border-white/10" style={{ background: "var(--brand-purple-dark)" }}>
+    <footer
+      className="px-6 md:px-10 py-16 border-t border-white/10 text-white/70"
+      style={{ backgroundColor: "#0A1228" }}
+    >
       <div className="mx-auto max-w-7xl grid md:grid-cols-4 gap-10">
+        {/* Marca */}
         <div>
-          <p className="font-display text-2xl font-semibold">Always On</p>
-          <p className="mt-3 text-sm text-offwhite/80 max-w-xs">
+          <p className="font-display text-2xl font-semibold text-white">Always On</p>
+          <p className="mt-3 text-sm max-w-xs">
             Decisão orientada por dados, operada por times de IA.
           </p>
+          <p className="mt-3 text-xs uppercase tracking-widest text-white/50">Maestro AI OS</p>
         </div>
+
+        {/* Soluções */}
         <div>
-          <p className="text-xs uppercase tracking-widest text-offwhite/60 font-semibold mb-4">Contato direto</p>
-          <p className="font-medium">Elcio Santos</p>
-          <p className="mt-3 text-sm text-offwhite/85 flex items-center gap-2"><Phone size={14} /> 11 994 988 670</p>
-          <a href="mailto:elcio@aodigital.com.br" className="mt-2 text-sm text-offwhite/85 flex items-center gap-2 hover:text-white">
-            <Mail size={14} /> elcio@aodigital.com.br
-          </a>
-        </div>
-        <div>
-          <p className="text-xs uppercase tracking-widest text-offwhite/60 font-semibold mb-4">Links rápidos</p>
-          <ul className="space-y-2 text-sm">
-            <li><a href="#arquitetura" className="text-offwhite/85 hover:text-white">Arquitetura</a></li>
-            <li><a href="#teams" className="text-offwhite/85 hover:text-white">Teams</a></li>
-            <li><a href="#industrias" className="text-offwhite/85 hover:text-white">Indústrias</a></li>
-            <li><a href="#top" className="text-offwhite/85 hover:text-white">Demo</a></li>
+          <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Soluções</p>
+          <ul className="space-y-2.5 text-sm">
+            {SOLUCOES.map(({ Icon, label, href }) => (
+              <li key={href}>
+                <a href={href} className="flex items-center gap-2 hover:text-white">
+                  <Icon size={14} style={{ color: "#00D4FF" }} />
+                  <span>{label}</span>
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
+
+        {/* Navegação */}
         <div>
-          <p className="text-xs uppercase tracking-widest text-offwhite/60 font-semibold mb-4">Acompanhe</p>
-          <div className="flex flex-col gap-2 text-sm">
-            <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="text-offwhite/85 hover:text-white flex items-center gap-2">
-              <Linkedin size={14} /> LinkedIn
-            </a>
-            <a href="https://aodigital.com.br" target="_blank" rel="noreferrer" className="text-offwhite/85 hover:text-white flex items-center gap-2">
-              <Globe size={14} /> aodigital.com.br
-            </a>
-          </div>
+          <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Navegação</p>
+          <ul className="space-y-2.5 text-sm">
+            <li><a href="#industrias" className="hover:text-white">Indústrias</a></li>
+            <li><a href="#ganhos" className="hover:text-white">Ganhos</a></li>
+            <li>
+              <button onClick={onDemo} className="hover:text-white text-left">
+                Agendar Demo
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        {/* Contato */}
+        <div>
+          <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Contato</p>
+          <ul className="space-y-2.5 text-sm">
+            <li>
+              <a href={wa} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white">
+                <MessageCircle size={14} /> (11) 91783-0499
+              </a>
+            </li>
+            <li>
+              <a href="mailto:contato@aodigital.com.br" className="flex items-center gap-2 hover:text-white">
+                <Mail size={14} /> contato@aodigital.com.br
+              </a>
+            </li>
+            <li>
+              <a href="https://aodigital.com.br" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white">
+                <Globe size={14} /> aodigital.com.br
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white">
+                <Linkedin size={14} /> LinkedIn
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-      <div className="mx-auto max-w-7xl mt-12 pt-6 border-t border-white/10 flex flex-wrap justify-between gap-4 text-xs text-offwhite/60">
-        <p>© 2026 Always On. Todos os direitos reservados.</p>
-        <p>Política de Privacidade · LGPD</p>
+
+      <div className="mx-auto max-w-7xl mt-12 pt-6 border-t border-white/10 text-xs text-white/60 text-center md:text-left">
+        <p>© 2026 Always On. Todos os direitos reservados. · Política de Privacidade · LGPD</p>
       </div>
     </footer>
   );
