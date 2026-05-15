@@ -209,7 +209,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
           <a href="#industrias" className="hover:text-white">Indústrias</a>
           <a href="#o-que-dizem" className="hover:text-white">O que dizem</a>
           <button
-            onClick={onDemo}
+            onClick={() => document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' })}
             className="ml-2 px-4 py-2 rounded-full bg-white text-[#0F1B3D] text-xs font-semibold uppercase tracking-wider hover:scale-[1.03] transition-transform inline-flex items-center gap-1.5"
           >
             Agendar Demo <ArrowRight size={14} />
@@ -316,7 +316,12 @@ function Nav({ onDemo }: { onDemo: () => void }) {
                 className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">O que dizem</a>
 
               <button
-                onClick={() => { setMobileOpen(false); onDemo(); }}
+                onClick={() => {
+                  setMobileOpen(false);
+                  setTimeout(() => {
+                    document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
                 className="mt-6 w-full px-4 py-3.5 rounded-full bg-white text-[#0F1B3D] font-semibold inline-flex items-center justify-center gap-2"
               >
                 Agendar Demo <ArrowRight size={16} />
@@ -366,9 +371,13 @@ function Hero({ onDemo }: { onDemo: () => void }) {
         </motion.div>
         <motion.h1
           {...fadeUp(0.1)}
-          className="text-white font-light text-4xl md:text-7xl lg:text-8xl leading-tight tracking-tight max-w-5xl mb-8"
+          className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] tracking-tight text-white max-w-5xl mb-8"
         >
-          Transforme dados em <span className="font-semibold text-white">decisões</span> estratégicas.
+          <span className="font-light text-white/85">Transforme dados em{" "}</span>
+          <span className="font-bold bg-gradient-to-r from-white via-[#E8E4F0] to-[#00D4FF] bg-clip-text text-transparent">
+            Decisões Estratégicas
+          </span>
+          <span className="font-light text-white/85">{" "}com a melhor inteligência que existe.</span>
         </motion.h1>
         <motion.p
           {...fadeUp(0.2)}
@@ -1679,7 +1688,7 @@ function ValidacaoCTA({ onDemo }: { onDemo: () => void }) {
         </div>
       </Section>
 
-      <section className="relative px-6 md:px-10 py-24 md:py-32" style={{ background: "linear-gradient(135deg, var(--brand-purple-dark), var(--brand-purple) 50%, var(--brand-purple-light))" }}>
+      <section id="cta-final" className="relative px-6 md:px-10 py-24 md:py-32" style={{ background: "linear-gradient(135deg, var(--brand-purple-dark), var(--brand-purple) 50%, var(--brand-purple-light))" }}>
         <div className="mx-auto max-w-5xl text-center">
           <Reveal>
             <h2 className="text-4xl md:text-6xl font-light leading-[1.1] tracking-tight">
