@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -364,15 +364,26 @@ function Hero({ onDemo }: { onDemo: () => void }) {
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.8, delay, ease },
   });
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {});
+    }
+  }, []);
   return (
     <section id="top" className="relative min-h-screen w-full overflow-hidden">
       <video
+        ref={videoRef}
         src="/maestro.mp4"
         autoPlay
         loop
         muted
         playsInline
         preload="auto"
+        disablePictureInPicture
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover"
       />
@@ -534,8 +545,9 @@ function PorQueAgora() {
         </p>
       </Reveal>
 
-      <div className="mt-14 relative">
-        <div className="absolute left-5 top-2 bottom-2 w-px bg-white/15 hidden md:block" />
+      {/* DESKTOP — timeline vertical */}
+      <div className="mt-14 relative hidden md:block">
+        <div className="absolute left-5 top-2 bottom-2 w-px bg-white/15" />
         <div className="space-y-5">
           {steps.map((s, i) => (
             <Reveal key={s.t} delay={i * 0.05}>
@@ -553,6 +565,22 @@ function PorQueAgora() {
           ))}
         </div>
       </div>
+
+      {/* MOBILE — carrossel horizontal */}
+      <div className="md:hidden mt-10 flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+        {steps.map((s, i) => (
+          <div
+            key={s.t}
+            className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${delays[i]} p-6 min-h-[280px] flex flex-col gap-3`}
+          >
+            <div className="text-3xl font-bold" style={{ color: "#B847D4" }}>0{i + 1}</div>
+            <s.Icon className="w-8 h-8" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+            <h3 className="font-display text-xl font-medium text-white">{s.t}</h3>
+            <p className="text-white/70 text-sm leading-relaxed">{s.d}</p>
+          </div>
+        ))}
+      </div>
+      <p className="md:hidden text-center text-xs text-white/40 mt-3">← deslize →</p>
 
       <HighlightBox
         miniTag="✦ Por Que Agora"
@@ -1171,15 +1199,31 @@ function Workflow6() {
         ))}
       </div>
 
-      <div className="mt-12 grid md:grid-cols-3 gap-5">
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          "O Maestro atua como um gestor especialista, não como um chatbot.",
-          "Cada interação percorre contextualização, validação e priorização.",
-          "Permite decisões complexas com rapidez — sem abrir mão de rigor analítico.",
+          {
+            Icon: UserCog,
+            content: (
+              <>O Maestro atua como um <strong className="text-white font-semibold">gestor especialista</strong>, não como um chatbot.</>
+            ),
+          },
+          {
+            Icon: Workflow,
+            content: (
+              <>Cada interação percorre <strong className="text-white font-semibold">contextualização, validação e priorização</strong>.</>
+            ),
+          },
+          {
+            Icon: Gauge,
+            content: (
+              <>Permite <strong className="text-white font-semibold">decisões complexas com rapidez</strong> — sem abrir mão de <strong className="text-white font-semibold">rigor analítico</strong>.</>
+            ),
+          },
         ].map((b, i) => (
-          <Reveal key={b} delay={i * 0.05}>
-            <div className="surface-card p-6 h-full">
-              <p className="text-sm text-offwhite/85 leading-relaxed">{b}</p>
+          <Reveal key={i} delay={i * 0.05}>
+            <div className={`glow-card ${["", "delay-1", "delay-2"][i]} p-8 min-h-[180px] h-full flex flex-col gap-4`}>
+              <b.Icon className="w-10 h-10" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <p className="text-base md:text-lg text-white/85 leading-relaxed">{b.content}</p>
             </div>
           </Reveal>
         ))}
