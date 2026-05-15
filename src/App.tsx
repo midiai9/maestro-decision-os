@@ -434,8 +434,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
         playsInline
         preload="auto"
         disablePictureInPicture
-        // @ts-expect-error legacy iOS attribute
-        webkit-playsinline="true"
+        {...({ "webkit-playsinline": "true" } as Record<string, string>)}
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       >
