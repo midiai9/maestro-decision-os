@@ -1246,7 +1246,7 @@ function ComparaCopilots() {
                 </div>
                 <div
                   className="rounded-lg p-3 border-l-2 border-l-[#00D4FF]"
-                  style={{ background: "linear-gradient(180deg, rgba(139,31,169,0.30), rgba(107,21,131,0.30))" }}
+                  style={{ background: "linear-gradient(180deg, #1A0B2E, #0A0419)" }}
                 >
                   <p className="text-[10px] uppercase tracking-widest text-white/80 mb-2 font-bold">Maestro</p>
                   <div className="flex items-start gap-1.5">
