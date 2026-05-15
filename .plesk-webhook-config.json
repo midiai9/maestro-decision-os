@@ -1,0 +1,56 @@
+{
+  "$schema": "https://aodigital.net.br/schemas/plesk-webhook-config.schema.json",
+  "description": "Configuração de sincronização Git → Plesk para o subdomínio maestro.aodigital.net.br. Lido pelo deploy: serve como referência declarativa do destino e dos parâmetros do webhook do Plesk.",
+  "domain": "maestro.aodigital.net.br",
+  "deployment": {
+    "sourceBranch": "production",
+    "targetPath": "/var/www/vhosts/aodigital.net.br/maestro.aodigital.net.br/httpdocs",
+    "strategy": "mirror",
+    "deleteExtraneous": true,
+    "preservePaths": [
+      ".htaccess",
+      ".well-known/",
+      "cgi-bin/",
+      "error_docs/",
+      "logs/",
+      "stats/",
+      ".plesk/"
+    ],
+    "excludeFromSync": [
+      ".git",
+      ".github",
+      "node_modules",
+      "src",
+      "public",
+      "*.md",
+      "package.json",
+      "bun.lock",
+      "tsconfig.json",
+      "vite.config.ts",
+      ".plesk-webhook-config.json"
+    ]
+  },
+  "permissions": {
+    "owner": "maestro_aodigital",
+    "group": "psacln",
+    "fileMode": "0644",
+    "directoryMode": "0755"
+  },
+  "webhook": {
+    "enabled": true,
+    "url": "https://maestro.aodigital.net.br:8443/modules/git/public/webhook.php",
+    "method": "POST",
+    "secretEnv": "PLESK_WEBHOOK_SECRET",
+    "events": ["push:production"],
+    "payload": {
+      "repository": "maestro-ai-os",
+      "branch": "production",
+      "action": "deploy"
+    }
+  },
+  "postDeploy": {
+    "clearOpcache": true,
+    "touchHtaccess": true,
+    "notifyHealthcheckUrl": "https://maestro.aodigital.net.br/"
+  }
+}
