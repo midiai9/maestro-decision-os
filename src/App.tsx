@@ -877,6 +877,13 @@ function CX() {
 /* ============ 12. DECISION TEAMS ============ */
 function DecisionTeams() {
   const attrs = ["Domínio Específico", "Execução Integrada", "Insights Preditivos", "Ações Priorizadas", "Decisões Baseadas em Dados", "Aprendizado Controlado"];
+  const teams = [
+    { t: "Maestro IA Sales Team", d: "Qualificação de carteira, cross-sell preditivo e otimização de política comercial", Icon: Target },
+    { t: "Maestro IA Trade & PDV Team", d: "Gestão de ponto de venda, execução no varejo e otimização de presença", Icon: ShoppingCart },
+    { t: "Maestro IA Marketing Team", d: "Segmentação inteligente, ROI de campanhas e automação de jornadas", Icon: Rocket },
+    { t: "Maestro IA Customer Team", d: "Retenção preditiva, NPS driver analysis e experiência personalizada", Icon: Users },
+    { t: "Maestro IA Planning Team", d: "Forecasting, simulação de cenários e alocação otimizada de recursos", Icon: BarChart3 },
+  ];
   return (
     <Section id="decision-teams">
       <span id="teams" className="sr-only" aria-hidden="true" />
@@ -907,42 +914,25 @@ function DecisionTeams() {
           Não são ferramentas que sugerem. <strong>São times digitais que operam decisões.</strong>
         </p>
       </Reveal>
-    </Section>
-  );
-}
 
-/* ============ 13. PORTFÓLIO TEAMS ============ */
-function Portfolio() {
-  const teams = [
-    { t: "Maestro IA Sales Team", d: "Qualificação de carteira, cross-sell preditivo e otimização de política comercial", img: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80" },
-    { t: "Maestro IA Trade & PDV Team", d: "Gestão de ponto de venda, execução no varejo e otimização de presença", img: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80" },
-    { t: "Maestro IA Marketing Team", d: "Segmentação inteligente, ROI de campanhas e automação de jornadas", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" },
-    { t: "Maestro IA Customer Team", d: "Retenção preditiva, NPS driver analysis e experiência personalizada", img: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80" },
-    { t: "Maestro IA Planning Team", d: "Forecasting, simulação de cenários e alocação otimizada de recursos", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" },
-  ];
-  return (
-    <Section>
-      <Reveal>
-        <h2 className="text-4xl md:text-5xl font-light max-w-3xl">Portfólio Inicial do Maestro Teams</h2>
-      </Reveal>
+      {/* Sub-seção fundida: Portfólio */}
+      <hr className="my-12 border-t border-white/10" />
+      <Reveal><Tag>Portfólio Inicial</Tag></Reveal>
       <Reveal delay={0.1}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl border-l-4 pl-5" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
-          Vendemos times de decisão, não features. Cada Team é especializado em um domínio estratégico de negócio.
+        <h3 className="mt-6 text-3xl font-light max-w-3xl">Portfólio Inicial do Maestro Teams</h3>
+      </Reveal>
+      <Reveal delay={0.15}>
+        <p className="mt-4 text-base text-offwhite/85 max-w-3xl">
+          Times pré-construídos, prontos para acelerar valor em domínios estratégicos comuns. Cada Team é especializado em um domínio de negócio.
         </p>
       </Reveal>
-
-      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {teams.map((t, i) => (
           <Reveal key={t.t} delay={i * 0.05}>
-            <div className="surface-card overflow-hidden h-full">
-              <div className="aspect-[16/10] overflow-hidden relative">
-                <img src={t.img} alt={t.t} loading="lazy" className="w-full h-full object-cover opacity-70" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent, var(--navy))" }} />
-              </div>
-              <div className="p-6">
-                <h3 className="font-display text-lg font-medium">{t.t}</h3>
-                <p className="mt-2 text-sm text-offwhite/80">{t.d}</p>
-              </div>
+            <div className="rounded-2xl p-6 h-full" style={{ backgroundColor: "#0F1B3D" }}>
+              <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
+              <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
             </div>
           </Reveal>
         ))}
