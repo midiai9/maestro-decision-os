@@ -752,9 +752,12 @@ function Arquitetura() {
       </div>
 
       <Reveal delay={0.3}>
-        <div className="mt-6 surface-card p-8">
-          <p className="text-offwhite/85">
-            <strong className="text-white">Flexibilidade Estrutural:</strong> O Maestro Data Flow opera como camada fundacional independente e modular, permitindo <strong className="text-white">integração progressiva</strong> ao ecossistema do cliente, <strong className="text-white">rápida ativação</strong> de valor e <strong className="text-white">expansão escalável</strong> conforme a complexidade e maturidade da organização.
+        <div className="mt-6 rounded-2xl p-8 md:p-10 border border-[#00D4FF]/30 bg-gradient-to-br from-[#8B1FA9]/30 via-[#6B1583]/20 to-[#0F1B3D]/60">
+          <div className="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#00D4FF" }}>
+            ✦ Flexibilidade Estrutural
+          </div>
+          <p className="text-lg md:text-xl text-white/90 leading-relaxed">
+            O Maestro Data Flow opera como camada fundacional independente e modular, permitindo <strong className="font-semibold text-white">integração progressiva</strong> ao ecossistema do cliente, <strong className="font-semibold text-white">rápida ativação de valor</strong> e <strong className="font-semibold text-white">expansão escalável</strong> conforme a complexidade e maturidade da organização.
           </p>
         </div>
       </Reveal>
