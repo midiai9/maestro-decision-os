@@ -81,24 +81,130 @@ export default function Index() {
 }
 
 /* ============ NAV ============ */
+const SOLUCOES = [
+  { Icon: Database, label: "Maestro Data Flow", href: "#data-flow" },
+  { Icon: Lightbulb, label: "Maestro Insights", href: "#insights" },
+  { Icon: Users, label: "Maestro CX", href: "#cx" },
+  { Icon: Bot, label: "Maestro Decision Teams", href: "#decision-teams" },
+];
+
 function Nav({ onDemo }: { onDemo: () => void }) {
+  const [solOpen, setSolOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileSolOpen, setMobileSolOpen] = useState(false);
+
   return (
-    <header className="absolute top-0 left-0 right-0 z-20">
+    <header className="absolute top-0 left-0 right-0 z-30">
       <div className="mx-auto max-w-7xl px-6 md:px-10 py-6 flex items-center justify-between">
         <a href="#top" className="font-display text-lg font-semibold tracking-tight text-white">
           Always On <span className="opacity-60">·</span>{" "}
           <span className="text-white">Maestro AI OS</span>
         </a>
+
+        {/* Desktop */}
         <nav className="hidden md:flex items-center gap-8 text-sm text-white/80">
-          <a href="#arquitetura" className="hover:text-white">Arquitetura</a>
-          <a href="#teams" className="hover:text-white">Teams</a>
+          <div
+            className="relative"
+            onMouseEnter={() => setSolOpen(true)}
+            onMouseLeave={() => setSolOpen(false)}
+          >
+            <button
+              onClick={() => setSolOpen((v) => !v)}
+              className="hover:text-white inline-flex items-center gap-1"
+            >
+              Soluções <ChevronDown size={14} className={`transition-transform ${solOpen ? "rotate-180" : ""}`} />
+            </button>
+            <AnimatePresence>
+              {solOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  transition={{ duration: 0.18 }}
+                  className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[280px]"
+                >
+                  <div
+                    className="rounded-xl p-4 backdrop-blur-md border border-white/10 flex flex-col gap-1"
+                    style={{ backgroundColor: "rgba(15,27,61,0.95)" }}
+                  >
+                    {SOLUCOES.map(({ Icon, label, href }) => (
+                      <a
+                        key={href}
+                        href={href}
+                        onClick={() => setSolOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+                      >
+                        <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                        <span className="text-white text-sm font-medium">{label}</span>
+                      </a>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <a href="#industrias" className="hover:text-white">Indústrias</a>
-          <a href="#impacto" className="hover:text-white">Impacto</a>
+          <a href="#ganhos" className="hover:text-white">Ganhos</a>
           <button onClick={onDemo} className="hover:text-white inline-flex items-center gap-1.5">
             Agendar Demo <ArrowRight size={14} />
           </button>
         </nav>
+
+        {/* Mobile toggle */}
+        <button
+          aria-label="Abrir menu"
+          onClick={() => setMobileOpen((v) => !v)}
+          className="md:hidden text-white p-2 -mr-2"
+        >
+          {mobileOpen ? <XIcon size={22} /> : <Menu size={22} />}
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden mx-6 rounded-xl border border-white/10 backdrop-blur-md overflow-hidden"
+            style={{ backgroundColor: "rgba(15,27,61,0.95)" }}
+          >
+            <div className="p-4 flex flex-col gap-1 text-sm">
+              <button
+                onClick={() => setMobileSolOpen((v) => !v)}
+                className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-white/5 text-white font-medium"
+              >
+                Soluções
+                <ChevronDown size={16} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
+              </button>
+              {mobileSolOpen && (
+                <div className="pl-2 flex flex-col gap-1">
+                  {SOLUCOES.map(({ Icon, label, href }) => (
+                    <a
+                      key={href}
+                      href={href}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90"
+                    >
+                      <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                      <span className="text-sm">{label}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+              <a href="#industrias" onClick={() => setMobileOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white">Indústrias</a>
+              <a href="#ganhos" onClick={() => setMobileOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white">Ganhos</a>
+              <button
+                onClick={() => { setMobileOpen(false); onDemo(); }}
+                className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white inline-flex items-center gap-1.5 text-left"
+              >
+                Agendar Demo <ArrowRight size={14} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
