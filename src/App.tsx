@@ -904,18 +904,22 @@ function Insights() {
 function CX() {
   const pilares = [
     {
+      Icon: User,
       t: "Customer Profile Vivo (Progressive Profiling)",
       bullets: ["Dados online + offline + IoT + loja física", "Atualização near real-time", "Enriquecimento contínuo", "Visão omnichannel unificada"],
     },
     {
+      Icon: Users,
       t: "Segmentação Inteligente (LLM + SQL + Estatística)",
       bullets: ["Linguagem natural vira query", "Segmentação 1:1 e 1:N", "Presets estratégicos", "Controle estatístico"],
     },
     {
+      Icon: Radio,
       t: "Orquestração com Inteligência de Frequência",
       bullets: ["Identifica saturação por CPF", "Limite ideal por canal", "Distribuição estatística", "Reduz descadastro"],
     },
     {
+      Icon: BarChart2,
       t: "Análise de Campanhas com IA",
       bullets: ["Lift automático vs grupo controle", "Alertas de performance", "Recomenda pausar/escalar", "Análise por canal, horário e jornada"],
     },
@@ -938,7 +942,8 @@ function CX() {
       <div className="mt-14 grid md:grid-cols-2 gap-5">
         {pilares.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full">
+            <div className="surface-card p-7 min-h-[320px] flex flex-col">
+              <p.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
               <h3 className="font-display text-lg font-medium">{p.t}</h3>
               <ul className="mt-4 space-y-2">
                 {p.bullets.map((b) => (
@@ -954,8 +959,19 @@ function CX() {
       </div>
 
       <Reveal delay={0.3}>
-        <div className="mt-10 rounded-2xl p-6 text-center font-display text-lg md:text-xl" style={{ background: "linear-gradient(90deg, var(--brand-purple-dark), var(--brand-purple-light))" }}>
-          Cada interação: <strong>Contextual · Oportuna · Personalizada · Mensurável</strong>
+        <div className="mt-12 py-10 px-8 bg-gradient-to-r from-[#8B1FA9]/40 via-[#6B1583]/30 to-[#0F1B3D]/60 border border-[#00D4FF]/30 rounded-2xl text-center">
+          <span className="text-xs uppercase tracking-[0.3em] text-[#00D4FF] font-bold mb-4 block">
+            ✦ Cada interação
+          </span>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-2xl md:text-4xl font-bold">
+            <span className="text-white">Contextual</span>
+            <span className="text-[#00D4FF]">·</span>
+            <span className="text-white">Oportuna</span>
+            <span className="text-[#00D4FF]">·</span>
+            <span className="text-white">Personalizada</span>
+            <span className="text-[#00D4FF]">·</span>
+            <span className="bg-gradient-to-r from-white to-[#00D4FF] bg-clip-text text-transparent">Mensurável</span>
+          </div>
         </div>
       </Reveal>
     </Section>
