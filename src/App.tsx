@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -22,6 +22,7 @@ import {
   Target,
   Award,
   CheckCircle2,
+  XCircle,
   Lock,
   KeyRound,
   ClipboardList,
@@ -38,6 +39,8 @@ import {
   Mail,
   Linkedin,
   Globe,
+  TrendingDown,
+  Network,
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
@@ -71,7 +74,8 @@ export default function Index() {
       <Seguranca />
       <Diferenciacao />
       <Industrias />
-      <AdocaoImpacto />
+      <ModelosAdocao />
+      <Ganhos />
       <ValidacaoCTA onDemo={openModal} />
       <Footer onDemo={openModal} />
       <WhatsAppButton />
@@ -91,13 +95,39 @@ function Nav({ onDemo }: { onDemo: () => void }) {
   const [solOpen, setSolOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSolOpen, setMobileSolOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY >= 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const goTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-30">
-      <div className="mx-auto max-w-7xl px-6 md:px-10 py-6 flex items-center justify-between">
-        <a href="#top" className="font-display text-lg font-semibold tracking-tight text-white">
-          Always On <span className="opacity-60">·</span>{" "}
-          <span className="text-white">Maestro AI OS</span>
+    <header
+      className={`left-0 right-0 z-40 transition-all duration-300 ${
+        scrolled
+          ? "fixed top-0 bg-[#0F1B3D]/85 backdrop-blur-md shadow-lg shadow-black/30 border-b border-white/5"
+          : "absolute top-0 bg-transparent"
+      }`}
+    >
+      <div className={`mx-auto max-w-7xl px-6 md:px-10 flex items-center justify-between transition-all duration-300 ${scrolled ? "py-3" : "py-6"}`}>
+        <a href="#top" onClick={goTop} className="flex items-center gap-3 cursor-pointer">
+          <img
+            src="/alwayson-logo.png"
+            alt="Always On"
+            className="h-6 md:h-8 w-auto"
+          />
+          <span className="hidden md:inline text-white/30 mx-1">·</span>
+          <span className="hidden md:inline text-sm uppercase tracking-widest text-white/80">
+            Maestro AI OS
+          </span>
         </a>
 
         {/* Desktop */}
@@ -799,7 +829,6 @@ function DecisionTeams() {
   const attrs = ["Domínio Específico", "Execução Integrada", "Insights Preditivos", "Ações Priorizadas", "Decisões Baseadas em Dados", "Aprendizado Controlado"];
   return (
     <Section id="decision-teams">
-      {/* anchor alias */}
       <span id="teams" className="sr-only" aria-hidden="true" />
       <Reveal><Tag><Bot size={12} /> Digital Decision Teams</Tag></Reveal>
       <Reveal delay={0.1}>
@@ -979,7 +1008,7 @@ function Workflow6() {
 
 /* ============ 16. COMPARA ============ */
 function ComparaCopilots() {
-  const rows = [
+  const rows: Array<[string, string, string]> = [
     ["Papel", "Assistem indivíduos", "Orquestra decisões organizacionais"],
     ["Escopo", "Tarefas pontuais", "Domínios completos de negócio"],
     ["Contexto", "Limitado, reativo", "Profundo, contínuo e estratégico"],
@@ -1002,30 +1031,72 @@ function ComparaCopilots() {
         </p>
       </Reveal>
 
+      {/* Desktop / tablet table */}
       <Reveal delay={0.2}>
-        <div className="mt-12 surface-card overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-white/10">
-                  <th className="p-4 text-xs uppercase tracking-widest text-offwhite/60 font-semibold">Dimensão</th>
-                  <th className="p-4 text-xs uppercase tracking-widest text-offwhite/60 font-semibold">Copilots / GenAI</th>
-                  <th className="p-4 text-xs uppercase tracking-widest text-brand-purple-light font-semibold" style={{ color: "var(--brand-purple-light)" }}>Maestro AI OS</th>
+        <div className="mt-12 hidden md:block rounded-2xl overflow-hidden border border-white/10">
+          <table className="w-full text-left">
+            <thead>
+              <tr>
+                <th className="p-4 text-xs uppercase tracking-widest text-white/90 font-semibold bg-[#0F1B3D]/60">Dimensão</th>
+                <th className="p-4 text-xs uppercase tracking-widest text-white/60 font-semibold bg-[#0F1B3D]/50">Copilots / GenAI</th>
+                <th className="p-4 text-xs uppercase tracking-widest text-white font-bold bg-[#8B1FA9] border-l-2 border-l-[#00D4FF]">Maestro AI OS</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {rows.map((r, i) => (
+                <tr key={r[0]} className={`hover:bg-white/[0.03] ${i % 2 === 1 ? "bg-white/[0.02]" : ""}`}>
+                  <td className="p-4 font-medium text-white/90 align-top">{r[0]}</td>
+                  <td className="p-4 text-sm text-white/70 bg-[#0F1B3D]/50 align-top">
+                    <div className="flex items-start gap-2">
+                      <XCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#EF4444" }} />
+                      <span>{r[1]}</span>
+                    </div>
+                  </td>
+                  <td
+                    className="p-4 text-sm text-white font-medium border-l-2 border-l-[#00D4FF] align-top"
+                    style={{ background: "linear-gradient(180deg, rgba(139,31,169,0.30), rgba(107,21,131,0.30))" }}
+                  >
+                    <div className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#10D981" }} />
+                      <span>{r[2]}</span>
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {rows.map((r) => (
-                  <tr key={r[0]} className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                    <td className="p-4 font-medium">{r[0]}</td>
-                    <td className="p-4 text-sm text-offwhite/75">{r[1]}</td>
-                    <td className="p-4 text-sm text-white">{r[2]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       </Reveal>
+
+      {/* Mobile stacked cards */}
+      <div className="mt-12 md:hidden space-y-4">
+        {rows.map((r, i) => (
+          <Reveal key={r[0]} delay={i * 0.03}>
+            <div className="rounded-2xl border border-white/10 bg-[#0F1B3D]/60 p-5">
+              <p className="text-xs uppercase tracking-widest text-white/90 font-bold mb-4">{r[0]}</p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-lg p-3 bg-[#0F1B3D]/50">
+                  <p className="text-[10px] uppercase tracking-widest text-white/50 mb-2">Copilots</p>
+                  <div className="flex items-start gap-1.5">
+                    <XCircle className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" style={{ color: "#EF4444" }} />
+                    <span className="text-xs text-white/70">{r[1]}</span>
+                  </div>
+                </div>
+                <div
+                  className="rounded-lg p-3 border-l-2 border-l-[#00D4FF]"
+                  style={{ background: "linear-gradient(180deg, rgba(139,31,169,0.30), rgba(107,21,131,0.30))" }}
+                >
+                  <p className="text-[10px] uppercase tracking-widest text-white/80 mb-2 font-bold">Maestro</p>
+                  <div className="flex items-start gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" style={{ color: "#10D981" }} />
+                    <span className="text-xs text-white font-medium">{r[2]}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
 
       <Reveal delay={0.3}>
         <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -1100,7 +1171,7 @@ function Diferenciacao() {
     <Section>
       <Reveal><Tag>◆ Diferencial Competitivo</Tag></Reveal>
       <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Por Que o Maestro é Único</h2>
+        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">05 Motivos pelos quais o Maestro é Único</h2>
       </Reveal>
       <Reveal delay={0.15}>
         <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
@@ -1142,6 +1213,7 @@ function Industrias() {
   ];
   const [active, setActive] = useState(0);
   const cur = inds[active];
+  const CurIcon = cur.Icon;
   return (
     <Section id="industrias">
       <Reveal><Tag><Target size={12} /> Mercado-alvo</Tag></Reveal>
@@ -1155,7 +1227,8 @@ function Industrias() {
       </Reveal>
 
       <div className="mt-12 grid lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-4 flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible">
+        {/* Lista */}
+        <div className="lg:col-span-5 flex flex-col gap-2">
           {inds.map((ind, i) => {
             const Icon = ind.Icon;
             const isActive = i === active;
@@ -1163,35 +1236,51 @@ function Industrias() {
               <button
                 key={ind.k}
                 onClick={() => setActive(i)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all flex-shrink-0 lg:flex-shrink ${
-                  isActive ? "bg-white/10 border-white/30" : "border-white/10 hover:bg-white/5"
+                className={`flex items-center gap-3 px-5 py-4 rounded-xl text-left transition-all ${
+                  isActive
+                    ? "bg-gradient-to-r from-[#8B1FA9] to-[#B847D4] text-white scale-[1.03] shadow-lg shadow-[#8B1FA9]/30"
+                    : "bg-[#0F1B3D]/50 text-white/70 hover:bg-white/5"
                 }`}
               >
-                <Icon size={18} style={{ color: isActive ? "var(--brand-purple-light)" : undefined }} />
-                <span className="font-medium text-sm whitespace-nowrap">{ind.k}</span>
+                <Icon size={20} className="flex-shrink-0" strokeWidth={1.75} />
+                <span className="font-medium">{ind.k}</span>
               </button>
             );
           })}
         </div>
-        <div className="lg:col-span-8">
-          <motion.div key={active} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="surface-card p-8 h-full">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="w-10 h-10 rounded-lg grid place-items-center" style={{ background: "var(--brand-purple-light)" }}>
-                <cur.Icon size={20} />
-              </span>
-              <h3 className="font-display text-2xl font-medium">{cur.k}</h3>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <p className="text-xs uppercase tracking-widest text-offwhite/60 font-semibold mb-3">Problemas</p>
-                <p className="text-sm text-offwhite/85 leading-relaxed">{cur.probs}</p>
+
+        {/* Painel */}
+        <div className="lg:col-span-7">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={cur.k}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="rounded-2xl p-10 h-full"
+              style={{ backgroundColor: "#0F1B3D" }}
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <CurIcon className="w-12 h-12" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+                <h3 className="font-display text-3xl font-medium text-white">{cur.k}</h3>
               </div>
-              <div>
-                <p className="text-xs uppercase tracking-widest font-semibold mb-3" style={{ color: "var(--brand-purple-light)" }}>Soluções Maestro</p>
-                <p className="text-sm text-white leading-relaxed">{cur.sols}</p>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <p className="text-xs uppercase tracking-widest font-semibold mb-4" style={{ color: "rgba(248,113,113,0.8)" }}>
+                    Problemas
+                  </p>
+                  <p className="text-sm text-white/85 leading-relaxed">{cur.probs}</p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-widest font-semibold mb-4" style={{ color: "#00D4FF" }}>
+                    Soluções Maestro
+                  </p>
+                  <p className="text-sm text-white leading-relaxed">{cur.sols}</p>
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 
@@ -1204,13 +1293,88 @@ function Industrias() {
   );
 }
 
-/* ============ 20. ADOÇÃO + IMPACTO ============ */
-function AdocaoImpacto() {
-  const modes = [
-    { name: "Entry Mode — Decision Team First", bullets: ["Teams conectados ao stack atual", "POV típico de 6–8 semanas", "Valor rápido e champions internos"] },
-    { name: "Scale Mode — Hybrid", bullets: ["Agentic + dados parcialmente unificados", "Múltiplos Teams coordenados", "Redução de silos"] },
-    { name: "Enterprise Mode — Full Maestro AI OS", bullets: ["Core Data como fundação única", "Governança total", "Decisão distribuída e auditável"] },
+/* ============ 20. MODELOS DE ADOÇÃO ============ */
+function ModelosAdocao() {
+  const cards = [
+    {
+      n: "01",
+      t: "Entry Mode — Decision Team First",
+      bullets: ["Teams conectados ao stack atual", "POV típico de 6–8 semanas", "Valor rápido e champions internos"],
+      minH: "min-h-[280px]",
+      bg: "bg-[#0F1B3D]",
+      label: undefined as string | undefined,
+      border: "",
+    },
+    {
+      n: "02",
+      t: "Scale Mode — Hybrid",
+      bullets: ["Agentic + dados parcialmente unificados", "Múltiplos Teams coordenados", "Redução de silos"],
+      minH: "min-h-[340px]",
+      bg: "bg-gradient-to-b from-[#0F1B3D] to-[#1A2B5C]",
+      label: undefined,
+      border: "",
+    },
+    {
+      n: "03",
+      t: "Enterprise Mode — Full Maestro AI OS",
+      bullets: ["Core Data como fundação única", "Governança total", "Decisão distribuída e auditável"],
+      minH: "min-h-[400px]",
+      bg: "bg-gradient-to-b from-[#1A2B5C] to-[#8B1FA9]/30",
+      label: "Enterprise",
+      border: "border border-[#00D4FF]/30",
+    },
   ];
+  return (
+    <Section>
+      <Reveal>
+        <h2 className="text-4xl md:text-5xl font-light max-w-3xl">Modelos de Adoção</h2>
+      </Reveal>
+      <Reveal delay={0.1}>
+        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
+          Entrada rápida com valor imediato. Escala progressiva conforme maturidade.
+        </p>
+      </Reveal>
+
+      <div className="mt-14 flex flex-col md:flex-row md:items-end gap-5">
+        {cards.map((c, i) => (
+          <div key={c.n} className="flex items-end flex-1 gap-3">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
+              className={`rounded-2xl p-7 w-full ${c.minH} ${c.bg} ${c.border} flex flex-col`}
+            >
+              {c.label && (
+                <p className="text-xs uppercase tracking-widest mb-3 font-semibold" style={{ color: "#00D4FF" }}>
+                  {c.label}
+                </p>
+              )}
+              <span className="font-display text-5xl font-bold" style={{ color: "#00D4FF" }}>{c.n}</span>
+              <h3 className="mt-4 font-display text-lg font-medium text-white">{c.t}</h3>
+              <ul className="mt-5 space-y-2.5">
+                {c.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-2 text-sm text-white/85">
+                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: "#00D4FF" }} />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+            {i < cards.length - 1 && (
+              <div className="hidden md:flex items-center justify-center pb-20 text-white/30 text-2xl flex-shrink-0">
+                →
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ============ 21. GANHOS ============ */
+function Ganhos() {
   const bars = [
     { l: "Velocidade de Decisão", v: 60 },
     { l: "Previsibilidade", v: 80 },
@@ -1218,115 +1382,84 @@ function AdocaoImpacto() {
     { l: "Eficiência Operacional", v: 45 },
   ];
   const pillars = [
-    { t: "Decisões Mais Rápidas", d: "Redução de 60%+ no tempo entre insight e ação" },
-    { t: "Menos Dependência Operacional", d: "Times focam em estratégia, não em análise manual" },
-    { t: "Mais Previsibilidade", d: "Antecipação de cenários com 80%+ de acurácia" },
-    { t: "Execução Conectada", d: "Estratégia traduzida em ação automaticamente" },
+    { Icon: Zap, t: "Decisões Mais Rápidas", d: "Redução de 60%+ no tempo entre insight e ação" },
+    { Icon: TrendingDown, t: "Menos Dependência Operacional", d: "Times focam em estratégia, não em análise manual" },
+    { Icon: Target, t: "Mais Previsibilidade", d: "Antecipação de cenários com 80%+ de acurácia" },
+    { Icon: Network, t: "Execução Conectada", d: "Estratégia traduzida em ação automaticamente" },
   ];
   return (
-    <>
-      <Section>
-        <Reveal>
-          <h2 className="text-4xl md:text-5xl font-light max-w-3xl">Modelos de Adoção</h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
-            Entrada rápida com valor imediato. Escala progressiva conforme maturidade.
-          </p>
-        </Reveal>
+    <Section id="ganhos">
+      <Reveal><Tag><Trophy size={12} /> Impacto Board</Tag></Reveal>
+      <Reveal delay={0.1}>
+        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Ganhos</h2>
+      </Reveal>
+      <Reveal delay={0.15}>
+        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
+          O impacto mensurável de operar com o Maestro AI OS.
+        </p>
+      </Reveal>
 
-        <Reveal delay={0.15}>
-          <div className="mt-10 flex items-center gap-3 text-sm flex-wrap">
-            {["Entry", "Validate", "Scale", "Institutionalize"].map((s, i, arr) => (
-              <div key={s} className="flex items-center gap-3">
-                <span className="px-4 py-2 rounded-full border border-white/15 bg-white/5 font-medium">{s}</span>
-                {i < arr.length - 1 && <ArrowRight size={16} className="text-offwhite/50" />}
-              </div>
-            ))}
+      <div className="mt-12 grid lg:grid-cols-2 gap-6 items-stretch">
+        {/* Gráfico */}
+        <Reveal>
+          <div className="rounded-2xl p-10 h-full flex flex-col" style={{ backgroundColor: "#0F1B3D" }}>
+            <p className="text-xs uppercase tracking-widest text-white/60 mb-8 font-semibold">Indicadores</p>
+            <div className="space-y-7 flex-1 flex flex-col justify-center">
+              {bars.map((b, i) => (
+                <div key={b.l}>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-white text-sm">{b.l}</span>
+                    <span className="font-bold" style={{ color: "#00D4FF" }}>+{b.v}%</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${b.v}%` }}
+                      viewport={{ once: true, margin: "-80px" }}
+                      transition={{ duration: 1.2, delay: i * 0.2, ease: "easeOut" }}
+                      className="h-full rounded-full"
+                      style={{ background: "linear-gradient(90deg, #8B1FA9, #00D4FF)" }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </Reveal>
 
-        <div className="mt-12 grid md:grid-cols-3 gap-5">
-          {modes.map((m, i) => (
-            <Reveal key={m.name} delay={i * 0.05}>
-              <div className="surface-card p-7 h-full">
-                <span className="font-display text-3xl" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
-                <h3 className="mt-3 font-display text-lg font-medium">{m.name}</h3>
-                <ul className="mt-4 space-y-2">
-                  {m.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2 text-sm text-offwhite/85">
-                      <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: "var(--brand-purple-light)" }} />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
+        {/* Grid 2x2 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {pillars.map((p, i) => (
+            <Reveal key={p.t} delay={i * 0.08}>
+              <div className="rounded-2xl p-6 h-full transition-all hover:border-[#00D4FF]/30 border border-transparent" style={{ backgroundColor: "#0F1B3D" }}>
+                <p.Icon className="w-10 h-10 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+                <h3 className="font-bold text-lg text-white">{p.t}</h3>
+                <p className="mt-2 text-sm text-white/70 leading-relaxed">{p.d}</p>
               </div>
             </Reveal>
           ))}
         </div>
-      </Section>
+      </div>
 
-      <Section id="ganhos">
-        <Reveal><Tag><Trophy size={12} /> Impacto Board</Tag></Reveal>
-        <Reveal delay={0.1}>
-          <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">O Que Sua Empresa Ganha</h2>
-        </Reveal>
-
-        <div className="mt-12 grid lg:grid-cols-2 gap-12 items-center">
-          <Reveal>
-            <div className="surface-card p-8">
-              <p className="text-xs uppercase tracking-widest text-offwhite/60 mb-6 font-semibold">Indicadores</p>
-              <div className="space-y-5">
-                {bars.map((b, i) => (
-                  <div key={b.l}>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span>{b.l}</span>
-                      <span className="font-display font-semibold" style={{ color: "var(--brand-purple-light)" }}>+{b.v}%</span>
-                    </div>
-                    <div className="h-2 rounded-full bg-white/8 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${b.v}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.2, delay: 0.2 + i * 0.1, ease: "easeOut" }}
-                        className="h-full rounded-full"
-                        style={{ background: "linear-gradient(90deg, var(--brand-purple-light), var(--cyan-accent))" }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-
-          <div className="space-y-4">
-            {pillars.map((p, i) => (
-              <Reveal key={p.t} delay={i * 0.05}>
-                <div className="surface-card p-6 border-l-4" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
-                  <h3 className="font-display text-lg font-medium">{p.t}</h3>
-                  <p className="mt-2 text-sm text-offwhite/80">{p.d}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-
-        <Reveal delay={0.3}>
-          <p className="mt-12 font-display text-2xl md:text-3xl font-light">
-            Em mercados onde <strong>margem é pressionada</strong>, <strong>velocidade de decisão é vantagem estrutural</strong>.
-          </p>
-        </Reveal>
-      </Section>
-    </>
+      <Reveal delay={0.3}>
+        <p className="mt-12 font-display text-2xl md:text-3xl font-light">
+          Em mercados onde <strong>margem é pressionada</strong>, <strong>velocidade de decisão é vantagem estrutural</strong>.
+        </p>
+      </Reveal>
+    </Section>
   );
 }
 
-/* ============ 21. VALIDAÇÃO + CTA ============ */
+/* ============ 22. VALIDAÇÃO + CTA ============ */
 function ValidacaoCTA({ onDemo }: { onDemo: () => void }) {
-  const cards = [
-    { firm: "McKinsey Global Institute", text: "Até ", strong: "45% de ganho de produtividade", rest: " com IA aplicada à decisão estratégica e operacional" },
-    { firm: "Gartner Research", text: "Decision Intelligence será ", strong: "vantagem competitiva crítica", rest: " para 75% das organizações até 2026" },
-    { firm: "PwC Global AI Study", text: "ROI médio de ", strong: "340% em iniciativas prescritivas", rest: " vs. 180% em analytics descritivo" },
+  const stats = [
+    { firm: "McKinsey Global Institute", num: "45%", text: "de ganho de produtividade com IA aplicada à decisão estratégica e operacional" },
+    { firm: "Gartner Research", num: "75%", text: "das organizações terão Decision Intelligence como vantagem competitiva crítica até 2026" },
+    { firm: "PwC Global AI Study", num: "340%", text: "de ROI médio em iniciativas prescritivas, vs. 180% em analytics descritivo" },
+  ];
+  const quotes = [
+    { initials: "PD", quote: "O que pode ser medido pode ser gerenciado.", name: "Peter Drucker", sub: "Pai da Administração Moderna" },
+    { initials: "AN", quote: "Assim como a eletricidade transformou as indústrias, a IA fará o mesmo.", name: "Andrew Ng", sub: "Pioneiro em IA e Decision Systems" },
   ];
   return (
     <>
@@ -1336,32 +1469,56 @@ function ValidacaoCTA({ onDemo }: { onDemo: () => void }) {
           <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">O Que o Mercado Diz</h2>
         </Reveal>
 
-        <div className="mt-12 grid md:grid-cols-3 gap-5">
-          {cards.map((c, i) => (
-            <Reveal key={c.firm} delay={i * 0.05}>
-              <div className="surface-card p-7 h-full">
-                <p className="text-xs uppercase tracking-widest font-semibold" style={{ color: "var(--brand-purple-light)" }}>{c.firm}</p>
-                <p className="mt-4 text-base leading-relaxed">
-                  {c.text}<strong className="text-white">{c.strong}</strong>{c.rest}
+        {/* Sub-bloco A: Números do Mercado */}
+        <Reveal delay={0.15}>
+          <p className="mt-10 text-xs uppercase tracking-widest font-semibold" style={{ color: "#00D4FF" }}>
+            Números do Mercado
+          </p>
+        </Reveal>
+        <div className="mt-6 grid md:grid-cols-3 gap-5">
+          {stats.map((c, i) => (
+            <Reveal key={c.firm} delay={i * 0.08}>
+              <div className="rounded-2xl p-10 h-full text-center" style={{ backgroundColor: "#0F1B3D" }}>
+                <p className="text-xs uppercase tracking-widest font-semibold" style={{ color: "#00D4FF" }}>{c.firm}</p>
+                <p
+                  className="my-6 text-6xl md:text-7xl font-bold bg-clip-text text-transparent"
+                  style={{ backgroundImage: "linear-gradient(90deg, #8B1FA9, #00D4FF)" }}
+                >
+                  {c.num}
                 </p>
+                <p className="text-base text-white/80 leading-relaxed">{c.text}</p>
               </div>
             </Reveal>
           ))}
         </div>
 
-        <div className="mt-12 grid md:grid-cols-2 gap-6">
-          <Reveal>
-            <blockquote className="border-l-4 pl-6 font-display text-xl font-light italic" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
-              "O que pode ser medido pode ser gerenciado."
-              <footer className="mt-3 not-italic text-sm text-offwhite/70 font-sans">— Peter Drucker</footer>
-            </blockquote>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <blockquote className="border-l-4 pl-6 font-display text-xl font-light italic" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
-              "Assim como a eletricidade transformou as indústrias, a IA fará o mesmo."
-              <footer className="mt-3 not-italic text-sm text-offwhite/70 font-sans">— Andrew Ng</footer>
-            </blockquote>
-          </Reveal>
+        {/* Sub-bloco B: Pensadores */}
+        <Reveal delay={0.2}>
+          <p className="mt-16 text-xs uppercase tracking-widest font-semibold" style={{ color: "#00D4FF" }}>
+            Pensadores que Inspiram
+          </p>
+        </Reveal>
+        <div className="mt-6 grid md:grid-cols-2 gap-5">
+          {quotes.map((q, i) => (
+            <Reveal key={q.name} delay={i * 0.1}>
+              <div
+                className="rounded-2xl p-8 h-full flex items-start gap-5 border-l-4"
+                style={{ backgroundColor: "#0F1B3D", borderLeftColor: "#00D4FF" }}
+              >
+                <div
+                  className="w-20 h-20 rounded-full grid place-items-center flex-shrink-0 font-bold text-2xl text-white"
+                  style={{ background: "linear-gradient(135deg, #8B1FA9, #00D4FF)" }}
+                >
+                  {q.initials}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white text-lg italic leading-relaxed">"{q.quote}"</p>
+                  <p className="mt-4 font-bold text-white">{q.name}</p>
+                  <p className="text-sm text-white/60">{q.sub}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </Section>
 
@@ -1404,7 +1561,6 @@ function Footer({ onDemo }: { onDemo: () => void }) {
       style={{ backgroundColor: "#0A1228" }}
     >
       <div className="mx-auto max-w-7xl grid md:grid-cols-4 gap-10">
-        {/* Marca */}
         <div>
           <p className="font-display text-2xl font-semibold text-white">Always On</p>
           <p className="mt-3 text-sm max-w-xs">
@@ -1413,7 +1569,6 @@ function Footer({ onDemo }: { onDemo: () => void }) {
           <p className="mt-3 text-xs uppercase tracking-widest text-white/50">Maestro AI OS</p>
         </div>
 
-        {/* Soluções */}
         <div>
           <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Soluções</p>
           <ul className="space-y-2.5 text-sm">
@@ -1428,7 +1583,6 @@ function Footer({ onDemo }: { onDemo: () => void }) {
           </ul>
         </div>
 
-        {/* Navegação */}
         <div>
           <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Navegação</p>
           <ul className="space-y-2.5 text-sm">
@@ -1442,7 +1596,6 @@ function Footer({ onDemo }: { onDemo: () => void }) {
           </ul>
         </div>
 
-        {/* Contato */}
         <div>
           <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Contato</p>
           <ul className="space-y-2.5 text-sm">
