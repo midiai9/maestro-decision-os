@@ -1022,7 +1022,8 @@ function CX() {
         </p>
       </Reveal>
 
-      <div className="mt-14 grid md:grid-cols-2 gap-5">
+      {/* Desktop */}
+      <div className="mt-14 hidden md:grid grid-cols-1 md:grid-cols-2 gap-5">
         {pilares.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.05}>
             <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-7 min-h-[320px] flex flex-col`}>
@@ -1039,6 +1040,26 @@ function CX() {
             </div>
           </Reveal>
         ))}
+      </div>
+      {/* Mobile carousel */}
+      <div className="mt-10 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {pilares.map((p, i) => (
+            <div key={p.t} className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 min-h-[300px] flex flex-col`}>
+              <p.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <h3 className="font-display text-base font-medium text-white">{p.t}</h3>
+              <ul className="mt-4 space-y-2">
+                {p.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-2 text-sm text-white/80">
+                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: "var(--brand-purple-light)" }} />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
       </div>
 
       <Reveal delay={0.3}>
