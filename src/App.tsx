@@ -1140,11 +1140,10 @@ function Workflow6() {
         ))}
       </div>
 
-      <Reveal delay={0.3}>
-        <p className="mt-14 font-display text-3xl md:text-4xl font-light text-center italic">
-          Não é resposta. É decisão operacionalizada.
-        </p>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Do Dado à Decisão"
+        bottomLine={<>Não é resposta. É decisão operacionalizada.</>}
+      />
     </Section>
   );
 }
