@@ -90,6 +90,18 @@ const SOLUCOES = [
   { Icon: Bot, label: "Maestro Decision Teams", href: "#decision-teams" },
 ];
 
+const NAV_LINKS: Array<{ label: string; href: string }> = [
+  { label: "Racional", href: "#racional" },
+  { label: "Não Somos", href: "#nao-somos" },
+  { label: "Metodologia", href: "#metodologia" },
+  { label: "Comparativo", href: "#comparativo" },
+  { label: "Segurança", href: "#seguranca" },
+  { label: "Porque Maestro?", href: "#porque-maestro" },
+  { label: "Indústrias", href: "#industrias" },
+  { label: "Ganhos", href: "#ganhos" },
+  { label: "O que dizem", href: "#o-que-dizem" },
+];
+
 function Nav({ onDemo }: { onDemo: () => void }) {
   const [solOpen, setSolOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -108,6 +120,10 @@ function Nav({ onDemo }: { onDemo: () => void }) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Render menu link (Racional, Não Somos): order is Racional, Não Somos, Soluções, then rest
+  const linksBeforeSolucoes = NAV_LINKS.slice(0, 2);
+  const linksAfterSolucoes = NAV_LINKS.slice(2);
+
   return (
     <header
       className={`left-0 right-0 z-40 transition-all duration-300 ${
@@ -119,7 +135,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
       <div className={`mx-auto max-w-7xl px-6 md:px-10 flex items-center justify-between transition-all duration-300 ${scrolled ? "py-3" : "py-6"}`}>
         <a href="#top" onClick={goTop} className="flex items-center gap-3 cursor-pointer">
           <img
-            src="/alwayson-logo.png"
+            src="/aodigital.png"
             alt="Always On"
             className="h-6 md:h-8 w-auto"
           />
@@ -129,8 +145,11 @@ function Nav({ onDemo }: { onDemo: () => void }) {
           </span>
         </a>
 
-        {/* Desktop */}
-        <nav className="hidden md:flex items-center gap-8 text-sm text-white/80">
+        {/* Desktop ≥ xl */}
+        <nav className="hidden xl:flex items-center gap-x-5 text-xs uppercase tracking-wider text-white/80">
+          {linksBeforeSolucoes.map((l) => (
+            <a key={l.href} href={l.href} className="hover:text-white">{l.label}</a>
+          ))}
           <div
             className="relative"
             onMouseEnter={() => setSolOpen(true)}
@@ -138,7 +157,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
           >
             <button
               onClick={() => setSolOpen((v) => !v)}
-              className="hover:text-white inline-flex items-center gap-1"
+              className="hover:text-white inline-flex items-center gap-1 uppercase tracking-wider"
             >
               Soluções <ChevronDown size={14} className={`transition-transform ${solOpen ? "rotate-180" : ""}`} />
             </button>
@@ -160,7 +179,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
                         key={href}
                         href={href}
                         onClick={() => setSolOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer normal-case tracking-normal"
                       >
                         <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
                         <span className="text-white text-sm font-medium">{label}</span>
@@ -171,43 +190,67 @@ function Nav({ onDemo }: { onDemo: () => void }) {
               )}
             </AnimatePresence>
           </div>
-          <a href="#industrias" className="hover:text-white">Indústrias</a>
-          <a href="#ganhos" className="hover:text-white">Ganhos</a>
-          <button onClick={onDemo} className="hover:text-white inline-flex items-center gap-1.5">
+          {linksAfterSolucoes.map((l) => (
+            <a key={l.href} href={l.href} className="hover:text-white">{l.label}</a>
+          ))}
+          <button
+            onClick={onDemo}
+            className="ml-2 px-4 py-2 rounded-full bg-white text-[#0F1B3D] text-xs font-semibold uppercase tracking-wider hover:scale-[1.03] transition-transform inline-flex items-center gap-1.5"
+          >
             Agendar Demo <ArrowRight size={14} />
           </button>
         </nav>
 
-        {/* Mobile toggle */}
+        {/* Hamburger < xl */}
         <button
           aria-label="Abrir menu"
-          onClick={() => setMobileOpen((v) => !v)}
-          className="md:hidden text-white p-2 -mr-2"
+          onClick={() => setMobileOpen(true)}
+          className="xl:hidden text-white p-2 -mr-2"
         >
-          {mobileOpen ? <XIcon size={22} /> : <Menu size={22} />}
+          <Menu className="w-6 h-6" />
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile fullscreen overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mx-6 rounded-xl border border-white/10 backdrop-blur-md overflow-hidden"
-            style={{ backgroundColor: "rgba(15,27,61,0.95)" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="xl:hidden fixed inset-0 z-50 bg-[#0F1B3D]/95 backdrop-blur-md overflow-y-auto"
           >
-            <div className="p-4 flex flex-col gap-1 text-sm">
+            <div className="flex items-center justify-between px-6 py-6 border-b border-white/5">
+              <img src="/aodigital.png" alt="Always On" className="h-6 w-auto" />
+              <button
+                aria-label="Fechar menu"
+                onClick={() => setMobileOpen(false)}
+                className="text-white p-2"
+              >
+                <XIcon className="w-6 h-6" />
+              </button>
+            </div>
+            <nav className="px-6 py-8 flex flex-col gap-1 text-white">
+              {linksBeforeSolucoes.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg"
+                >
+                  {l.label}
+                </a>
+              ))}
               <button
                 onClick={() => setMobileSolOpen((v) => !v)}
-                className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-white/5 text-white font-medium"
+                className="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
               >
                 Soluções
-                <ChevronDown size={16} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
+                <ChevronDown size={18} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
               </button>
               {mobileSolOpen && (
-                <div className="pl-2 flex flex-col gap-1">
+                <div className="pl-4 flex flex-col gap-1">
                   {SOLUCOES.map(({ Icon, label, href }) => (
                     <a
                       key={href}
@@ -216,20 +259,28 @@ function Nav({ onDemo }: { onDemo: () => void }) {
                       className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90"
                     >
                       <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                      <span className="text-sm">{label}</span>
+                      <span className="text-base">{label}</span>
                     </a>
                   ))}
                 </div>
               )}
-              <a href="#industrias" onClick={() => setMobileOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white">Indústrias</a>
-              <a href="#ganhos" onClick={() => setMobileOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white">Ganhos</a>
+              {linksAfterSolucoes.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg"
+                >
+                  {l.label}
+                </a>
+              ))}
               <button
                 onClick={() => { setMobileOpen(false); onDemo(); }}
-                className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white inline-flex items-center gap-1.5 text-left"
+                className="mt-6 w-full px-4 py-3.5 rounded-full bg-white text-[#0F1B3D] font-semibold inline-flex items-center justify-center gap-2"
               >
-                Agendar Demo <ArrowRight size={14} />
+                Agendar Demo <ArrowRight size={16} />
               </button>
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
