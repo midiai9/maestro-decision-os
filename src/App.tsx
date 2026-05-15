@@ -477,16 +477,30 @@ function Paradoxo() {
           Nunca tivemos tantos dados disponíveis, mas as decisões estratégicas nunca foram tão lentas e fragmentadas.
         </p>
       </Reveal>
-      <div className="mt-14 grid sm:grid-cols-2 gap-5">
+      {/* Desktop grid */}
+      <div className="mt-14 hidden md:grid sm:grid-cols-2 gap-5">
         {items.map((it, i) => (
           <Reveal key={it.t} delay={0.1 + i * 0.1}>
-            <div className="surface-card p-8 h-full">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-8 h-full`}>
               <it.Icon className="w-8 h-8 text-[#00D4FF] mb-6" strokeWidth={1.5} />
               <h3 className="font-display text-xl font-medium">{it.t}</h3>
               <p className="mt-3 text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
             </div>
           </Reveal>
         ))}
+      </div>
+      {/* Mobile carousel */}
+      <div className="mt-10 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {items.map((it, i) => (
+            <div key={it.t} className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 min-h-[220px] flex flex-col gap-3`}>
+              <it.Icon className="w-8 h-8 text-[#00D4FF]" strokeWidth={1.5} />
+              <h3 className="font-display text-xl font-medium text-white">{it.t}</h3>
+              <p className="text-white/70 text-sm leading-relaxed">{it.d}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
       </div>
       <HighlightBox
         variant="danger"
