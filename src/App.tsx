@@ -325,10 +325,9 @@ function Hero({ onDemo }: { onDemo: () => void }) {
         </motion.div>
         <motion.h1
           {...fadeUp(0.1)}
-          className="text-white font-normal text-4xl md:text-7xl lg:text-8xl leading-tight tracking-tight max-w-5xl mb-8"
+          className="text-white font-light text-4xl md:text-7xl lg:text-8xl leading-tight tracking-tight max-w-5xl mb-8"
         >
-          Camada estratégica de{" "}
-          <span className="font-semibold text-white">decisão</span> baseada em dados, operada por times de IA.
+          Transforme dados em <span className="font-semibold text-white">decisões</span> estratégicas.
         </motion.h1>
         <motion.p
           {...fadeUp(0.2)}
@@ -347,10 +346,10 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             Agendar Demo Estratégica <ArrowRight size={18} />
           </button>
           <a
-            href="#arquitetura"
+            href="#racional"
             className="text-white hover:underline inline-flex items-center gap-1.5"
           >
-            Explorar a arquitetura <ArrowDown size={16} />
+            Saiba + <ArrowDown size={16} />
           </a>
         </motion.div>
         <motion.p {...fadeUp(0.4)} className="text-white/60 text-sm mt-6">
