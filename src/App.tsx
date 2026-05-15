@@ -1847,8 +1847,44 @@ function Footer({ onDemo }: { onDemo: () => void }) {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl mt-12 pt-6 border-t border-white/10 text-xs text-white/60 text-center md:text-left">
-        <p>© 2026 Always On. Todos os direitos reservados. · Política de Privacidade · LGPD</p>
+      <div className="mx-auto max-w-7xl mt-12 mb-8 py-6 px-8 bg-gradient-to-r from-[#8B1FA9]/20 via-[#6B1583]/10 to-transparent border-l-4 border-l-[#00D4FF] rounded-r-xl flex items-center gap-4 flex-wrap">
+        <img src="/aodigital.png" alt="Always On" className="h-7 w-auto flex-shrink-0" />
+        <p className="text-base md:text-lg text-white/90 flex-1 min-w-[240px]">
+          Maestro AI OS é uma solução{" "}
+          <a
+            href="https://aodigital.com.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-[#E8E4F0] to-[#00D4FF] hover:opacity-90 inline-flex items-center gap-1.5"
+          >
+            Always On
+            <ExternalLink className="w-3.5 h-3.5 text-[#00D4FF]" />
+          </a>
+        </p>
+      </div>
+
+      <div className="mx-auto max-w-7xl pt-6 border-t border-white/10 text-xs text-white/60 text-center md:text-left">
+        <p className="inline-flex items-center gap-2 flex-wrap justify-center md:justify-start">
+          <span>© 2026 Always On. Todos os direitos reservados.</span>
+          <span>·</span>
+          <a
+            href="https://aodigital.com.br/termos-e-politicas/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white inline-flex items-center gap-1"
+          >
+            Política de Privacidade <ExternalLink className="w-3 h-3" />
+          </a>
+          <span>·</span>
+          <a
+            href="https://aodigital.com.br/termos-e-politicas/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white inline-flex items-center gap-1"
+          >
+            LGPD <ExternalLink className="w-3 h-3" />
+          </a>
+        </p>
       </div>
     </footer>
   );
