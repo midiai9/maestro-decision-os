@@ -1237,21 +1237,42 @@ function Seguranca() {
         </div>
       </Reveal>
 
-      <div className="mt-6 grid sm:grid-cols-2 gap-5">
-        {items.map(({ Icon, t, d }, i) => (
-          <Reveal key={t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full flex items-start gap-4">
-              <span className="w-11 h-11 rounded-lg grid place-items-center flex-shrink-0" style={{ background: "var(--brand-purple-light)" }}>
-                <Icon size={20} />
-              </span>
-              <div>
-                <h3 className="font-display text-lg font-medium">{t}</h3>
-                <p className="mt-2 text-sm text-offwhite/80">{d}</p>
-              </div>
+      {(() => {
+        const SegCard = ({ Icon, t, d }: { Icon: typeof Lock; t: string; d: string }) => (
+          <div className="surface-card p-7 h-full flex items-start gap-4">
+            <span className="w-11 h-11 rounded-lg grid place-items-center flex-shrink-0" style={{ background: "var(--brand-purple-light)" }}>
+              <Icon size={20} />
+            </span>
+            <div>
+              <h3 className="font-display text-lg font-medium">{t}</h3>
+              <p className="mt-2 text-sm text-offwhite/80">{d}</p>
             </div>
-          </Reveal>
-        ))}
-      </div>
+          </div>
+        );
+        return (
+          <>
+            {/* Desktop / tablet grid 2x2 */}
+            <div className="mt-6 hidden md:grid sm:grid-cols-2 gap-5">
+              {items.map(({ Icon, t, d }, i) => (
+                <Reveal key={t} delay={i * 0.05}>
+                  <SegCard Icon={Icon} t={t} d={d} />
+                </Reveal>
+              ))}
+            </div>
+            {/* Mobile carousel */}
+            <div className="mt-6 md:hidden">
+              <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+                {items.map(({ Icon, t, d }) => (
+                  <div key={t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
+                    <SegCard Icon={Icon} t={t} d={d} />
+                  </div>
+                ))}
+              </div>
+              <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
+            </div>
+          </>
+        );
+      })()}
     </Section>
   );
 }
