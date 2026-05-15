@@ -543,11 +543,19 @@ function PorQueAgora() {
 /* ============ 5. CUSTO INAÇÃO ============ */
 function CustoInacao() {
   const items = [
-    { t: "Margem Corroída por Atraso", d: "Promoções tardias, preços desatualizados e oportunidades de upsell perdidas reduzem margem silenciosamente." },
-    { t: "Orçamento Mal Alocado", d: "Investimento em canais de baixo retorno enquanto oportunidades de alto impacto ficam sem recursos." },
-    { t: "Estoque Mal Planejado", d: "Excesso onde não vende, falta onde há demanda — capital parado e vendas perdidas simultaneamente." },
-    { t: "Oportunidades Não Capturadas", d: "Janelas de conversão fechadas, clientes de alto valor não identificados, momentos críticos ignorados." },
+    { Icon: TrendingDown, t: "Margem Corroída por Atraso", d: "Promoções tardias, preços desatualizados e oportunidades de upsell perdidas reduzem margem silenciosamente." },
+    { Icon: PieChart, t: "Orçamento Mal Alocado", d: "Investimento em canais de baixo retorno enquanto oportunidades de alto impacto ficam sem recursos." },
+    { Icon: Package, t: "Estoque Mal Planejado", d: "Excesso onde não vende, falta onde há demanda — capital parado e vendas perdidas simultaneamente." },
+    { Icon: Target, t: "Oportunidades Não Capturadas", d: "Janelas de conversão fechadas, clientes de alto valor não identificados, momentos críticos ignorados." },
+    { Icon: Users, t: "Dependência de Análise Manual", d: "Times estratégicos consumidos por tarefas operacionais. Decisões atrasadas por falta de capacidade analítica." },
   ];
+  const Card = ({ it }: { it: typeof items[number] }) => (
+    <div className="bg-[#0F1B3D] rounded-2xl p-6 min-h-[260px] h-full flex flex-col gap-4">
+      <it.Icon className="w-8 h-8" style={{ color: "#EF4444" }} strokeWidth={1.5} />
+      <h3 className="font-display text-lg font-medium">{it.t}</h3>
+      <p className="text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
+    </div>
+  );
   return (
     <Section>
       <Reveal><Tag><Shield size={12} /> Urgência</Tag></Reveal>
@@ -560,25 +568,26 @@ function CustoInacao() {
         </p>
       </Reveal>
 
-      <div className="mt-14 grid md:grid-cols-2 gap-5">
+      {/* Desktop / tablet grid */}
+      <div className="mt-14 hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
         {items.map((it, i) => (
           <Reveal key={it.t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full">
-              <h3 className="font-display text-lg font-medium">{it.t}</h3>
-              <p className="mt-3 text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
-            </div>
+            <Card it={it} />
           </Reveal>
         ))}
       </div>
 
-      <Reveal delay={0.25}>
-        <div className="mt-5 surface-card p-8">
-          <h3 className="font-display text-xl font-medium">Dependência de Análise Manual</h3>
-          <p className="mt-3 text-offwhite/80 max-w-3xl">
-            Times estratégicos consumidos por tarefas operacionais, decisões atrasadas por falta de capacidade analítica.
-          </p>
+      {/* Mobile carousel */}
+      <div className="mt-14 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {items.map((it) => (
+            <div key={it.t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
+              <Card it={it} />
+            </div>
+          ))}
         </div>
-      </Reveal>
+        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
+      </div>
 
       <Reveal delay={0.3}>
         <p className="mt-12 max-w-3xl text-2xl md:text-3xl font-display font-light leading-snug border-l-4 pl-6" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
