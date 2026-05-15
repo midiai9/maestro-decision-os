@@ -1261,7 +1261,8 @@ function Workflow6() {
         <p className="mt-3 text-xl text-offwhite/80">Como funciona na prática</p>
       </Reveal>
 
-      <div className="mt-14 grid md:grid-cols-3 lg:grid-cols-6 gap-4">
+      {/* Desktop */}
+      <div className="mt-14 hidden md:grid md:grid-cols-3 lg:grid-cols-6 gap-4">
         {steps.map((s, i) => (
           <Reveal key={s} delay={i * 0.05}>
             <div className="surface-card p-5 h-full relative">
@@ -1272,6 +1273,20 @@ function Workflow6() {
             </div>
           </Reveal>
         ))}
+      </div>
+      {/* Mobile carousel */}
+      <div className="mt-10 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {steps.map((s, i) => (
+            <div key={s} className={`snap-center flex-shrink-0 w-[70vw] max-w-[280px] glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-5 min-h-[160px] flex flex-col gap-2`}>
+              <span className="text-xs font-display font-semibold" style={{ color: "var(--brand-purple-light)" }}>
+                ETAPA {i + 1}
+              </span>
+              <p className="text-sm font-medium text-white">{s}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
       </div>
 
       <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
