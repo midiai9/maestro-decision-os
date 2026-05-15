@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "bunx serve . -l",
+    "dev": "bunx serve .",
     "build": "mkdir -p dist && cp -r index.html assets favicon.ico .htaccess dist/ 2>/dev/null || true"
   }
 }
