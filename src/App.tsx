@@ -217,7 +217,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
 
   return (
     <header
-      className={`left-0 right-0 z-40 transition-all duration-300 ${
+      className={`left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "fixed top-0 bg-[#0F1B3D]/85 backdrop-blur-md shadow-lg shadow-black/30 border-b border-white/5"
           : "absolute top-0 bg-transparent"
