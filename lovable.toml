@@ -1,0 +1,2 @@
+[run]
+build = "mkdir -p dist && cp -r index.html assets favicon.ico .htaccess dist/"
