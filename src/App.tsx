@@ -46,6 +46,17 @@ import {
   PieChart,
   Package,
   Network,
+  Search,
+  GitMerge,
+  FlaskConical,
+  Filter,
+  Calculator,
+  Radio,
+  BarChart2,
+  Crosshair,
+  ListChecks,
+  BrainCircuit,
+  User,
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
