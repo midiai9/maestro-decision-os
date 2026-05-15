@@ -943,7 +943,7 @@ function CX() {
       <div className="mt-14 grid md:grid-cols-2 gap-5">
         {pilares.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.05}>
-            <div className="surface-card p-7 min-h-[320px] flex flex-col">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-7 min-h-[320px] flex flex-col`}>
               <p.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
               <h3 className="font-display text-lg font-medium">{p.t}</h3>
               <ul className="mt-4 space-y-2">
