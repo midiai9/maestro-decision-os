@@ -515,12 +515,13 @@ function Mudanca() {
 /* ============ 4. POR QUE AGORA ============ */
 function PorQueAgora() {
   const steps = [
-    { t: "LLMs Tornaram SQL Natural Operacional", d: "Acesso à análise deixou de depender de especialistas técnicos. Linguagem natural escalou inteligência analítica." },
-    { t: "AutoML Democratizou Previsão", d: "Modelos preditivos agora são gerados e atualizados automaticamente, com rigor estatístico e velocidade operacional." },
-    { t: "Cloud Eliminou Barreiras de Infraestrutura", d: "Processamento em escala sem CAPEX massivo. Comece pequeno. Escale com valor comprovado." },
-    { t: "O Board Exige Eficiência", d: "Fazer mais com menos deixou de ser meta. Virou obrigação estratégica." },
-    { t: "Margens Sob Pressão Estrutural", d: "Competição intensa. Custos crescentes. Decisão lenta virou desvantagem competitiva." },
+    { Icon: MessageSquare, t: "LLMs Tornaram SQL Natural Operacional", d: "Acesso à análise deixou de depender de especialistas técnicos. Linguagem natural escalou inteligência analítica." },
+    { Icon: Cpu, t: "AutoML Democratizou Previsão", d: "Modelos preditivos agora são gerados e atualizados automaticamente, com rigor estatístico e velocidade operacional." },
+    { Icon: Cloud, t: "Cloud Eliminou Barreiras de Infraestrutura", d: "Processamento em escala sem CAPEX massivo. Comece pequeno. Escale com valor comprovado." },
+    { Icon: Briefcase, t: "O Board Exige Eficiência", d: "Fazer mais com menos deixou de ser meta. Virou obrigação estratégica." },
+    { Icon: TrendingDown, t: "Margens Sob Pressão Estrutural", d: "Competição intensa. Custos crescentes. Decisão lenta virou desvantagem competitiva." },
   ];
+  const delays = ["", "delay-1", "delay-2", "delay-3", "delay-4"];
   return (
     <Section>
       <Reveal><Tag><Clock size={12} /> Timing Estratégico</Tag></Reveal>
@@ -542,7 +543,8 @@ function PorQueAgora() {
                 <div className="flex-shrink-0 w-10 h-10 rounded-full grid place-items-center font-display text-sm font-semibold relative z-10" style={{ background: "var(--brand-purple-light)", color: "white" }}>
                   {i + 1}
                 </div>
-                <div className="surface-card p-6 flex-1">
+                <div className={`glow-card ${delays[i]} p-6 flex-1`}>
+                  <s.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
                   <h3 className="font-display text-lg font-medium">{s.t}</h3>
                   <p className="mt-2 text-offwhite/80 text-sm leading-relaxed">{s.d}</p>
                 </div>
