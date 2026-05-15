@@ -144,3 +144,40 @@
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
 }
+
+@keyframes purple-glow-flow {
+  0% { background-position: 0% 50%; opacity: 0.6; }
+  50% { background-position: 100% 50%; opacity: 1; }
+  100% { background-position: 0% 50%; opacity: 0.6; }
+}
+
+.menu-glow-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #8B1FA9 20%,
+    #B847D4 40%,
+    #00D4FF 50%,
+    #B847D4 60%,
+    #8B1FA9 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: purple-glow-flow 4s ease-in-out infinite;
+  box-shadow: 0 0 12px rgba(184, 71, 212, 0.5), 0 0 24px rgba(139, 31, 169, 0.3);
+  pointer-events: none;
+}
+
+.menu-glow-line::before {
+  content: '';
+  position: absolute;
+  inset: -2px 0 -8px 0;
+  background: linear-gradient(180deg, rgba(139, 31, 169, 0.3) 0%, transparent 100%);
+  filter: blur(8px);
+  pointer-events: none;
+}

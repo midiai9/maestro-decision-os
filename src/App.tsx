@@ -57,10 +57,12 @@ import {
   ListChecks,
   BrainCircuit,
   User,
+  ExternalLink,
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
 import { WhatsAppButton } from "@/components/landing/WhatsAppButton";
+import { HighlightBox } from "@/components/landing/HighlightBox";
 // rebuild: 15-mai-0341
 
 export default function Index() {
@@ -236,6 +238,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
           <Menu className="w-6 h-6" />
         </button>
       </div>
+      {scrolled && <div className="menu-glow-line" />}
 
       {/* Mobile fullscreen overlay */}
       <AnimatePresence>
@@ -453,19 +456,12 @@ function Paradoxo() {
           </Reveal>
         ))}
       </div>
-      <Reveal delay={0.8}>
-        <div className="mt-8 surface-card p-8 md:p-10 rounded-2xl border-l-4 border-l-[#EF4444]">
-          <div className="flex items-start gap-3 flex-wrap">
-            <AlertCircle className="w-6 h-6 text-[#EF4444] flex-shrink-0 mt-1" strokeWidth={1.5} />
-            <p className="flex-1 min-w-0">
-              <span className="font-bold text-[#EF4444] text-xl md:text-2xl">O resultado?</span>{" "}
-              <span className="text-white/90 text-lg md:text-xl font-normal">
-                Decisões tardias, fragmentadas e pouco acionáveis que comprometem a competitividade estratégica.
-              </span>
-            </p>
-          </div>
-        </div>
-      </Reveal>
+      <HighlightBox
+        variant="danger"
+        miniTag="✦ O resultado?"
+        miniTagColor="#EF4444"
+        bottomLine={<>Decisões tardias, fragmentadas e pouco acionáveis que comprometem a competitividade estratégica.</>}
+      />
     </Section>
   );
 }
@@ -548,14 +544,11 @@ function PorQueAgora() {
         </div>
       </div>
 
-      <Reveal delay={0.3}>
-        <div className="mt-12 rounded-2xl p-8 text-center" style={{ background: "linear-gradient(135deg, var(--brand-purple-dark), var(--brand-purple-light))" }}>
-          <p className="text-xl md:text-2xl font-display font-light">
-            A tecnologia amadureceu. A pressão aumentou. A decisão precisa evoluir.
-            <br />Não é sobre inovação — é sobre <strong>sobrevivência competitiva.</strong>
-          </p>
-        </div>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Por Que Agora"
+        topLine="A tecnologia amadureceu. A pressão aumentou. A decisão precisa evoluir."
+        bottomLine={<>Não é sobre inovação — é sobre sobrevivência competitiva.</>}
+      />
     </Section>
   );
 }
@@ -668,14 +661,11 @@ function NossaTese() {
         <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
       </div>
 
-      <Reveal delay={0.35}>
-        <div className="mt-12 rounded-2xl p-10" style={{ background: "var(--brand-purple-light)" }}>
-          <p className="text-xl md:text-2xl font-display font-light max-w-3xl">
-            O futuro não pertence às empresas com mais dados. Pertence às empresas que conseguem:{" "}
-            <strong>orquestrar, contextualizar e executar mais rápido</strong>.
-          </p>
-        </div>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Nossa Tese"
+        topLine="O futuro não pertence às empresas com mais dados."
+        bottomLine={<>Pertence às empresas que conseguem: orquestrar, contextualizar e executar mais rápido.</>}
+      />
     </Section>
   );
 }
@@ -762,9 +752,12 @@ function Arquitetura() {
       </div>
 
       <Reveal delay={0.3}>
-        <div className="mt-6 surface-card p-8">
-          <p className="text-offwhite/85">
-            <strong className="text-white">Flexibilidade Estrutural:</strong> O Maestro Data Flow opera como camada fundacional independente e modular, permitindo <strong className="text-white">integração progressiva</strong> ao ecossistema do cliente, <strong className="text-white">rápida ativação</strong> de valor e <strong className="text-white">expansão escalável</strong> conforme a complexidade e maturidade da organização.
+        <div className="mt-6 rounded-2xl p-8 md:p-10 border border-[#00D4FF]/30 bg-gradient-to-br from-[#8B1FA9]/30 via-[#6B1583]/20 to-[#0F1B3D]/60">
+          <div className="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#00D4FF" }}>
+            ✦ Flexibilidade Estrutural
+          </div>
+          <p className="text-lg md:text-xl text-white/90 leading-relaxed">
+            O Maestro Data Flow opera como camada fundacional independente e modular, permitindo <strong className="font-semibold text-white">integração progressiva</strong> ao ecossistema do cliente, <strong className="font-semibold text-white">rápida ativação de valor</strong> e <strong className="font-semibold text-white">expansão escalável</strong> conforme a complexidade e maturidade da organização.
           </p>
         </div>
       </Reveal>
@@ -825,11 +818,11 @@ function DataFlow() {
         ))}
       </div>
 
-      <Reveal delay={0.3}>
-        <p className="mt-12 font-display text-2xl md:text-3xl font-light italic">
-          Infraestrutura invisível. Impacto organizacional visível.
-        </p>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Maestro Data Flow"
+        topLine="Infraestrutura invisível."
+        bottomLine={<>Impacto organizacional visível.</>}
+      />
     </Section>
   );
 }
@@ -842,13 +835,12 @@ function Insights() {
     { Icon: TrendingUp, t: "Previsão Probabilística", d: "Forecast com incerteza explícita e simulação de cenários para decisões baseadas em probabilidades." },
     { Icon: Target, t: "Prescrição por Impacto", d: "Recomendações priorizadas por ROI esperado, viabilidade e alinhamento estratégico." },
   ];
-  const pratica: Array<{ Icon: typeof Search | null; t: string; highlight?: boolean }> = [
+  const pratica: Array<{ Icon: typeof Search; t: string }> = [
     { Icon: AlertCircle, t: "Identificação automática de queda de margem por cluster" },
     { Icon: FlaskConical, t: "Simulação de política comercial antes da ativação" },
     { Icon: BarChart3, t: "Forecast de vendas com faixa de risco e cenários alternativos" },
     { Icon: Filter, t: "Detecção de gargalos de conversão e priorização de ação" },
     { Icon: Calculator, t: "Projeção de impacto antes da execução de campanha" },
-    { Icon: null, t: "Antes de executar, o Maestro mede, simula e prioriza.", highlight: true },
   ];
   return (
     <Section id="insights">
@@ -880,22 +872,21 @@ function Insights() {
       <Reveal delay={0.3}>
         <h3 className="mt-16 font-display text-2xl">Insights na Prática</h3>
       </Reveal>
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {pratica.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.04}>
-            {p.highlight ? (
-              <div className="rounded-xl p-5 min-h-[100px] italic border-l-2 border-l-[#00D4FF] bg-[#0F1B3D]/60 flex items-center">
-                <p className="text-white/85 text-sm">{p.t}</p>
-              </div>
-            ) : (
-              <div className="rounded-xl p-5 min-h-[100px] flex items-start gap-3 bg-[#0F1B3D]">
-                {p.Icon && <p.Icon className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />}
-                <p className="text-white/85 text-sm">{p.t}</p>
-              </div>
-            )}
+            <div className="rounded-xl p-5 min-h-[140px] h-full flex flex-col items-start gap-3 bg-[#0F1B3D]">
+              <p.Icon className="w-5 h-5 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <p className="text-white/85 text-sm">{p.t}</p>
+            </div>
           </Reveal>
         ))}
       </div>
+
+      <HighlightBox
+        miniTag="✦ Insights na Prática"
+        bottomLine={<>Antes de executar, o Maestro mede, simula e prioriza.</>}
+      />
     </Section>
   );
 }
@@ -1094,14 +1085,10 @@ function Maturidade() {
         </div>
       </div>
 
-      <Reveal delay={0.3}>
-        <div className="mt-12 surface-card p-8 flex items-start gap-4">
-          <Shield size={22} style={{ color: "var(--brand-purple-light)" }} className="flex-shrink-0 mt-1" />
-          <p className="text-offwhite/85">
-            <strong className="text-white">Governança por Design:</strong> cada avanço de nível exige <strong className="text-white">validações formais</strong>, critérios de performance e <strong className="text-white">trilhas completas de auditoria</strong>.
-          </p>
-        </div>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Governança por Design"
+        bottomLine={<>Cada avanço de nível exige validações formais, critérios de performance e trilhas completas de auditoria.</>}
+      />
     </Section>
   );
 }
@@ -1153,11 +1140,10 @@ function Workflow6() {
         ))}
       </div>
 
-      <Reveal delay={0.3}>
-        <p className="mt-14 font-display text-3xl md:text-4xl font-light text-center italic">
-          Não é resposta. É decisão operacionalizada.
-        </p>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Do Dado à Decisão"
+        bottomLine={<>Não é resposta. É decisão operacionalizada.</>}
+      />
     </Section>
   );
 }
@@ -1671,11 +1657,11 @@ function Ganhos() {
         </div>
       </div>
 
-      <Reveal delay={0.3}>
-        <p className="mt-12 font-display text-2xl md:text-3xl font-light">
-          Em mercados onde <strong>margem é pressionada</strong>, <strong>velocidade de decisão é vantagem estrutural</strong>.
-        </p>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Ganhos"
+        topLine="Em mercados onde margem é pressionada,"
+        bottomLine={<>velocidade de decisão é vantagem estrutural.</>}
+      />
     </Section>
   );
 }
@@ -1861,8 +1847,44 @@ function Footer({ onDemo }: { onDemo: () => void }) {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl mt-12 pt-6 border-t border-white/10 text-xs text-white/60 text-center md:text-left">
-        <p>© 2026 Always On. Todos os direitos reservados. · Política de Privacidade · LGPD</p>
+      <div className="mx-auto max-w-7xl mt-12 mb-8 py-6 px-8 bg-gradient-to-r from-[#8B1FA9]/20 via-[#6B1583]/10 to-transparent border-l-4 border-l-[#00D4FF] rounded-r-xl flex items-center gap-4 flex-wrap">
+        <img src="/aodigital.png" alt="Always On" className="h-7 w-auto flex-shrink-0" />
+        <p className="text-base md:text-lg text-white/90 flex-1 min-w-[240px]">
+          Maestro AI OS é uma solução{" "}
+          <a
+            href="https://aodigital.com.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-[#E8E4F0] to-[#00D4FF] hover:opacity-90 inline-flex items-center gap-1.5"
+          >
+            Always On
+            <ExternalLink className="w-3.5 h-3.5 text-[#00D4FF]" />
+          </a>
+        </p>
+      </div>
+
+      <div className="mx-auto max-w-7xl pt-6 border-t border-white/10 text-xs text-white/60 text-center md:text-left">
+        <p className="inline-flex items-center gap-2 flex-wrap justify-center md:justify-start">
+          <span>© 2026 Always On. Todos os direitos reservados.</span>
+          <span>·</span>
+          <a
+            href="https://aodigital.com.br/termos-e-politicas/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white inline-flex items-center gap-1"
+          >
+            Política de Privacidade <ExternalLink className="w-3 h-3" />
+          </a>
+          <span>·</span>
+          <a
+            href="https://aodigital.com.br/termos-e-politicas/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white inline-flex items-center gap-1"
+          >
+            LGPD <ExternalLink className="w-3 h-3" />
+          </a>
+        </p>
       </div>
     </footer>
   );
