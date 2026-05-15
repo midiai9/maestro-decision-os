@@ -1079,7 +1079,13 @@ function ComparaCopilots() {
               <tr>
                 <th className="p-4 text-xs uppercase tracking-widest text-white/90 font-semibold bg-[#0F1B3D]/60">Dimensão</th>
                 <th className="p-4 text-xs uppercase tracking-widest text-white/60 font-semibold bg-[#0F1B3D]/50">Copilots / GenAI</th>
-                <th className="p-4 text-xs uppercase tracking-widest text-white font-bold bg-[#8B1FA9] border-l-2 border-l-[#00D4FF]">Maestro AI OS</th>
+                <th className="p-4 bg-[#8B1FA9] border-l-2 border-l-[#00D4FF]">
+                  <div className="flex items-center gap-3">
+                    <img src="/aodigital.png" alt="Always On" className="h-5 w-auto" />
+                    <span className="text-white/30">·</span>
+                    <span className="text-xs uppercase tracking-widest text-white font-bold">Maestro AI OS</span>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -1258,11 +1264,11 @@ function Industrias() {
     <Section id="industrias">
       <Reveal><Tag><Target size={12} /> Mercado-alvo</Tag></Reveal>
       <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Problemas Reais por Indústria</h2>
+        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Soluções Reais por Indústria</h2>
       </Reveal>
       <Reveal delay={0.15}>
         <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
-          O Maestro AI OS resolve dores estruturais que impactam margem, crescimento e risco em setores estratégicos.
+          Como o Maestro AI OS resolve dores estruturais que impactam margem, crescimento e risco em setores estratégicos.
         </p>
       </Reveal>
 
