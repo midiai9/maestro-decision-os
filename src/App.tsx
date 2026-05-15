@@ -1209,10 +1209,32 @@ function Diferenciacao() {
     <Section id="porque-maestro">
       <Reveal><Tag>◆ Diferencial Competitivo</Tag></Reveal>
       <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">05 Motivos pelos quais o Maestro é Único</h2>
+        <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-light max-w-3xl">05 Motivos pelos quais o Maestro é Único</h2>
       </Reveal>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative overflow-hidden my-12 md:my-16 rounded-3xl border border-[#00D4FF]/30 p-10 md:p-16 bg-gradient-to-br from-[#8B1FA9]/40 via-[#6B1583]/30 to-[#0F1B3D]/60"
+      >
+        <div className="absolute -top-20 -right-20 w-64 h-64 bg-[#00D4FF]/10 rounded-full blur-3xl" />
+        <div className="relative text-center">
+          <span className="inline-block text-xs uppercase tracking-[0.3em] text-[#00D4FF] font-bold mb-6">
+            ◆ A pergunta que define tudo
+          </span>
+          <p className="text-2xl md:text-4xl lg:text-5xl text-white/60 font-light text-balance">
+            Copilots ajudam pessoas a trabalhar melhor.
+          </p>
+          <p className="mt-3 md:mt-4 text-3xl md:text-5xl lg:text-6xl font-bold text-balance bg-gradient-to-r from-white via-[#E8E4F0] to-[#00D4FF] bg-clip-text text-transparent">
+            O Maestro ajuda empresas a decidir melhor.
+          </p>
+        </div>
+      </motion.div>
+
       <Reveal delay={0.15}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
+        <p className="text-lg text-offwhite/85 max-w-3xl mx-auto text-center">
           Não é apenas tecnologia. É arquitetura estratégica que cria barreiras naturais de entrada e vantagem competitiva sustentável.
         </p>
       </Reveal>
