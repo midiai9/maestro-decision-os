@@ -1,3 +1,10 @@
+# MIME types corretos
+<IfModule mod_mime.c>
+  AddType video/mp4 .mp4
+  AddType video/webm .webm
+  AddType image/svg+xml .svg
+</IfModule>
+
 # Cache de assets estáticos
 <IfModule mod_expires.c>
   ExpiresActive On
@@ -8,13 +15,6 @@
   ExpiresByType video/mp4 "access plus 1 month"
   ExpiresByType text/css "access plus 1 week"
   ExpiresByType application/javascript "access plus 1 week"
-</IfModule>
-
-# MIME types corretos
-<IfModule mod_mime.c>
-  AddType video/mp4 .mp4
-  AddType video/webm .webm
-  AddType image/svg+xml .svg
 </IfModule>
 
 # React Router — redireciona pra index.html, MAS exclui arquivos reais
