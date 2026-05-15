@@ -1267,7 +1267,7 @@ function AdocaoImpacto() {
         </div>
       </Section>
 
-      <Section id="impacto">
+      <Section id="ganhos">
         <Reveal><Tag><Trophy size={12} /> Impacto Board</Tag></Reveal>
         <Reveal delay={0.1}>
           <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">O Que Sua Empresa Ganha</h2>
