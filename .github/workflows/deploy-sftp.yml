@@ -37,10 +37,8 @@ jobs:
           ls -la dist/
 
       - name: Deploy via FTP
-        uses: netsuitecorp/upload-files-ftp-action@master
-        with:
-          server: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USER }}
-          password: ${{ secrets.SFTP_PASS }}
-          server_dir: /maestro.aodigital.net.br/httpdocs/
-          local_dir: ./dist/
+        run: |
+          sudo apt-get install -y lftp
+          lftp -u ${{ secrets.SFTP_USER }},${{ secrets.SFTP_PASS }} \
+            -e "mirror -e -R ./dist /maestro.aodigital.net.br/httpdocs; quit" \
+            ${{ secrets.SFTP_HOST }}
