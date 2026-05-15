@@ -216,6 +216,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
   );
 
   return (
+    <>
     <header
       className={`left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
