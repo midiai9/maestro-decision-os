@@ -74,7 +74,8 @@ export default function Index() {
       <Industrias />
       <AdocaoImpacto />
       <ValidacaoCTA onDemo={openModal} />
-      <Footer />
+      <Footer onDemo={openModal} />
+      <WhatsAppButton />
     </main>
   );
 }
