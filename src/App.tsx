@@ -703,7 +703,7 @@ function NaoE() {
       <div className="mt-14 grid md:grid-cols-2 gap-5">
         {items.map((it, i) => (
           <Reveal key={it.t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-7 h-full`}>
               <div className="flex items-center gap-3">
                 <span className="w-9 h-9 rounded-lg grid place-items-center" style={{ background: "oklch(0.65 0.22 25 / 0.15)", color: "var(--danger)" }}>
                   <XIcon size={18} />
@@ -716,13 +716,13 @@ function NaoE() {
         ))}
       </div>
 
-      <Reveal delay={0.3}>
-        <div className="mt-10 rounded-2xl p-10" style={{ background: "oklch(0.16 0.06 270)" }}>
-          <p className="text-xl md:text-2xl font-display font-light">
-            Maestro AI OS é uma <strong className="text-white">fundação estratégica — não uma feature</strong>. É a diferença entre ter respostas e ter decisões acionáveis com impacto mensurável.
-          </p>
-        </div>
-      </Reveal>
+      <HighlightBox
+        variant="danger"
+        miniTag="✦ Maestro AI OS"
+        miniTagColor="#EF4444"
+        topLine="Maestro AI OS é uma fundação estratégica — não uma feature."
+        bottomLine={<>É a diferença entre ter respostas e ter decisões acionáveis com impacto mensurável.</>}
+      />
     </Section>
   );
 }
