@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   ArrowDown,
+  AlertCircle,
   AlertTriangle,
   Sparkles,
   Clock,
@@ -172,10 +173,10 @@ function Hero({ onDemo }: { onDemo: () => void }) {
 /* ============ 2. PARADOXO ============ */
 function Paradoxo() {
   const items = [
-    { t: "Dados Abundantes", d: "Volume exponencial de informação disponível" },
-    { t: "Decisões Lentas", d: "Processos analíticos que levam semanas" },
-    { t: "Gargalos Técnicos", d: "Dependência crítica de times especializados" },
-    { t: "IA Sem Ação", d: "Insights que raramente viram execução" },
+    { t: "Dados Abundantes", d: "Volume exponencial de informação disponível", Icon: Database },
+    { t: "Decisões Lentas", d: "Processos analíticos que levam semanas", Icon: Clock },
+    { t: "Gargalos Técnicos", d: "Dependência crítica de times especializados", Icon: AlertTriangle },
+    { t: "IA Sem Ação", d: "Insights que raramente viram execução", Icon: Bot },
   ];
   return (
     <Section>
@@ -192,19 +193,26 @@ function Paradoxo() {
       </Reveal>
       <div className="mt-14 grid sm:grid-cols-2 gap-5">
         {items.map((it, i) => (
-          <Reveal key={it.t} delay={0.1 + i * 0.05}>
+          <Reveal key={it.t} delay={0.1 + i * 0.1}>
             <div className="surface-card p-8 h-full">
+              <it.Icon className="w-8 h-8 text-[#00D4FF] mb-6" strokeWidth={1.5} />
               <h3 className="font-display text-xl font-medium">{it.t}</h3>
               <p className="mt-3 text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
             </div>
           </Reveal>
         ))}
       </div>
-      <Reveal delay={0.4}>
-        <div className="mt-8 surface-card p-8 border-l-4" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
-          <p className="text-lg text-white">
-            O resultado? <span className="text-offwhite/80">Decisões tardias, fragmentadas e pouco acionáveis que comprometem a competitividade estratégica.</span>
-          </p>
+      <Reveal delay={0.8}>
+        <div className="mt-8 surface-card p-8 md:p-10 rounded-2xl border-l-4 border-l-[#EF4444]">
+          <div className="flex items-start gap-3 flex-wrap">
+            <AlertCircle className="w-6 h-6 text-[#EF4444] flex-shrink-0 mt-1" strokeWidth={1.5} />
+            <p className="flex-1 min-w-0">
+              <span className="font-bold text-[#EF4444] text-xl md:text-2xl">O resultado?</span>{" "}
+              <span className="text-white/90 text-lg md:text-xl font-normal">
+                Decisões tardias, fragmentadas e pouco acionáveis que comprometem a competitividade estratégica.
+              </span>
+            </p>
+          </div>
         </div>
       </Reveal>
     </Section>
