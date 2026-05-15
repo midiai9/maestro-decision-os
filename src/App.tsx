@@ -57,10 +57,12 @@ import {
   ListChecks,
   BrainCircuit,
   User,
+  ExternalLink,
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
 import { WhatsAppButton } from "@/components/landing/WhatsAppButton";
+import { HighlightBox } from "@/components/landing/HighlightBox";
 // rebuild: 15-mai-0341
 
 export default function Index() {
