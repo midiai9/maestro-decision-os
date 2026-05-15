@@ -236,6 +236,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
           className="xl:hidden text-white p-2 -mr-2"
         >
           <Menu className="w-6 h-6" />
+        </button>
       </div>
       {scrolled && <div className="menu-glow-line" />}
 
