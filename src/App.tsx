@@ -1206,7 +1206,7 @@ function ComparaCopilots() {
             </thead>
             <tbody className="divide-y divide-white/15">
               {rows.map((r, i) => (
-                <tr key={r[0]} className={`hover:bg-white/[0.03] ${i % 2 === 1 ? "bg-white/[0.02]" : ""}`}>
+                <tr key={r[0]} className={`hover:bg-white/[0.05] ${i % 2 === 1 ? "bg-white/[0.04]" : ""}`}>
                   <td className="p-4 font-medium text-white/90 align-top">{r[0]}</td>
                   <td className="p-4 text-sm text-white/70 bg-[#0F1B3D]/50 align-top">
                     <div className="flex items-start gap-2">
@@ -1216,7 +1216,7 @@ function ComparaCopilots() {
                   </td>
                   <td
                     className="p-4 text-sm text-white font-medium border-l-2 border-l-[#00D4FF] align-top"
-                    style={{ background: "linear-gradient(180deg, rgba(139,31,169,0.30), rgba(107,21,131,0.30))" }}
+                    style={{ background: "linear-gradient(180deg, #1A0B2E, #0A0419)" }}
                   >
                     <div className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#10D981" }} />
