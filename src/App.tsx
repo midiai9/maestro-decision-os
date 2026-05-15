@@ -1311,18 +1311,34 @@ function Industrias() {
                 <CurIcon className="w-12 h-12" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
                 <h3 className="font-display text-3xl font-medium text-white">{cur.k}</h3>
               </div>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <p className="text-xs uppercase tracking-widest font-semibold mb-4" style={{ color: "rgba(248,113,113,0.8)" }}>
-                    Problemas
-                  </p>
-                  <p className="text-sm text-white/85 leading-relaxed">{cur.probs}</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl p-6" style={{ backgroundColor: "rgba(239,68,68,0.05)" }}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <AlertCircle className="w-5 h-5" style={{ color: "#EF4444" }} />
+                    <span className="text-xs uppercase tracking-widest font-bold" style={{ color: "#F87171" }}>Problemas</span>
+                  </div>
+                  <ul className="space-y-3">
+                    {cur.probs.split(" · ").map((p) => (
+                      <li key={p} className="flex items-start gap-2 text-sm text-white/85">
+                        <XCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#EF4444" }} />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <div>
-                  <p className="text-xs uppercase tracking-widest font-semibold mb-4" style={{ color: "#00D4FF" }}>
-                    Soluções Maestro
-                  </p>
-                  <p className="text-sm text-white leading-relaxed">{cur.sols}</p>
+                <div className="rounded-xl p-6" style={{ backgroundColor: "rgba(0,212,255,0.05)" }}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <CheckCircle2 className="w-5 h-5" style={{ color: "#00D4FF" }} />
+                    <span className="text-xs uppercase tracking-widest font-bold" style={{ color: "#00D4FF" }}>Soluções Maestro</span>
+                  </div>
+                  <ul className="space-y-3">
+                    {cur.sols.split(" · ").map((s) => (
+                      <li key={s} className="flex items-start gap-2 text-sm text-white font-medium">
+                        <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#00D4FF" }} />
+                        <span>{s}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </motion.div>
