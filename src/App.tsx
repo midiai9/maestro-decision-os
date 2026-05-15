@@ -259,111 +259,110 @@ function Nav({ onDemo }: { onDemo: () => void }) {
       </div>
       {scrolled && <div className="menu-glow-line" />}
 
-      {/* Mobile fullscreen overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="xl:hidden fixed inset-0 z-50 bg-[#0F1B3D]/95 backdrop-blur-md overflow-y-auto"
-          >
-            <div className="flex items-center justify-between px-6 py-6 border-b border-white/5">
-              <img src="/aodigital.png" alt="Always On" className="h-6 w-auto" />
-              <button
-                aria-label="Fechar menu"
-                onClick={() => setMobileOpen(false)}
-                className="text-white p-2"
-              >
-                <XIcon className="w-6 h-6" />
-              </button>
-            </div>
-            <nav className="px-6 py-8 flex flex-col gap-1 text-white">
-              {/* Sobre accordion */}
-              <button
-                onClick={() => setMobileSobreOpen((v) => !v)}
-                className="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
-              >
-                Sobre
-                <ChevronDown size={18} className={`transition-transform ${mobileSobreOpen ? "rotate-180" : ""}`} />
-              </button>
-              {mobileSobreOpen && (
-                <div className="pl-4 flex flex-col gap-1">
-                  {SOBRE.map(({ Icon, label, href }) => (
-                    <a key={href} href={href} onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
-                      <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                      <span className="text-base">{label}</span>
-                    </a>
-                  ))}
-                </div>
-              )}
-
-              {/* Soluções accordion */}
-              <button
-                onClick={() => setMobileSolOpen((v) => !v)}
-                className="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
-              >
-                Soluções
-                <ChevronDown size={18} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
-              </button>
-              {mobileSolOpen && (
-                <div className="pl-4 flex flex-col gap-1">
-                  {SOLUCOES.map(({ Icon, label, href }) => (
-                    <a key={href} href={href} onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
-                      <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                      <span className="text-base">{label}</span>
-                    </a>
-                  ))}
-                </div>
-              )}
-
-              <a href="#comparativo" onClick={() => setMobileOpen(false)}
-                className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Comparativo</a>
-
-              {/* Porque accordion */}
-              <button
-                onClick={() => setMobilePorqueOpen((v) => !v)}
-                className="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
-              >
-                Porque
-                <ChevronDown size={18} className={`transition-transform ${mobilePorqueOpen ? "rotate-180" : ""}`} />
-              </button>
-              {mobilePorqueOpen && (
-                <div className="pl-4 flex flex-col gap-1">
-                  {PORQUE.map(({ Icon, label, href }) => (
-                    <a key={href} href={href} onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
-                      <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                      <span className="text-base">{label}</span>
-                    </a>
-                  ))}
-                </div>
-              )}
-
-              <a href="#industrias" onClick={() => setMobileOpen(false)}
-                className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Indústrias</a>
-              <a href="#o-que-dizem" onClick={() => setMobileOpen(false)}
-                className="px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">O que dizem</a>
-
-              <button
-                onClick={() => {
-                  setMobileOpen(false);
-                  setTimeout(() => {
-                    document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                }}
-                className="mt-6 w-full px-4 py-3.5 rounded-full bg-white text-[#0F1B3D] font-semibold inline-flex items-center justify-center gap-2"
-              >
-                Agendar Demo <ArrowRight size={16} />
-              </button>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
+
+    {mobileOpen && (
+      <div className="fixed inset-0 z-[100] xl:hidden">
+        {/* Opaque backdrop */}
+        <div className="absolute inset-0 bg-[#0F1B3D]" />
+
+        {/* Menu content */}
+        <div className="relative h-full w-full flex flex-col overflow-y-auto">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+            <img src="/aodigital.png" alt="Always On" className="h-7 w-auto" />
+            <button
+              aria-label="Fechar menu"
+              onClick={() => setMobileOpen(false)}
+              className="text-white p-2"
+            >
+              <XIcon className="w-7 h-7" />
+            </button>
+          </div>
+          <nav className="flex-1 px-6 py-6 space-y-1 text-white">
+            {/* Sobre accordion */}
+            <button
+              onClick={() => setMobileSobreOpen((v) => !v)}
+              className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
+            >
+              Sobre
+              <ChevronDown size={18} className={`transition-transform ${mobileSobreOpen ? "rotate-180" : ""}`} />
+            </button>
+            {mobileSobreOpen && (
+              <div className="pl-4 flex flex-col gap-1">
+                {SOBRE.map(({ Icon, label, href }) => (
+                  <a key={href} href={href} onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
+                    <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                    <span className="text-base">{label}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {/* Soluções accordion */}
+            <button
+              onClick={() => setMobileSolOpen((v) => !v)}
+              className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
+            >
+              Soluções
+              <ChevronDown size={18} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
+            </button>
+            {mobileSolOpen && (
+              <div className="pl-4 flex flex-col gap-1">
+                {SOLUCOES.map(({ Icon, label, href }) => (
+                  <a key={href} href={href} onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
+                    <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                    <span className="text-base">{label}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+
+            <a href="#comparativo" onClick={() => setMobileOpen(false)}
+              className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Comparativo</a>
+
+            {/* Porque accordion */}
+            <button
+              onClick={() => setMobilePorqueOpen((v) => !v)}
+              className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
+            >
+              Porque
+              <ChevronDown size={18} className={`transition-transform ${mobilePorqueOpen ? "rotate-180" : ""}`} />
+            </button>
+            {mobilePorqueOpen && (
+              <div className="pl-4 flex flex-col gap-1">
+                {PORQUE.map(({ Icon, label, href }) => (
+                  <a key={href} href={href} onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
+                    <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                    <span className="text-base">{label}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+
+            <a href="#industrias" onClick={() => setMobileOpen(false)}
+              className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Indústrias</a>
+            <a href="#o-que-dizem" onClick={() => setMobileOpen(false)}
+              className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">O que dizem</a>
+
+            <button
+              onClick={() => {
+                setMobileOpen(false);
+                setTimeout(() => {
+                  document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              }}
+              className="mt-6 w-full px-4 py-3.5 rounded-full bg-white text-[#0F1B3D] font-semibold inline-flex items-center justify-center gap-2"
+            >
+              Agendar Demo <ArrowRight size={16} />
+            </button>
+          </nav>
+        </div>
+      </div>
+    )}
+    </>
   );
 }
 
