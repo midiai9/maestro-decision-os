@@ -692,7 +692,7 @@ function Insights() {
     "Antes de executar, o Maestro mede, simula e prioriza.",
   ];
   return (
-    <Section>
+    <Section id="insights">
       <Reveal><Tag><Lightbulb size={12} /> Intelligence Layer</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro Insights</h2>
