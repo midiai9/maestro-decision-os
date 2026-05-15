@@ -922,7 +922,8 @@ function Insights() {
         </p>
       </Reveal>
 
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Desktop */}
+      <div className="mt-12 hidden md:grid grid-cols-1 md:grid-cols-2 gap-6">
         {caps.map((c, i) => (
           <Reveal key={c.t} delay={i * 0.05}>
             <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-8 min-h-[240px] flex flex-col`}>
@@ -932,6 +933,19 @@ function Insights() {
             </div>
           </Reveal>
         ))}
+      </div>
+      {/* Mobile carousel */}
+      <div className="mt-10 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {caps.map((c, i) => (
+            <div key={c.t} className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 min-h-[220px] flex flex-col`}>
+              <c.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <h3 className="font-display text-xl font-medium text-white">{c.t}</h3>
+              <p className="mt-3 text-white/70 text-sm leading-relaxed">{c.d}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
       </div>
 
       <Reveal delay={0.3}>
