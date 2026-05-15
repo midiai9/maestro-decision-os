@@ -631,7 +631,7 @@ function NossaTese() {
     "Executam com Governança e Escala",
   ];
   const Card = ({ p, i }: { p: string; i: number }) => (
-    <div className="surface-card p-6 min-h-[180px] h-full flex items-center gap-4">
+    <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 min-h-[180px] h-full flex items-center gap-4`}>
       <span className="font-display text-2xl text-brand-purple-light flex-shrink-0" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
       <p className="font-display text-base lg:text-lg leading-snug">{p}</p>
     </div>
