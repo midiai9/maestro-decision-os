@@ -818,11 +818,11 @@ function DataFlow() {
         ))}
       </div>
 
-      <Reveal delay={0.3}>
-        <p className="mt-12 font-display text-2xl md:text-3xl font-light italic">
-          Infraestrutura invisível. Impacto organizacional visível.
-        </p>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Maestro Data Flow"
+        topLine="Infraestrutura invisível."
+        bottomLine={<>Impacto organizacional visível.</>}
+      />
     </Section>
   );
 }
