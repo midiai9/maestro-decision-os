@@ -837,18 +837,18 @@ function DataFlow() {
 /* ============ 10. INSIGHTS ============ */
 function Insights() {
   const caps = [
-    { t: "Diagnóstico Inteligente", d: "Identifica padrões, anomalias e gargalos com contexto de negócio e priorização por impacto." },
-    { t: "Análise Contextualizada", d: "Cruza múltiplas fontes para visão holística, conectando causa e efeito com rigor estatístico." },
-    { t: "Previsão Probabilística", d: "Forecast com incerteza explícita e simulação de cenários para decisões baseadas em probabilidades." },
-    { t: "Prescrição por Impacto", d: "Recomendações priorizadas por ROI esperado, viabilidade e alinhamento estratégico." },
+    { Icon: Search, t: "Diagnóstico Inteligente", d: "Identifica padrões, anomalias e gargalos com contexto de negócio e priorização por impacto." },
+    { Icon: GitMerge, t: "Análise Contextualizada", d: "Cruza múltiplas fontes para visão holística, conectando causa e efeito com rigor estatístico." },
+    { Icon: TrendingUp, t: "Previsão Probabilística", d: "Forecast com incerteza explícita e simulação de cenários para decisões baseadas em probabilidades." },
+    { Icon: Target, t: "Prescrição por Impacto", d: "Recomendações priorizadas por ROI esperado, viabilidade e alinhamento estratégico." },
   ];
-  const pratica = [
-    "Identificação automática de queda de margem por cluster",
-    "Simulação de política comercial antes da ativação",
-    "Forecast de vendas com faixa de risco e cenários alternativos",
-    "Detecção de gargalos de conversão e priorização de ação",
-    "Projeção de impacto antes da execução de campanha",
-    "Antes de executar, o Maestro mede, simula e prioriza.",
+  const pratica: Array<{ Icon: typeof Search | null; t: string; highlight?: boolean }> = [
+    { Icon: AlertCircle, t: "Identificação automática de queda de margem por cluster" },
+    { Icon: FlaskConical, t: "Simulação de política comercial antes da ativação" },
+    { Icon: BarChart3, t: "Forecast de vendas com faixa de risco e cenários alternativos" },
+    { Icon: Filter, t: "Detecção de gargalos de conversão e priorização de ação" },
+    { Icon: Calculator, t: "Projeção de impacto antes da execução de campanha" },
+    { Icon: null, t: "Antes de executar, o Maestro mede, simula e prioriza.", highlight: true },
   ];
   return (
     <Section id="insights">
@@ -865,12 +865,13 @@ function Insights() {
         </p>
       </Reveal>
 
-      <div className="mt-12 grid md:grid-cols-2 gap-5">
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
         {caps.map((c, i) => (
           <Reveal key={c.t} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full">
-              <h3 className="font-display text-xl font-medium">{c.t}</h3>
-              <p className="mt-3 text-offwhite/80 text-sm leading-relaxed">{c.d}</p>
+            <div className="surface-card p-8 min-h-[240px] flex flex-col">
+              <c.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <h3 className="font-display text-xl md:text-2xl font-medium">{c.t}</h3>
+              <p className="mt-3 text-white/70 text-sm leading-relaxed">{c.d}</p>
             </div>
           </Reveal>
         ))}
@@ -879,12 +880,19 @@ function Insights() {
       <Reveal delay={0.3}>
         <h3 className="mt-16 font-display text-2xl">Insights na Prática</h3>
       </Reveal>
-      <div className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {pratica.map((p, i) => (
-          <Reveal key={p} delay={i * 0.04}>
-            <div className={`surface-card p-5 h-full ${i === pratica.length - 1 ? "italic" : ""}`}>
-              <p className="text-sm">{p}</p>
-            </div>
+          <Reveal key={p.t} delay={i * 0.04}>
+            {p.highlight ? (
+              <div className="rounded-xl p-5 min-h-[100px] italic border-l-2 border-l-[#00D4FF] bg-[#0F1B3D]/60 flex items-center">
+                <p className="text-white/85 text-sm">{p.t}</p>
+              </div>
+            ) : (
+              <div className="rounded-xl p-5 min-h-[100px] flex items-start gap-3 bg-[#0F1B3D]">
+                {p.Icon && <p.Icon className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />}
+                <p className="text-white/85 text-sm">{p.t}</p>
+              </div>
+            )}
           </Reveal>
         ))}
       </div>
