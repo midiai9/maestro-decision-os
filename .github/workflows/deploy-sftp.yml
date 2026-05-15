@@ -36,14 +36,11 @@ jobs:
           echo "Conteúdo final do dist/:"
           ls -la dist/
 
-      - name: Deploy via SSH (rsync)
-        uses: easingthemes/ssh-deploy@v4.1.10
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST || 'servidori9.com.br' }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER || 'maestro-deploy' }}
-          REMOTE_PORT: ${{ secrets.REMOTE_PORT || '22' }}
-          SOURCE: "dist/"
-          TARGET: "/maestro.aodigital.net.br/httpdocs"
-          ARGS: "-rlgoDzvc -i --delete-after"
-          EXCLUDE: ".git/, .github/, node_modules/"
+      - name: Deploy via SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          rsync -avz --delete -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            ./dist/ maestro-deploy@servidori9.com.br:/maestro.aodigital.net.br/httpdocs/
+          rm ~/.ssh/deploy_key
