@@ -661,14 +661,11 @@ function NossaTese() {
         <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
       </div>
 
-      <Reveal delay={0.35}>
-        <div className="mt-12 rounded-2xl p-10" style={{ background: "var(--brand-purple-light)" }}>
-          <p className="text-xl md:text-2xl font-display font-light max-w-3xl">
-            O futuro não pertence às empresas com mais dados. Pertence às empresas que conseguem:{" "}
-            <strong>orquestrar, contextualizar e executar mais rápido</strong>.
-          </p>
-        </div>
-      </Reveal>
+      <HighlightBox
+        miniTag="✦ Nossa Tese"
+        topLine="O futuro não pertence às empresas com mais dados."
+        bottomLine={<>Pertence às empresas que conseguem: orquestrar, contextualizar e executar mais rápido.</>}
+      />
     </Section>
   );
 }
