@@ -381,25 +381,66 @@ function Hero({ onDemo }: { onDemo: () => void }) {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {});
-    }
+
+    // Force iOS-required flags via JS (some browsers ignore JSX props)
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+
+    const tryPlay = () => {
+      const p = video.play();
+      if (p !== undefined) {
+        p.catch((err) => {
+          console.warn("[HeroVideo] Autoplay falhou:", err);
+        });
+      }
+    };
+
+    tryPlay();
+
+    const onLoadedMeta = () => tryPlay();
+    const onCanPlay = () => tryPlay();
+    video.addEventListener("loadedmetadata", onLoadedMeta);
+    video.addEventListener("canplay", onCanPlay);
+
+    const onFirstInteraction = () => {
+      tryPlay();
+      window.removeEventListener("touchstart", onFirstInteraction);
+      window.removeEventListener("scroll", onFirstInteraction);
+      window.removeEventListener("click", onFirstInteraction);
+    };
+    window.addEventListener("touchstart", onFirstInteraction, { passive: true });
+    window.addEventListener("scroll", onFirstInteraction, { passive: true });
+    window.addEventListener("click", onFirstInteraction);
+
+    return () => {
+      video.removeEventListener("loadedmetadata", onLoadedMeta);
+      video.removeEventListener("canplay", onCanPlay);
+      window.removeEventListener("touchstart", onFirstInteraction);
+      window.removeEventListener("scroll", onFirstInteraction);
+      window.removeEventListener("click", onFirstInteraction);
+    };
   }, []);
   return (
-    <section id="top" className="relative min-h-screen w-full overflow-hidden">
+    <section id="top" className="relative min-h-[100svh] w-full overflow-hidden">
       <video
         ref={videoRef}
-        src="/maestro.mp4"
         autoPlay
         loop
         muted
         playsInline
         preload="auto"
         disablePictureInPicture
+        // @ts-expect-error legacy iOS attribute
+        webkit-playsinline="true"
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+      >
+        <source src="/maestro.mp4" type="video/mp4" />
+      </video>
       <motion.div
         initial={{ backgroundColor: "rgba(0,0,0,0.8)" }}
         animate={{ backgroundColor: "rgba(0,0,0,0.5)" }}
