@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
+  Menu,
+  ChevronDown,
+  MessageCircle,
   ArrowDown,
   AlertCircle,
   AlertTriangle,
@@ -33,12 +36,12 @@ import {
   Car,
   Factory,
   Mail,
-  Phone,
   Linkedin,
   Globe,
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
+import { WhatsAppButton } from "@/components/landing/WhatsAppButton";
 // rebuild: 15-mai-0341
 
 export default function Index() {
@@ -70,30 +73,137 @@ export default function Index() {
       <Industrias />
       <AdocaoImpacto />
       <ValidacaoCTA onDemo={openModal} />
-      <Footer />
+      <Footer onDemo={openModal} />
+      <WhatsAppButton />
     </main>
   );
 }
 
 /* ============ NAV ============ */
+const SOLUCOES = [
+  { Icon: Database, label: "Maestro Data Flow", href: "#data-flow" },
+  { Icon: Lightbulb, label: "Maestro Insights", href: "#insights" },
+  { Icon: Users, label: "Maestro CX", href: "#cx" },
+  { Icon: Bot, label: "Maestro Decision Teams", href: "#decision-teams" },
+];
+
 function Nav({ onDemo }: { onDemo: () => void }) {
+  const [solOpen, setSolOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileSolOpen, setMobileSolOpen] = useState(false);
+
   return (
-    <header className="absolute top-0 left-0 right-0 z-20">
+    <header className="absolute top-0 left-0 right-0 z-30">
       <div className="mx-auto max-w-7xl px-6 md:px-10 py-6 flex items-center justify-between">
         <a href="#top" className="font-display text-lg font-semibold tracking-tight text-white">
           Always On <span className="opacity-60">·</span>{" "}
           <span className="text-white">Maestro AI OS</span>
         </a>
+
+        {/* Desktop */}
         <nav className="hidden md:flex items-center gap-8 text-sm text-white/80">
-          <a href="#arquitetura" className="hover:text-white">Arquitetura</a>
-          <a href="#teams" className="hover:text-white">Teams</a>
+          <div
+            className="relative"
+            onMouseEnter={() => setSolOpen(true)}
+            onMouseLeave={() => setSolOpen(false)}
+          >
+            <button
+              onClick={() => setSolOpen((v) => !v)}
+              className="hover:text-white inline-flex items-center gap-1"
+            >
+              Soluções <ChevronDown size={14} className={`transition-transform ${solOpen ? "rotate-180" : ""}`} />
+            </button>
+            <AnimatePresence>
+              {solOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  transition={{ duration: 0.18 }}
+                  className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[280px]"
+                >
+                  <div
+                    className="rounded-xl p-4 backdrop-blur-md border border-white/10 flex flex-col gap-1"
+                    style={{ backgroundColor: "rgba(15,27,61,0.95)" }}
+                  >
+                    {SOLUCOES.map(({ Icon, label, href }) => (
+                      <a
+                        key={href}
+                        href={href}
+                        onClick={() => setSolOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+                      >
+                        <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                        <span className="text-white text-sm font-medium">{label}</span>
+                      </a>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <a href="#industrias" className="hover:text-white">Indústrias</a>
-          <a href="#impacto" className="hover:text-white">Impacto</a>
+          <a href="#ganhos" className="hover:text-white">Ganhos</a>
           <button onClick={onDemo} className="hover:text-white inline-flex items-center gap-1.5">
             Agendar Demo <ArrowRight size={14} />
           </button>
         </nav>
+
+        {/* Mobile toggle */}
+        <button
+          aria-label="Abrir menu"
+          onClick={() => setMobileOpen((v) => !v)}
+          className="md:hidden text-white p-2 -mr-2"
+        >
+          {mobileOpen ? <XIcon size={22} /> : <Menu size={22} />}
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden mx-6 rounded-xl border border-white/10 backdrop-blur-md overflow-hidden"
+            style={{ backgroundColor: "rgba(15,27,61,0.95)" }}
+          >
+            <div className="p-4 flex flex-col gap-1 text-sm">
+              <button
+                onClick={() => setMobileSolOpen((v) => !v)}
+                className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-white/5 text-white font-medium"
+              >
+                Soluções
+                <ChevronDown size={16} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
+              </button>
+              {mobileSolOpen && (
+                <div className="pl-2 flex flex-col gap-1">
+                  {SOLUCOES.map(({ Icon, label, href }) => (
+                    <a
+                      key={href}
+                      href={href}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90"
+                    >
+                      <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
+                      <span className="text-sm">{label}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+              <a href="#industrias" onClick={() => setMobileOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white">Indústrias</a>
+              <a href="#ganhos" onClick={() => setMobileOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white">Ganhos</a>
+              <button
+                onClick={() => { setMobileOpen(false); onDemo(); }}
+                className="px-3 py-2.5 rounded-lg hover:bg-white/5 text-white inline-flex items-center gap-1.5 text-left"
+              >
+                Agendar Demo <ArrowRight size={14} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
@@ -519,7 +629,7 @@ function DataFlow() {
     { Icon: Rocket, t: "Base para IA escalável" },
   ];
   return (
-    <Section>
+    <Section id="data-flow">
       <Reveal><Tag><Database size={12} /> Infraestrutura Estratégica</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro Data Flow</h2>
@@ -581,7 +691,7 @@ function Insights() {
     "Antes de executar, o Maestro mede, simula e prioriza.",
   ];
   return (
-    <Section>
+    <Section id="insights">
       <Reveal><Tag><Lightbulb size={12} /> Intelligence Layer</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro Insights</h2>
@@ -643,7 +753,7 @@ function CX() {
     },
   ];
   return (
-    <Section>
+    <Section id="cx">
       <Reveal><Tag><Users size={12} /> Customer First</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro CX</h2>
@@ -688,7 +798,9 @@ function CX() {
 function DecisionTeams() {
   const attrs = ["Domínio Específico", "Execução Integrada", "Insights Preditivos", "Ações Priorizadas", "Decisões Baseadas em Dados", "Aprendizado Controlado"];
   return (
-    <Section id="teams">
+    <Section id="decision-teams">
+      {/* anchor alias */}
+      <span id="teams" className="sr-only" aria-hidden="true" />
       <Reveal><Tag><Bot size={12} /> Digital Decision Teams</Tag></Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro Decision Teams</h2>
@@ -1154,7 +1266,7 @@ function AdocaoImpacto() {
         </div>
       </Section>
 
-      <Section id="impacto">
+      <Section id="ganhos">
         <Reveal><Tag><Trophy size={12} /> Impacto Board</Tag></Reveal>
         <Reveal delay={0.1}>
           <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">O Que Sua Empresa Ganha</h2>
@@ -1283,48 +1395,83 @@ function ValidacaoCTA({ onDemo }: { onDemo: () => void }) {
 }
 
 /* ============ FOOTER ============ */
-function Footer() {
+function Footer({ onDemo }: { onDemo: () => void }) {
+  const wa =
+    "https://wa.me/5511917830499?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Maestro%20AI%20OS";
   return (
-    <footer className="px-6 md:px-10 pt-20 pb-10 border-t border-white/10" style={{ background: "var(--brand-purple-dark)" }}>
+    <footer
+      className="px-6 md:px-10 py-16 border-t border-white/10 text-white/70"
+      style={{ backgroundColor: "#0A1228" }}
+    >
       <div className="mx-auto max-w-7xl grid md:grid-cols-4 gap-10">
+        {/* Marca */}
         <div>
-          <p className="font-display text-2xl font-semibold">Always On</p>
-          <p className="mt-3 text-sm text-offwhite/80 max-w-xs">
+          <p className="font-display text-2xl font-semibold text-white">Always On</p>
+          <p className="mt-3 text-sm max-w-xs">
             Decisão orientada por dados, operada por times de IA.
           </p>
+          <p className="mt-3 text-xs uppercase tracking-widest text-white/50">Maestro AI OS</p>
         </div>
+
+        {/* Soluções */}
         <div>
-          <p className="text-xs uppercase tracking-widest text-offwhite/60 font-semibold mb-4">Contato direto</p>
-          <p className="font-medium">Elcio Santos</p>
-          <p className="mt-3 text-sm text-offwhite/85 flex items-center gap-2"><Phone size={14} /> 11 994 988 670</p>
-          <a href="mailto:elcio@aodigital.com.br" className="mt-2 text-sm text-offwhite/85 flex items-center gap-2 hover:text-white">
-            <Mail size={14} /> elcio@aodigital.com.br
-          </a>
-        </div>
-        <div>
-          <p className="text-xs uppercase tracking-widest text-offwhite/60 font-semibold mb-4">Links rápidos</p>
-          <ul className="space-y-2 text-sm">
-            <li><a href="#arquitetura" className="text-offwhite/85 hover:text-white">Arquitetura</a></li>
-            <li><a href="#teams" className="text-offwhite/85 hover:text-white">Teams</a></li>
-            <li><a href="#industrias" className="text-offwhite/85 hover:text-white">Indústrias</a></li>
-            <li><a href="#top" className="text-offwhite/85 hover:text-white">Demo</a></li>
+          <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Soluções</p>
+          <ul className="space-y-2.5 text-sm">
+            {SOLUCOES.map(({ Icon, label, href }) => (
+              <li key={href}>
+                <a href={href} className="flex items-center gap-2 hover:text-white">
+                  <Icon size={14} style={{ color: "#00D4FF" }} />
+                  <span>{label}</span>
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
+
+        {/* Navegação */}
         <div>
-          <p className="text-xs uppercase tracking-widest text-offwhite/60 font-semibold mb-4">Acompanhe</p>
-          <div className="flex flex-col gap-2 text-sm">
-            <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="text-offwhite/85 hover:text-white flex items-center gap-2">
-              <Linkedin size={14} /> LinkedIn
-            </a>
-            <a href="https://aodigital.com.br" target="_blank" rel="noreferrer" className="text-offwhite/85 hover:text-white flex items-center gap-2">
-              <Globe size={14} /> aodigital.com.br
-            </a>
-          </div>
+          <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Navegação</p>
+          <ul className="space-y-2.5 text-sm">
+            <li><a href="#industrias" className="hover:text-white">Indústrias</a></li>
+            <li><a href="#ganhos" className="hover:text-white">Ganhos</a></li>
+            <li>
+              <button onClick={onDemo} className="hover:text-white text-left">
+                Agendar Demo
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        {/* Contato */}
+        <div>
+          <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Contato</p>
+          <ul className="space-y-2.5 text-sm">
+            <li>
+              <a href={wa} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white">
+                <MessageCircle size={14} /> (11) 91783-0499
+              </a>
+            </li>
+            <li>
+              <a href="mailto:contato@aodigital.com.br" className="flex items-center gap-2 hover:text-white">
+                <Mail size={14} /> contato@aodigital.com.br
+              </a>
+            </li>
+            <li>
+              <a href="https://aodigital.com.br" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white">
+                <Globe size={14} /> aodigital.com.br
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white">
+                <Linkedin size={14} /> LinkedIn
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-      <div className="mx-auto max-w-7xl mt-12 pt-6 border-t border-white/10 flex flex-wrap justify-between gap-4 text-xs text-offwhite/60">
-        <p>© 2026 Always On. Todos os direitos reservados.</p>
-        <p>Política de Privacidade · LGPD</p>
+
+      <div className="mx-auto max-w-7xl mt-12 pt-6 border-t border-white/10 text-xs text-white/60 text-center md:text-left">
+        <p>© 2026 Always On. Todos os direitos reservados. · Política de Privacidade · LGPD</p>
       </div>
     </footer>
   );
