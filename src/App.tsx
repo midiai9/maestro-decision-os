@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -40,11 +39,7 @@ import {
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
 
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-function Index() {
+export default function Index() {
   const [openDemo, setOpenDemo] = useState(false);
   const openModal = () => setOpenDemo(true);
 
