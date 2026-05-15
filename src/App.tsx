@@ -872,22 +872,21 @@ function Insights() {
       <Reveal delay={0.3}>
         <h3 className="mt-16 font-display text-2xl">Insights na Prática</h3>
       </Reveal>
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {pratica.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.04}>
-            {p.highlight ? (
-              <div className="rounded-xl p-5 min-h-[100px] italic border-l-2 border-l-[#00D4FF] bg-[#0F1B3D]/60 flex items-center">
-                <p className="text-white/85 text-sm">{p.t}</p>
-              </div>
-            ) : (
-              <div className="rounded-xl p-5 min-h-[100px] flex items-start gap-3 bg-[#0F1B3D]">
-                {p.Icon && <p.Icon className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />}
-                <p className="text-white/85 text-sm">{p.t}</p>
-              </div>
-            )}
+            <div className="rounded-xl p-5 min-h-[140px] h-full flex flex-col items-start gap-3 bg-[#0F1B3D]">
+              <p.Icon className="w-5 h-5 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
+              <p className="text-white/85 text-sm">{p.t}</p>
+            </div>
           </Reveal>
         ))}
       </div>
+
+      <HighlightBox
+        miniTag="✦ Insights na Prática"
+        bottomLine={<>Antes de executar, o Maestro mede, simula e prioriza.</>}
+      />
     </Section>
   );
 }
