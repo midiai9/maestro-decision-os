@@ -63,30 +63,30 @@ export function SolutionsNav() {
 
   return (
     <div
-      className={`fixed left-0 right-0 z-40 top-[60px] md:top-[68px] transition-all duration-300 ${
+      className={`fixed left-0 right-0 z-40 top-[56px] md:top-[68px] transition-all duration-300 ${
         isVisible
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 -translate-y-2 pointer-events-none"
-      } bg-[#0F1B3D]/92 backdrop-blur-md border-b border-white/10`}
+      } bg-[#0F1B3D]/65 backdrop-blur-xl border-b border-white/[0.06]`}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-2.5">
-          <span className="hidden lg:block text-[10px] uppercase tracking-widest text-white/40 mr-3 whitespace-nowrap">
-            Maestro AI OS
-          </span>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 relative">
+        <span className="hidden lg:block absolute left-6 top-1/2 -translate-y-1/2 text-[10px] uppercase tracking-[0.25em] text-white/30 whitespace-nowrap pointer-events-none">
+          Maestro AI OS
+        </span>
+        <div className="flex items-center gap-1.5 md:gap-2 md:justify-center overflow-x-auto scrollbar-hide py-2 md:py-2.5">
           {solutions.map(({ id, label, icon: Icon }) => {
             const active = activeId === id;
             return (
               <button
                 key={id}
                 onClick={() => handleClick(id)}
-                className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 ${
+                className={`flex items-center gap-1.5 md:gap-2 px-2.5 md:px-4 py-1.5 md:py-2 rounded-full text-[11px] md:text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 ${
                   active
-                    ? "bg-[#00D4FF]/15 text-[#00D4FF] border border-[#00D4FF]/40 shadow-[0_0_12px_rgba(0,212,255,0.2)]"
-                    : "text-white/65 hover:text-white hover:bg-white/5 border border-transparent"
+                    ? "bg-[#00D4FF]/12 text-[#00D4FF] border border-[#00D4FF]/35 shadow-[0_0_10px_rgba(0,212,255,0.15)]"
+                    : "text-white/55 hover:text-white hover:bg-white/5 border border-transparent"
                 }`}
               >
-                <Icon size={16} strokeWidth={2} />
+                <Icon size={13} className="md:w-4 md:h-4" strokeWidth={2} />
                 <span>{label}</span>
               </button>
             );
