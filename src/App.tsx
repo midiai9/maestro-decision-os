@@ -605,7 +605,14 @@ function NossaTese() {
     "Transformam Dados em Contexto de Negócio",
     "Antecipam Cenários com Modelos Explicáveis",
     "Operam com Times Digitais Especializados",
+    "Executam com Governança e Escala",
   ];
+  const Card = ({ p, i }: { p: string; i: number }) => (
+    <div className="surface-card p-6 min-h-[180px] h-full flex items-center gap-4">
+      <span className="font-display text-2xl text-brand-purple-light flex-shrink-0" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
+      <p className="font-display text-base lg:text-lg leading-snug">{p}</p>
+    </div>
+  );
   return (
     <Section>
       <Reveal>
@@ -620,22 +627,26 @@ function NossaTese() {
         </p>
       </Reveal>
 
-      <div className="mt-14 grid md:grid-cols-2 gap-5">
+      {/* Desktop / tablet grid */}
+      <div className="mt-14 hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
         {pilares.map((p, i) => (
           <Reveal key={p} delay={i * 0.05}>
-            <div className="surface-card p-7 h-full flex items-start gap-4">
-              <span className="font-display text-2xl text-brand-purple-light">0{i + 1}</span>
-              <p className="font-display text-lg leading-snug">{p}</p>
-            </div>
+            <Card p={p} i={i} />
           </Reveal>
         ))}
       </div>
-      <Reveal delay={0.25}>
-        <div className="mt-5 surface-card p-7 flex items-start gap-4">
-          <span className="font-display text-2xl text-brand-purple-light">05</span>
-          <p className="font-display text-lg leading-snug">Executam com Governança e Escala</p>
+
+      {/* Mobile carousel */}
+      <div className="mt-14 md:hidden">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+          {pilares.map((p, i) => (
+            <div key={p} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
+              <Card p={p} i={i} />
+            </div>
+          ))}
         </div>
-      </Reveal>
+        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
+      </div>
 
       <Reveal delay={0.35}>
         <div className="mt-12 rounded-2xl p-10" style={{ background: "var(--brand-purple-light)" }}>
