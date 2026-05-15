@@ -62,19 +62,19 @@ export default function Index() {
       <CustoInacao />
       <NossaTese />
       <NaoE />
+      <Workflow6 />
+      <Seguranca />
       <Arquitetura />
       <DataFlow />
       <Insights />
       <CX />
       <DecisionTeams />
       <Maturidade />
-      <Workflow6 />
       <ModelosAdocao />
       <ComparaCopilots />
-      <Seguranca />
       <Diferenciacao />
-      <Industrias />
       <Ganhos />
+      <Industrias />
       <ValidacaoCTA onDemo={openModal} />
       <Footer onDemo={openModal} />
       <WhatsAppButton />
