@@ -58,6 +58,14 @@ import {
   BrainCircuit,
   User,
   ExternalLink,
+  MessageSquare,
+  Cpu,
+  Cloud,
+  Briefcase,
+  Sprout,
+  BookOpen,
+  ThumbsUp,
+  Gauge,
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
