@@ -807,7 +807,7 @@ function DataFlow() {
       <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {caps.map((c, i) => (
           <Reveal key={c} delay={i * 0.04}>
-            <div className="surface-card p-6 h-full">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 h-full`}>
               <div className="flex items-center gap-3">
                 <CheckCircle2 size={18} className="text-brand-purple-light" style={{ color: "var(--brand-purple-light)" }} />
                 <p className="font-medium">{c}</p>
@@ -820,7 +820,7 @@ function DataFlow() {
       <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {impactos.map(({ Icon, t }, i) => (
           <Reveal key={t} delay={i * 0.05}>
-            <div className="surface-card p-6 h-full">
+            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 h-full`}>
               <Icon size={22} style={{ color: "var(--brand-purple-light)" }} />
               <p className="mt-3 text-sm font-medium">{t}</p>
             </div>
