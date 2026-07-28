@@ -469,7 +469,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
           {...fadeUp(0.2)}
           className="text-white/80 text-base md:text-xl max-w-2xl mb-10"
         >
-          Da análise à ação. Da intuição à decisão orientada por dados.
+          Da análise à ação. Da intuição à decisão orientada por dados!
         </motion.p>
         <motion.div
           {...fadeUp(0.3)}
