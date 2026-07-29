@@ -62,6 +62,7 @@ import { PulseBeams, type Beam } from "@/components/ui/pulse-beams";
 import { LampContainer } from "@/components/ui/lamp";
 import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot";
 import { BackgroundPaths } from "@/components/ui/background-paths";
+import { MaestroIntro } from "@/components/ui/maestro-intro";
 
 const CYAN = "#22D3EE";
 
@@ -418,9 +419,9 @@ function Hero({ onDemo }: { onDemo: () => void }) {
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(900px 500px at 78% 8%, rgba(124,58,237,0.30), transparent 60%), radial-gradient(700px 500px at 12% 30%, rgba(34,211,238,0.16), transparent 55%)" }} />
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center max-w-4xl mx-auto px-6 py-24 md:py-28">
-        <motion.div {...fadeUp(0)} className="mb-7">
-          <span className="glow-name text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight" data-text="Maestro">Maestro</span>
-        </motion.div>
+        <div className="mb-7">
+          <MaestroIntro />
+        </div>
 
         <motion.div {...fadeUp(0.08)}>
           <span className="inline-flex items-center gap-2 bg-white/8 backdrop-blur-md border border-white/15 rounded-full px-5 py-2 text-[11px] md:text-xs uppercase tracking-[0.22em] text-white/85 mb-8">
@@ -1461,7 +1462,9 @@ function Footer({ onDemo }: { onDemo: () => void }) {
         <div className="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3 text-sm text-white/50">
             <span>powered by</span>
-            <img src="/alwayson-logo.png" alt="Always On" className="h-6 w-auto opacity-90" />
+            <a href="https://aodigital.com.br/" target="_blank" rel="noopener noreferrer" aria-label="Always On" className="inline-flex transition-opacity hover:opacity-100 opacity-90">
+              <img src="/alwayson-logo.png" alt="Always On" className="h-6 w-auto" />
+            </a>
           </div>
           <p className="text-xs text-white/40">© {new Date().getFullYear()} Maestro · Always On. Todos os direitos reservados.</p>
         </div>

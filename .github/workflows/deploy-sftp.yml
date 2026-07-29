@@ -36,13 +36,21 @@ jobs:
           echo "Conteúdo final do dist/:"
           ls -la dist/
 
-      - name: Deploy via FTP
+      - name: Deploy via FTP (com retry)
         run: |
           cd dist
           sudo apt-get install -y lftp
-          lftp -u ${{ secrets.SFTP_USER }},${{ secrets.SFTP_PASS }} \
-            -e "mirror -e -R ./ ./; quit" \
-            ${{ secrets.SFTP_HOST }}
+          n=0
+          until [ $n -ge 4 ]; do
+            lftp -u "${{ secrets.SFTP_USER }},${{ secrets.SFTP_PASS }}" \
+              -e "set net:max-retries 3; set net:timeout 25; set net:reconnect-interval-base 5; set net:persist-retries 3; mirror -e -R ./ ./; bye" \
+              "${{ secrets.SFTP_HOST }}" && break
+            n=$((n+1))
+            echo "::warning::FTP tentativa $n falhou; novo retry em 8s"
+            sleep 8
+          done
+          if [ $n -ge 4 ]; then echo "::error::FTP falhou apos 4 tentativas"; exit 1; fi
+          echo "FTP concluido com sucesso"
 
       - name: Ajustar permissões via lftp
         env:
