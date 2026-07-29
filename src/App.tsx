@@ -693,7 +693,7 @@ function Categoria() {
           <div className="relative rounded-2xl p-[1.5px]" style={{ background: "linear-gradient(100deg,#7C3AED,#4F46E5 50%,#06B6D4)" }}>
             <div className="rounded-2xl bg-[#0A0D1C] px-6 py-8 text-center">
               <div className="flex items-center justify-center gap-3">
-                <img src="/logos/maestro-icon2.svg" alt="" className="h-8 w-auto" />
+                <img src="/logos/maestro-icon2.svg" alt="" width={36} height={36} className="h-9 w-9 object-contain shrink-0" />
                 <span className="text-xl md:text-2xl font-bold">Maestro</span>
               </div>
               <p className="mt-3 text-sm md:text-base text-white/70">
@@ -819,7 +819,7 @@ function Flow() {
     { Icon: Zap, t: "Sinais acionáveis", d: "Recomendações prontas para agentes, canais e sistemas." },
   ];
   return (
-    <Section id="flow" bg={<KineticGrid className="opacity-[0.18]" />}>
+    <Section id="flow" bg={<div className="hidden md:block absolute inset-0"><KineticGrid className="opacity-[0.18]" /></div>}>
       <ModuleHeader
         eyebrow="Flow · Fundação"
         Icon={Workflow}
@@ -831,16 +831,16 @@ function Flow() {
       <Reveal delay={0.1}>
         <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
           <p className="text-xs uppercase tracking-[0.2em] text-white/45 mb-6 text-center">Esteira de processamento</p>
-          <div className="flex flex-wrap items-center justify-center gap-y-4">
+          <div className="grid grid-cols-3 gap-3 md:flex md:flex-wrap md:items-center md:justify-center md:gap-y-4">
             {etapas.map(({ t, Icon }, i) => (
-              <div key={t} className="flex items-center">
-                <div className="flex flex-col items-center gap-2 w-24 md:w-28 py-4 px-2 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#22D3EE]/40 transition-colors">
+              <div key={t} className="flex items-center justify-center">
+                <div className="flex flex-col items-center gap-2 w-full md:w-28 py-4 px-2 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#22D3EE]/40 transition-colors">
                   <span className="grid place-items-center w-10 h-10 rounded-lg" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.28), rgba(34,211,238,0.2))" }}>
                     <Icon size={18} style={{ color: CYAN }} />
                   </span>
                   <span className="text-xs md:text-sm text-white/80 text-center">{t}</span>
                 </div>
-                {i < etapas.length - 1 && <ArrowRight size={16} className="text-white/25 mx-1 md:mx-2 shrink-0" />}
+                {i < etapas.length - 1 && <ArrowRight size={16} className="hidden md:block text-white/25 md:mx-2 shrink-0" />}
               </div>
             ))}
           </div>
@@ -881,7 +881,7 @@ function Insights() {
     { t: "Recomendação", q: "O que fazer agora?", Icon: Target },
   ];
   return (
-    <Section id="insights" bg={<KineticGrid className="opacity-[0.18]" />}>
+    <Section id="insights" bg={<div className="hidden md:block absolute inset-0"><KineticGrid className="opacity-[0.18]" /></div>}>
       <ModuleHeader
         eyebrow="Insights · Análise"
         Icon={Lightbulb}
@@ -946,7 +946,7 @@ function DecisionTeams() {
     { n: "Nível 3", t: "Prever", Icon: LineChart, d: "Modelos, cenários e probabilidades. Antecipe movimentos antes que virem problema." },
   ];
   return (
-    <Section id="decision-teams" bg={<KineticGrid className="opacity-[0.18]" />}>
+    <Section id="decision-teams" bg={<div className="hidden md:block absolute inset-0"><KineticGrid className="opacity-[0.18]" /></div>}>
       <ModuleHeader
         eyebrow="Decision Teams · Agentes"
         Icon={Bot}
@@ -1006,7 +1006,7 @@ function Composer() {
     { Icon: Repeat, t: "Aprendizado contínuo", d: "Cada campanha alimenta a inteligência da próxima." },
   ];
   return (
-    <Section id="composer" bg={<KineticGrid className="opacity-[0.18]" />}>
+    <Section id="composer" bg={<div className="hidden md:block absolute inset-0"><KineticGrid className="opacity-[0.18]" /></div>}>
       <ModuleHeader
         eyebrow="Composer · Criação"
         Icon={Sparkles}
@@ -1111,7 +1111,7 @@ function CX() {
     { Icon: Send, t: "SMS" }, { Icon: Globe, t: "Web" }, { Icon: Megaphone, t: "Social" },
   ];
   return (
-    <Section id="cx" bg={<KineticGrid className="opacity-[0.18]" />}>
+    <Section id="cx" bg={<div className="hidden md:block absolute inset-0"><KineticGrid className="opacity-[0.18]" /></div>}>
       <ModuleHeader
         eyebrow="CX · Ativação"
         Icon={Users}
@@ -1133,13 +1133,15 @@ function CX() {
       </div>
 
       <Reveal delay={0.1}>
-        <div className="mt-8 flex flex-wrap items-center gap-3">
-          <span className="text-sm text-white/45 mr-1">Canais orquestrados:</span>
-          {canais.map(({ Icon, t }) => (
-            <span key={t} className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/[0.03] border border-white/10 text-sm text-white/75">
-              <Icon size={15} style={{ color: CYAN }} /> {t}
-            </span>
-          ))}
+        <div className="mt-8">
+          <p className="text-sm text-white/45 mb-3 text-center md:text-left">Canais orquestrados</p>
+          <div className="flex flex-wrap justify-center md:justify-start gap-2.5">
+            {canais.map(({ Icon, t }) => (
+              <span key={t} className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/[0.03] border border-white/10 text-sm text-white/75">
+                <Icon size={15} style={{ color: CYAN }} /> {t}
+              </span>
+            ))}
+          </div>
         </div>
       </Reveal>
     </Section>
@@ -1389,7 +1391,7 @@ function CTAFinal({ onDemo }: { onDemo: () => void }) {
       <BackgroundPaths className="opacity-70" />
       <div className="relative mx-auto max-w-4xl text-center">
         <Reveal>
-          <img src="/logos/maestro-icon2.svg" alt="" className="h-10 w-auto mx-auto mb-8" />
+          <img src="/logos/maestro-icon2.svg" alt="" width={40} height={40} className="h-10 w-10 object-contain mx-auto mb-8" />
         </Reveal>
         <Reveal delay={0.08}>
           <h2 className="text-4xl md:text-6xl font-bold leading-[1.08]">

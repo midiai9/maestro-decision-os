@@ -331,6 +331,21 @@
   animation: gradientShift 12s ease-in-out infinite;
 }
 
+/* ===== Ajustes mobile: mais leve ===== */
+@media (max-width: 767px) {
+  /* Desliga o spotlight do cursor nas caixas (sem hover no touch + evita jank do background-attachment:fixed) */
+  [data-glow] {
+    background-image: none !important;
+    background-attachment: scroll !important;
+  }
+  [data-glow]::before,
+  [data-glow]::after { display: none !important; }
+
+  /* Brilho dos nomes das soluções um pouco menor no mobile */
+  .glow-name::before { filter: blur(12px) brightness(0.85) !important; opacity: 0.5 !important; }
+  .glow-name::after { filter: blur(2px) brightness(1.15) !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .glow-card::before,
   .menu-glow-line,
