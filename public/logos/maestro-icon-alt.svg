@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_2" data-name="Camada 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 84.88 82.27">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Gradiente_sem_nome);
+      }
+
+      .cls-2 {
+        fill: url(#Gradiente_sem_nome_4);
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+    <linearGradient id="Gradiente_sem_nome" data-name="Gradiente sem nome" x1="-1164.31" y1="576.86" x2="-1163.31" y2="576.86" gradientTransform="translate(14281.0904 -28892.5892) rotate(-90.1712) scale(24.8389 -24.8389)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#12d3d2"/>
+      <stop offset="1" stop-color="#705fa6"/>
+    </linearGradient>
+    <linearGradient id="Gradiente_sem_nome_4" data-name="Gradiente sem nome 4" x1="-1170.32" y1="603.65" x2="-1169.32" y2="603.65" gradientTransform="translate(43398.5862 -83804.2492) rotate(-89.9704) scale(71.6934 -71.6935)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#11d8d5"/>
+      <stop offset="1" stop-color="#9032a8"/>
+    </linearGradient>
+  </defs>
+  <g id="Camada_1-2" data-name="Camada 1">
+    <g>
+      <rect class="cls-3" x=".26" y="78.36" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="9.84" y="78.56" width="3.73" height="3.71"/>
+      <rect class="cls-3" y="62.62" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="3.18" y="50.57" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="3.05" y="37.59" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="10.58" y="30" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="15.16" y="21.63" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="7.5" y="17.79" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="15.67" y="78.47" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="19.22" y="74.53" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="15.21" y="70.69" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="7.04" y="54.55" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="11.11" y="42.09" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="15.13" y="37.75" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="15.06" y="46.35" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="10.95" y="50.4" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="19.13" y="50.35" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="15.09" y="54.36" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="11.06" y="58.57" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="15.05" y="62.62" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="19" y="58.45" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="11.2" y="66.45" width="3.73" height="3.71"/>
+      <rect class="cls-3" x="11.24" y="70.31" width="2.44" height="3.71"/>
+      <rect class="cls-3" x="13.48" y="74.49" width="2.44" height="3.71"/>
+      <rect class="cls-3" x="19.18" y="66.69" width="3.73" height="3.71"/>
+      <rect class="cls-1" x="31.58" y="40.63" width="14.99" height="41.08"/>
+      <rect class="cls-2" x="69.89" width="14.99" height="81.52"/>
+      <rect class="cls-3" x="57.24" y="11.82" width="2.1" height="69.91"/>
+    </g>
+  </g>
+</svg>

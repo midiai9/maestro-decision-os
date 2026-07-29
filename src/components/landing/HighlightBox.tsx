@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { motion } from "framer-motion";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 interface HighlightBoxProps {
   miniTag?: string;
@@ -11,23 +12,25 @@ interface HighlightBoxProps {
 
 export function HighlightBox({
   miniTag,
-  miniTagColor = "#00D4FF",
+  miniTagColor = "#22D3EE",
   topLine,
   bottomLine,
   variant = "default",
 }: HighlightBoxProps) {
   const bgGradient =
     variant === "danger"
-      ? "from-[#3D0B0B]/60 via-[#2A0606]/40 to-[#0F1B3D]/60"
-      : "from-[#8B1FA9]/40 via-[#6B1583]/30 to-[#0F1B3D]/60";
+      ? "from-[#4A1414]/75 via-[#2A0C0C]/60 to-[#150F1A]/65"
+      : "from-[#3B1D7A]/75 via-[#242C7A]/60 to-[#12173A]/65";
 
-  const borderColor =
-    variant === "danger" ? "border-[#EF4444]/30" : "border-[#00D4FF]/30";
+  const glowShadow =
+    variant === "danger"
+      ? "0 0 55px -14px rgba(239,68,68,0.4)"
+      : "0 0 65px -14px rgba(99,102,241,0.5)";
 
   const gradientText =
     variant === "danger"
       ? "from-white via-[#FFE4E4] to-[#EF4444]"
-      : "from-white via-[#E8E4F0] to-[#00D4FF]";
+      : "from-white via-[#C7D2FE] to-[#22D3EE]";
 
   return (
     <motion.div
@@ -35,28 +38,36 @@ export function HighlightBox({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`relative overflow-hidden rounded-2xl border ${borderColor} bg-gradient-to-br ${bgGradient} p-8 md:p-12 my-10`}
+      className="my-10"
     >
-      {miniTag && (
-        <div
-          className="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase mb-4"
-          style={{ color: miniTagColor }}
+      <div className="rounded-2xl" style={{ boxShadow: glowShadow }}>
+        <GlowCard
+          customSize
+          glowColor={variant === "danger" ? "red" : "purple"}
+          className="p-8 md:p-12 overflow-hidden"
         >
-          {miniTag}
-        </div>
-      )}
-
-      {topLine && (
-        <p className="text-base md:text-lg text-white/60 font-light mb-3">
-          {topLine}
-        </p>
-      )}
-
-      <p
-        className={`text-2xl md:text-4xl lg:text-5xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r ${gradientText}`}
-      >
-        {bottomLine}
-      </p>
+          <div className={`absolute inset-0 bg-gradient-to-br ${bgGradient} pointer-events-none`} />
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(120% 100% at 18% 0%, rgba(124,58,237,0.28), transparent 60%)" }} />
+          <div className="relative z-10">
+          {miniTag && (
+            <div
+              className="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase mb-4"
+              style={{ color: miniTagColor }}
+            >
+              {miniTag}
+            </div>
+          )}
+          {topLine && (
+            <p className="text-base md:text-lg text-white/60 font-light mb-3">{topLine}</p>
+          )}
+          <p
+            className={`text-2xl md:text-4xl lg:text-5xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r ${gradientText}`}
+          >
+            {bottomLine}
+          </p>
+          </div>
+        </GlowCard>
+      </div>
     </motion.div>
   );
 }

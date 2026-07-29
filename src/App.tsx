@@ -2,142 +2,181 @@ import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
+  ArrowDown,
   Menu,
   ChevronDown,
-  MessageCircle,
-  ArrowDown,
-  AlertCircle,
-  AlertTriangle,
-  Sparkles,
-  Clock,
-  Shield,
-  Database,
-  Lightbulb,
-  Users,
-  Bot,
-  Zap,
-  BarChart3,
-  Rocket,
+  X as XIcon,
   Workflow,
-  Target,
-  Award,
-  CheckCircle2,
-  XCircle,
+  Lightbulb,
+  Bot,
+  Sparkles,
+  Users,
+  Database,
+  Shield,
+  ShieldCheck,
   Lock,
   KeyRound,
-  ClipboardList,
-  UserCog,
-  X as XIcon,
-  Trophy,
-  ShoppingCart,
-  CreditCard,
-  Smartphone,
-  Plane,
-  GraduationCap,
-  Car,
-  Factory,
-  Mail,
-  Linkedin,
-  Globe,
-  TrendingDown,
-  TrendingUp,
-  Ban,
-  Star,
-  PieChart,
-  Package,
+  ClipboardCheck,
+  Eye,
+  Layers,
   Network,
-  Search,
-  GitMerge,
-  FlaskConical,
-  Filter,
-  Calculator,
-  Radio,
-  BarChart2,
-  Crosshair,
-  ListChecks,
-  BrainCircuit,
-  User,
-  ExternalLink,
-  MessageSquare,
+  GitBranch,
   Cpu,
   Cloud,
-  Briefcase,
-  Sprout,
-  BookOpen,
-  ThumbsUp,
+  Boxes,
+  MessageSquare,
+  BarChart3,
+  LineChart,
+  Search,
+  Brain,
   Gauge,
+  Target,
+  Rocket,
+  TrendingUp,
+  Repeat,
+  Zap,
+  CheckCircle2,
+  XCircle,
+  Building2,
+  ShoppingCart,
+  Headphones,
+  Megaphone,
+  Truck,
+  Wallet,
+  Mail,
+  Smartphone,
+  Globe,
+  Send,
+  Plug,
+  Compass,
+  Wand2,
 } from "lucide-react";
 import { Reveal, Section, Tag } from "@/components/landing/Reveal";
 import { DemoModal } from "@/components/landing/DemoModal";
 import { WhatsAppButton } from "@/components/landing/WhatsAppButton";
 import { HighlightBox } from "@/components/landing/HighlightBox";
 import { SolutionsNav } from "@/components/landing/SolutionsNav";
-// rebuild: 15-mai-0341
+import { GlowCard } from "@/components/ui/spotlight-card";
+import KineticGrid from "@/components/ui/kinetic-grid";
+import { PulseBeams, type Beam } from "@/components/ui/pulse-beams";
+import { LampContainer } from "@/components/ui/lamp";
+import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot";
+
+const CYAN = "#22D3EE";
+
+/* Beams pulsantes de fundo da seção "Decision Orchestration Layer" */
+const CATEGORIA_GRADIENT = { start: "#18CCFC", middle: "#6344F5", end: "#AE48FF" };
+const CATEGORIA_BEAMS: Beam[] = [
+  {
+    path: "M269 220.5H16.5C10.9772 220.5 6.5 224.977 6.5 230.5V398.5",
+    gradientConfig: {
+      initial: { x1: "0%", x2: "0%", y1: "80%", y2: "100%" },
+      animate: { x1: ["0%", "0%", "200%"], x2: ["0%", "0%", "180%"], y1: ["80%", "0%", "0%"], y2: ["100%", "20%", "20%"] },
+      transition: { duration: 2, repeat: Infinity, repeatType: "loop", ease: "linear", repeatDelay: 2, delay: Math.random() * 2 },
+    },
+    connectionPoints: [{ cx: 6.5, cy: 398.5, r: 6 }, { cx: 269, cy: 220.5, r: 6 }],
+  },
+  {
+    path: "M568 200H841C846.523 200 851 195.523 851 190V40",
+    gradientConfig: {
+      initial: { x1: "0%", x2: "0%", y1: "80%", y2: "100%" },
+      animate: { x1: ["20%", "100%", "100%"], x2: ["0%", "90%", "90%"], y1: ["80%", "80%", "-20%"], y2: ["100%", "100%", "0%"] },
+      transition: { duration: 2, repeat: Infinity, repeatType: "loop", ease: "linear", repeatDelay: 2, delay: Math.random() * 2 },
+    },
+    connectionPoints: [{ cx: 851, cy: 34, r: 6.5 }, { cx: 568, cy: 200, r: 6 }],
+  },
+  {
+    path: "M425.5 274V333C425.5 338.523 421.023 343 415.5 343H152C146.477 343 142 347.477 142 353V426.5",
+    gradientConfig: {
+      initial: { x1: "0%", x2: "0%", y1: "80%", y2: "100%" },
+      animate: { x1: ["20%", "100%", "100%"], x2: ["0%", "90%", "90%"], y1: ["80%", "80%", "-20%"], y2: ["100%", "100%", "0%"] },
+      transition: { duration: 2, repeat: Infinity, repeatType: "loop", ease: "linear", repeatDelay: 2, delay: Math.random() * 2 },
+    },
+    connectionPoints: [{ cx: 142, cy: 427, r: 6.5 }, { cx: 425.5, cy: 274, r: 6 }],
+  },
+  {
+    path: "M493 274V333.226C493 338.749 497.477 343.226 503 343.226H760C765.523 343.226 770 347.703 770 353.226V427",
+    gradientConfig: {
+      initial: { x1: "40%", x2: "50%", y1: "160%", y2: "180%" },
+      animate: { x1: "0%", x2: "10%", y1: "-40%", y2: "-20%" },
+      transition: { duration: 2, repeat: Infinity, repeatType: "loop", ease: "linear", repeatDelay: 2, delay: Math.random() * 2 },
+    },
+    connectionPoints: [{ cx: 770, cy: 427, r: 6.5 }, { cx: 493, cy: 274, r: 6 }],
+  },
+  {
+    path: "M380 168V17C380 11.4772 384.477 7 390 7H414",
+    gradientConfig: {
+      initial: { x1: "-40%", x2: "-10%", y1: "0%", y2: "20%" },
+      animate: { x1: ["40%", "0%", "0%"], x2: ["10%", "0%", "0%"], y1: ["0%", "0%", "180%"], y2: ["20%", "20%", "200%"] },
+      transition: { duration: 2, repeat: Infinity, repeatType: "loop", ease: "linear", repeatDelay: 2, delay: Math.random() * 2 },
+    },
+    connectionPoints: [{ cx: 420.5, cy: 6.5, r: 6 }, { cx: 380, cy: 168, r: 6 }],
+  },
+];
 
 export default function Index() {
   const [openDemo, setOpenDemo] = useState(false);
   const openModal = () => setOpenDemo(true);
 
   return (
-    <main className="gradient-purple min-h-screen text-white overflow-hidden">
+    <main className="app-bg min-h-screen text-white overflow-hidden">
       <DemoModal open={openDemo} onClose={() => setOpenDemo(false)} />
       <Nav onDemo={openModal} />
       <SolutionsNav />
       <Hero onDemo={openModal} />
-      <Paradoxo />
-      <Mudanca />
-      <PorQueAgora />
-      <CustoInacao />
-      <NossaTese />
+      <ResultsStrip />
       <NaoE />
-      <Workflow6 />
-      <Seguranca />
-      <Arquitetura />
-      <DataFlow />
+      <Problema />
+      <Categoria />
+      <Capacidades />
+      <Flow />
       <Insights />
-      <CX />
       <DecisionTeams />
-      <Maturidade />
-      <ModelosAdocao />
-      <ComparaCopilots />
-      <Diferenciacao />
-      <Ganhos />
+      <Composer />
+      <CX />
+      <Governanca />
+      <Arquitetura />
+      <Planos onDemo={openModal} />
       <Industrias />
-      <ValidacaoCTA onDemo={openModal} />
+      <OQueDizem />
+      <CTAFinal onDemo={openModal} />
       <Footer onDemo={openModal} />
       <WhatsAppButton />
     </main>
   );
 }
 
-/* ============ NAV ============ */
-const SOLUCOES = [
-  { Icon: Database, label: "Maestro Data Flow", href: "#data-flow" },
-  { Icon: Lightbulb, label: "Maestro Insights", href: "#insights" },
-  { Icon: Users, label: "Maestro CX", href: "#cx" },
-  { Icon: Bot, label: "Maestro Decision Teams", href: "#decision-teams" },
+/* ==================== NAV ==================== */
+type NavItem = { Icon: typeof Database; label: string; href: string; desc?: string };
+
+const SOLUCOES: NavItem[] = [
+  { Icon: Workflow, label: "Flow", href: "#flow", desc: "Fundação de dados governada" },
+  { Icon: Lightbulb, label: "Insights", href: "#insights", desc: "Converse com seus dados" },
+  { Icon: Bot, label: "Decision Teams", href: "#decision-teams", desc: "Agentes de IA por área" },
+  { Icon: Sparkles, label: "Composer", href: "#composer", desc: "Criação conectada a dados" },
+  { Icon: Users, label: "CX", href: "#cx", desc: "Jornadas orquestradas" },
 ];
 
-const SOBRE = [
-  { Icon: Lightbulb, label: "Racional", href: "#racional" },
-  { Icon: Ban, label: "Não Somos", href: "#nao-somos" },
-  { Icon: Workflow, label: "Metodologia", href: "#metodologia" },
-  { Icon: Shield, label: "Segurança", href: "#seguranca" },
+const PLATAFORMA: NavItem[] = [
+  { Icon: Compass, label: "Por que agora", href: "#por-que" },
+  { Icon: Layers, label: "A categoria", href: "#categoria" },
+  { Icon: Boxes, label: "As 5 capacidades", href: "#capacidades" },
 ];
 
-const PORQUE = [
-  { Icon: Star, label: "05 Motivos", href: "#porque-maestro" },
-  { Icon: TrendingUp, label: "Ganhos", href: "#ganhos" },
+const ENTERPRISE: NavItem[] = [
+  { Icon: Shield, label: "Governança", href: "#governanca" },
+  { Icon: Network, label: "Arquitetura", href: "#arquitetura" },
+  { Icon: Gauge, label: "Planos", href: "#planos" },
 ];
 
 function Nav({ onDemo }: { onDemo: () => void }) {
   const [solOpen, setSolOpen] = useState(false);
-  const [sobreOpen, setSobreOpen] = useState(false);
-  const [porqueOpen, setPorqueOpen] = useState(false);
+  const [platOpen, setPlatOpen] = useState(false);
+  const [entOpen, setEntOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSolOpen, setMobileSolOpen] = useState(false);
-  const [mobileSobreOpen, setMobileSobreOpen] = useState(false);
-  const [mobilePorqueOpen, setMobilePorqueOpen] = useState(false);
+  const [mobilePlatOpen, setMobilePlatOpen] = useState(false);
+  const [mobileEntOpen, setMobileEntOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -148,14 +187,8 @@ function Nav({ onDemo }: { onDemo: () => void }) {
   }, []);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
   const goTop = (e: React.MouseEvent) => {
@@ -163,23 +196,10 @@ function Nav({ onDemo }: { onDemo: () => void }) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  type DD = { Icon: typeof Database; label: string; href: string };
-  const Dropdown = ({
-    label,
-    items,
-    open,
-    setOpen,
-  }: {
-    label: string;
-    items: DD[];
-    open: boolean;
-    setOpen: (v: boolean) => void;
+  const Dropdown = ({ label, items, open, setOpen, wide }: {
+    label: string; items: NavItem[]; open: boolean; setOpen: (v: boolean) => void; wide?: boolean;
   }) => (
-    <div
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
+    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
       <button
         onClick={() => setOpen(!open)}
         className="hover:text-white inline-flex items-center gap-1 uppercase tracking-wider"
@@ -193,21 +213,21 @@ function Nav({ onDemo }: { onDemo: () => void }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.18 }}
-            className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[280px]"
+            className={`absolute left-1/2 -translate-x-1/2 top-full pt-3 ${wide ? "w-[320px]" : "w-[280px]"}`}
           >
-            <div
-              className="rounded-xl p-4 backdrop-blur-md border border-white/10 shadow-2xl flex flex-col gap-1"
-              style={{ backgroundColor: "rgba(15,27,61,0.95)" }}
-            >
-              {items.map(({ Icon, label, href }) => (
+            <div className="rounded-xl p-3 backdrop-blur-md border border-white/10 shadow-2xl flex flex-col gap-0.5 bg-[#0A0D1C]/95">
+              {items.map(({ Icon, label, href, desc }) => (
                 <a
                   key={href}
                   href={href}
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer normal-case tracking-normal"
+                  className="flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer normal-case tracking-normal group"
                 >
-                  <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                  <span className="text-white text-sm font-medium">{label}</span>
+                  <Icon className="w-5 h-5 mt-0.5 shrink-0" style={{ color: CYAN }} strokeWidth={1.75} />
+                  <span>
+                    <span className="block text-white text-sm font-semibold">{label}</span>
+                    {desc && <span className="block text-white/50 text-xs mt-0.5">{desc}</span>}
+                  </span>
                 </a>
               ))}
             </div>
@@ -219,157 +239,128 @@ function Nav({ onDemo }: { onDemo: () => void }) {
 
   return (
     <>
-    <header
-      className={`left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "fixed top-0 bg-[#0F1B3D]/85 backdrop-blur-md shadow-lg shadow-black/30 border-b border-white/5"
-          : "absolute top-0 bg-transparent"
-      }`}
-    >
-      <div className={`mx-auto max-w-7xl px-6 md:px-10 flex items-center justify-between transition-all duration-300 ${scrolled ? "py-3" : "py-6"}`}>
-        <a href="#top" onClick={goTop} className="flex items-center gap-3 cursor-pointer">
-          <img src="/aodigital.png" alt="Always On" className="h-6 md:h-8 w-auto" />
-          <span className="hidden md:inline text-white/30 mx-1">·</span>
-          <span className="hidden md:inline text-sm uppercase tracking-widest text-white/80">
-            Maestro AI OS
-          </span>
-        </a>
+      <header
+        className={`left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "fixed top-0 bg-[#0A0D1C]/85 backdrop-blur-md shadow-lg shadow-black/40 border-b border-white/5"
+            : "absolute top-0 bg-transparent"
+        }`}
+      >
+        <div className={`mx-auto max-w-7xl px-6 md:px-10 flex items-center justify-between transition-all duration-300 ${scrolled ? "py-3" : "py-6"}`}>
+          <a href="#top" onClick={goTop} className="flex items-center cursor-pointer">
+            <img src="/logos/maestro-wordmark.svg" alt="Maestro" className="h-11 md:h-14 w-auto" />
+          </a>
 
-        {/* Desktop ≥ xl */}
-        <nav className="hidden xl:flex items-center gap-x-5 text-xs uppercase tracking-wider text-white/80">
-          <Dropdown label="Sobre" items={SOBRE} open={sobreOpen} setOpen={setSobreOpen} />
-          <Dropdown label="Soluções" items={SOLUCOES} open={solOpen} setOpen={setSolOpen} />
-          <a href="#comparativo" className="hover:text-white">Comparativo</a>
-          <Dropdown label="Porque" items={PORQUE} open={porqueOpen} setOpen={setPorqueOpen} />
-          <a href="#industrias" className="hover:text-white">Indústrias</a>
-          <a href="#o-que-dizem" className="hover:text-white">O que dizem</a>
-          <button
-            onClick={() => document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' })}
-            className="ml-2 px-4 py-2 rounded-full bg-white text-[#0F1B3D] text-xs font-semibold uppercase tracking-wider hover:scale-[1.03] transition-transform inline-flex items-center gap-1.5"
-          >
-            Agendar Demo <ArrowRight size={14} />
-          </button>
-        </nav>
-
-        {/* Hamburger < xl */}
-        <button
-          aria-label="Abrir menu"
-          onClick={() => setMobileOpen(true)}
-          className="xl:hidden text-white p-2 -mr-2"
-        >
-          <Menu className="w-6 h-6" />
-        </button>
-      </div>
-      {scrolled && <div className="menu-glow-line" />}
-
-    </header>
-
-    {mobileOpen && (
-      <div className="fixed inset-0 z-[100] xl:hidden">
-        {/* Opaque backdrop */}
-        <div className="absolute inset-0 bg-[#0F1B3D]" />
-
-        {/* Menu content */}
-        <div className="relative h-full w-full flex flex-col overflow-y-auto">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
-            <img src="/aodigital.png" alt="Always On" className="h-7 w-auto" />
+          {/* Desktop ≥ xl */}
+          <nav className="hidden xl:flex items-center gap-x-6 text-xs uppercase tracking-wider text-white/80">
+            <a href="#comparativo" className="hover:text-white">Comparativo</a>
+            <Dropdown label="Plataforma" items={PLATAFORMA} open={platOpen} setOpen={setPlatOpen} />
+            <Dropdown label="Soluções" items={SOLUCOES} open={solOpen} setOpen={setSolOpen} wide />
+            <Dropdown label="Enterprise" items={ENTERPRISE} open={entOpen} setOpen={setEntOpen} />
+            <a href="#industrias" className="hover:text-white">Indústrias</a>
+            <a href="#o-que-dizem" className="hover:text-white">O que dizem</a>
             <button
-              aria-label="Fechar menu"
-              onClick={() => setMobileOpen(false)}
-              className="text-white p-2"
+              onClick={() => document.getElementById("cta-final")?.scrollIntoView({ behavior: "smooth" })}
+              className="ml-1 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider hover:scale-[1.03] transition-transform inline-flex items-center gap-1.5"
+              style={{ background: "linear-gradient(100deg,#7C3AED,#4F46E5 55%,#06B6D4)", color: "#fff" }}
             >
-              <XIcon className="w-7 h-7" />
-            </button>
-          </div>
-          <nav className="flex-1 px-6 py-6 space-y-1 text-white">
-            {/* Sobre accordion */}
-            <button
-              onClick={() => setMobileSobreOpen((v) => !v)}
-              className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
-            >
-              Sobre
-              <ChevronDown size={18} className={`transition-transform ${mobileSobreOpen ? "rotate-180" : ""}`} />
-            </button>
-            {mobileSobreOpen && (
-              <div className="pl-4 flex flex-col gap-1">
-                {SOBRE.map(({ Icon, label, href }) => (
-                  <a key={href} href={href} onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
-                    <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                    <span className="text-base">{label}</span>
-                  </a>
-                ))}
-              </div>
-            )}
-
-            {/* Soluções accordion */}
-            <button
-              onClick={() => setMobileSolOpen((v) => !v)}
-              className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
-            >
-              Soluções
-              <ChevronDown size={18} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
-            </button>
-            {mobileSolOpen && (
-              <div className="pl-4 flex flex-col gap-1">
-                {SOLUCOES.map(({ Icon, label, href }) => (
-                  <a key={href} href={href} onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
-                    <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                    <span className="text-base">{label}</span>
-                  </a>
-                ))}
-              </div>
-            )}
-
-            <a href="#comparativo" onClick={() => setMobileOpen(false)}
-              className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Comparativo</a>
-
-            {/* Porque accordion */}
-            <button
-              onClick={() => setMobilePorqueOpen((v) => !v)}
-              className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
-            >
-              Porque
-              <ChevronDown size={18} className={`transition-transform ${mobilePorqueOpen ? "rotate-180" : ""}`} />
-            </button>
-            {mobilePorqueOpen && (
-              <div className="pl-4 flex flex-col gap-1">
-                {PORQUE.map(({ Icon, label, href }) => (
-                  <a key={href} href={href} onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
-                    <Icon className="w-5 h-5" style={{ color: "#00D4FF" }} strokeWidth={1.75} />
-                    <span className="text-base">{label}</span>
-                  </a>
-                ))}
-              </div>
-            )}
-
-            <a href="#industrias" onClick={() => setMobileOpen(false)}
-              className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Indústrias</a>
-            <a href="#o-que-dizem" onClick={() => setMobileOpen(false)}
-              className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">O que dizem</a>
-
-            <button
-              onClick={() => {
-                setMobileOpen(false);
-                setTimeout(() => {
-                  document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }}
-              className="mt-6 w-full px-4 py-3.5 rounded-full bg-white text-[#0F1B3D] font-semibold inline-flex items-center justify-center gap-2"
-            >
-              Agendar Demo <ArrowRight size={16} />
+              Falar com especialista <ArrowRight size={14} />
             </button>
           </nav>
+
+          <button aria-label="Abrir menu" onClick={() => setMobileOpen(true)} className="xl:hidden text-white p-2 -mr-2">
+            <Menu className="w-6 h-6" />
+          </button>
         </div>
-      </div>
-    )}
+        {scrolled && <div className="menu-glow-line" />}
+      </header>
+
+      {mobileOpen && (
+        <div className="fixed inset-0 z-[100] xl:hidden">
+          <div className="absolute inset-0 bg-[#0A0D1C]" />
+          <div className="relative h-full w-full flex flex-col overflow-y-auto">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+              <img src="/logos/maestro-wordmark.svg" alt="Maestro" className="h-6 w-auto" />
+              <button aria-label="Fechar menu" onClick={() => setMobileOpen(false)} className="text-white p-2">
+                <XIcon className="w-7 h-7" />
+              </button>
+            </div>
+            <nav className="flex-1 px-6 py-6 space-y-1 text-white">
+              <a href="#comparativo" onClick={() => setMobileOpen(false)} className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Comparativo</a>
+
+              <button
+                onClick={() => setMobilePlatOpen((v) => !v)}
+                className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
+              >
+                Plataforma
+                <ChevronDown size={18} className={`transition-transform ${mobilePlatOpen ? "rotate-180" : ""}`} />
+              </button>
+              {mobilePlatOpen && (
+                <div className="pl-4 flex flex-col gap-1">
+                  {PLATAFORMA.map(({ Icon, label, href }) => (
+                    <a key={href} href={href} onClick={() => setMobileOpen(false)} className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
+                      <Icon className="w-5 h-5" style={{ color: CYAN }} strokeWidth={1.75} />
+                      <span className="text-base">{label}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+
+              <button
+                onClick={() => setMobileSolOpen((v) => !v)}
+                className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
+              >
+                Soluções
+                <ChevronDown size={18} className={`transition-transform ${mobileSolOpen ? "rotate-180" : ""}`} />
+              </button>
+              {mobileSolOpen && (
+                <div className="pl-4 flex flex-col gap-1">
+                  {SOLUCOES.map(({ Icon, label, href }) => (
+                    <a key={href} href={href} onClick={() => setMobileOpen(false)} className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
+                      <Icon className="w-5 h-5" style={{ color: CYAN }} strokeWidth={1.75} />
+                      <span className="text-base">{label}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+
+              <button
+                onClick={() => setMobileEntOpen((v) => !v)}
+                className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg text-left"
+              >
+                Enterprise
+                <ChevronDown size={18} className={`transition-transform ${mobileEntOpen ? "rotate-180" : ""}`} />
+              </button>
+              {mobileEntOpen && (
+                <div className="pl-4 flex flex-col gap-1">
+                  {ENTERPRISE.map(({ Icon, label, href }) => (
+                    <a key={href} href={href} onClick={() => setMobileOpen(false)} className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 text-white/90">
+                      <Icon className="w-5 h-5" style={{ color: CYAN }} strokeWidth={1.75} />
+                      <span className="text-base">{label}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+
+              <a href="#industrias" onClick={() => setMobileOpen(false)} className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">Indústrias</a>
+              <a href="#o-que-dizem" onClick={() => setMobileOpen(false)} className="block px-3 py-3 rounded-lg hover:bg-white/5 font-medium text-lg">O que dizem</a>
+
+              <button
+                onClick={() => { setMobileOpen(false); setTimeout(() => document.getElementById("cta-final")?.scrollIntoView({ behavior: "smooth" }), 100); }}
+                className="mt-6 w-full px-4 py-3.5 rounded-full font-semibold inline-flex items-center justify-center gap-2"
+                style={{ background: "linear-gradient(100deg,#7C3AED,#4F46E5 55%,#06B6D4)", color: "#fff" }}
+              >
+                Falar com especialista <ArrowRight size={16} />
+              </button>
+            </nav>
+          </div>
+        </div>
+      )}
     </>
   );
 }
 
-/* ============ 1. HERO ============ */
+/* ==================== HERO ==================== */
 function Hero({ onDemo }: { onDemo: () => void }) {
   const ease = [0.22, 1, 0.36, 1] as const;
   const fadeUp = (delay: number) => ({
@@ -381,1764 +372,1095 @@ function Hero({ onDemo }: { onDemo: () => void }) {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
-    // Force iOS-required flags via JS (some browsers ignore JSX props)
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
     video.setAttribute("muted", "");
     video.setAttribute("playsinline", "");
     video.setAttribute("webkit-playsinline", "");
-
-    const tryPlay = () => {
-      const p = video.play();
-      if (p !== undefined) {
-        p.catch((err) => {
-          console.warn("[HeroVideo] Autoplay falhou:", err);
-        });
-      }
-    };
-
+    const tryPlay = () => { const p = video.play(); if (p !== undefined) p.catch(() => {}); };
     tryPlay();
-
-    const onLoadedMeta = () => tryPlay();
-    const onCanPlay = () => tryPlay();
-    video.addEventListener("loadedmetadata", onLoadedMeta);
-    video.addEventListener("canplay", onCanPlay);
-
-    const onFirstInteraction = () => {
+    const onLoaded = () => tryPlay();
+    video.addEventListener("loadedmetadata", onLoaded);
+    video.addEventListener("canplay", onLoaded);
+    const onFirst = () => {
       tryPlay();
-      window.removeEventListener("touchstart", onFirstInteraction);
-      window.removeEventListener("scroll", onFirstInteraction);
-      window.removeEventListener("click", onFirstInteraction);
+      window.removeEventListener("touchstart", onFirst);
+      window.removeEventListener("scroll", onFirst);
+      window.removeEventListener("click", onFirst);
     };
-    window.addEventListener("touchstart", onFirstInteraction, { passive: true });
-    window.addEventListener("scroll", onFirstInteraction, { passive: true });
-    window.addEventListener("click", onFirstInteraction);
-
+    window.addEventListener("touchstart", onFirst, { passive: true });
+    window.addEventListener("scroll", onFirst, { passive: true });
+    window.addEventListener("click", onFirst);
     return () => {
-      video.removeEventListener("loadedmetadata", onLoadedMeta);
-      video.removeEventListener("canplay", onCanPlay);
-      window.removeEventListener("touchstart", onFirstInteraction);
-      window.removeEventListener("scroll", onFirstInteraction);
-      window.removeEventListener("click", onFirstInteraction);
+      video.removeEventListener("loadedmetadata", onLoaded);
+      video.removeEventListener("canplay", onLoaded);
+      window.removeEventListener("touchstart", onFirst);
+      window.removeEventListener("scroll", onFirst);
+      window.removeEventListener("click", onFirst);
     };
   }, []);
+
   return (
     <section id="top" className="relative min-h-[100svh] w-full overflow-hidden">
       <video
         ref={videoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        disablePictureInPicture
+        autoPlay loop muted playsInline preload="auto" disablePictureInPicture
         {...({ "webkit-playsinline": "true" } as Record<string, string>)}
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       >
         <source src="/maestro.mp4" type="video/mp4" />
       </video>
-      <motion.div
-        initial={{ backgroundColor: "rgba(0,0,0,0.8)" }}
-        animate={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-        transition={{ duration: 1.5, ease }}
-        className="absolute inset-0"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70" />
-      <div className="absolute inset-0 bg-[#8B1FA9]/20" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#05070F]/75 via-[#05070F]/70 to-[#05070F]/92" />
+      <KineticGrid className="opacity-70" />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(900px 500px at 78% 8%, rgba(124,58,237,0.30), transparent 60%), radial-gradient(700px 500px at 12% 30%, rgba(34,211,238,0.16), transparent 55%)" }} />
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center max-w-4xl mx-auto px-6 py-20 md:py-28">
-        <motion.div {...fadeUp(0)}>
-          <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2 text-xs uppercase tracking-widest text-white mb-8">
-            Maestro AI OS
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center max-w-4xl mx-auto px-6 py-24 md:py-28">
+        <motion.div {...fadeUp(0)} className="mb-7">
+          <span className="glow-name text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight" data-text="Maestro">Maestro</span>
+        </motion.div>
+
+        <motion.div {...fadeUp(0.08)}>
+          <span className="inline-flex items-center gap-2 bg-white/8 backdrop-blur-md border border-white/15 rounded-full px-5 py-2 text-[11px] md:text-xs uppercase tracking-[0.22em] text-white/85 mb-8">
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: CYAN, boxShadow: `0 0 10px ${CYAN}` }} />
+            Growth &amp; Decision Operating System
           </span>
         </motion.div>
+
         <motion.h1
-          {...fadeUp(0.1)}
-          className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-[1.15] tracking-tight text-white max-w-4xl mb-8"
+          {...fadeUp(0.16)}
+          className="text-2xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight max-w-3xl mb-7 font-bold"
         >
-          <span className="font-light text-white/85">Transforme dados em{" "}</span>
-          <span className="font-bold bg-gradient-to-r from-white via-[#E8E4F0] to-[#00D4FF] bg-clip-text text-transparent">
-            Decisões Estratégicas
-          </span>
-          <span className="font-light text-white/85">{" "}com a melhor inteligência que existe.</span>
+          <span className="text-white/90 font-light">Transforme </span>
+          <span className="text-gradient">ruído</span>
+          <span className="text-white/90 font-light"> em </span>
+          <span className="text-gradient-brand">resultado.</span>
         </motion.h1>
-        <motion.p
-          {...fadeUp(0.2)}
-          className="text-white/80 text-base md:text-xl max-w-2xl mb-10"
-        >
-          Da análise à ação. Da intuição à decisão orientada por dados!
+
+        <motion.p {...fadeUp(0.26)} className="text-white/70 text-sm md:text-lg max-w-xl mb-10 leading-relaxed">
+          A camada que faz seus dados, sua IA e suas ferramentas trabalharem juntos,
+          por decisões melhores e mais rápidas.
         </motion.p>
-        <motion.div
-          {...fadeUp(0.3)}
-          className="flex flex-col md:flex-row gap-4 items-center"
-        >
+
+        <motion.div {...fadeUp(0.34)} className="flex flex-col sm:flex-row gap-4 items-center">
           <button
-            onClick={() => document.getElementById('cta-final')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-white text-[#0F1B3D] rounded-full px-8 py-4 font-semibold transition-transform hover:scale-[1.02] inline-flex items-center gap-2"
+            onClick={() => document.getElementById("cta-final")?.scrollIntoView({ behavior: "smooth" })}
+            className="btn-primary-light"
           >
-            Agendar Demo Estratégica <ArrowRight size={18} />
+            Falar com especialista <ArrowRight size={18} />
           </button>
-          <a
-            href="#racional"
-            className="text-white hover:underline inline-flex items-center gap-1.5"
-          >
-            Saiba + <ArrowDown size={16} />
+          <a href="#comparativo" className="btn-ghost">
+            Ver como funciona <ArrowDown size={16} />
           </a>
         </motion.div>
-        <motion.p {...fadeUp(0.4)} className="text-white/60 text-sm mt-6">
-          Demo executiva de 30 min · sem compromisso · NDA disponível
+
+        <motion.p {...fadeUp(0.44)} className="text-white/50 text-sm mt-7">
+          Conversa executiva de 30 min · sem compromisso · NDA disponível
         </motion.p>
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#05070F] to-transparent" />
+    </section>
+  );
+}
+
+/* ==================== FAIXA DE RESULTADOS (marquee) ==================== */
+function ResultsStrip() {
+  const items = [
+    "Decisões melhores", "Campanhas eficazes", "Experiências personalizadas",
+    "Maior produtividade", "Crescimento de receita", "Governança by design",
+  ];
+  const doubled = [...items, ...items];
+  return (
+    <div className="relative py-6 border-y border-white/[0.06] bg-white/[0.015] overflow-hidden marquee-mask">
+      <div className="marquee-track gap-10">
+        {doubled.map((t, i) => (
+          <span key={i} className="inline-flex items-center gap-3 text-sm md:text-base text-white/55 whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: CYAN }} />
+            {t}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ==================== COMPARATIVO · O QUE O MAESTRO NÃO É ==================== */
+function NaoE() {
+  const nots = [
+    { Icon: MessageSquare, t: "Não é chatbot", d: "Transforma contexto em decisão, não perguntas em respostas. A inteligência opera sobre os dados reais do seu negócio." },
+    { Icon: BarChart3, t: "Não é BI tradicional", d: "Vai da análise à recomendação e à ação. O objetivo não é visualizar o dado. É decidir com ele." },
+    { Icon: Bot, t: "Não é copilot isolado", d: "Coordena inteligências especializadas e processos entre áreas, em vez de um assistente que só ajuda uma pessoa por vez." },
+    { Icon: Plug, t: "Não substitui seu stack", d: "Conecta e potencializa o que já existe: Salesforce, SAP, VTEX, HubSpot e o resto do ecossistema." },
+  ];
+  return (
+    <Section id="comparativo">
+      <Reveal><Tag><Compass size={12} /> Onde o Maestro se encaixa</Tag></Reveal>
+      <Reveal delay={0.08}>
+        <h2 className="mt-6 text-4xl md:text-5xl font-semibold max-w-3xl">
+          Antes de tudo, o que o Maestro <span className="text-gradient-brand">não é.</span>
+        </h2>
+      </Reveal>
+      <Reveal delay={0.14}>
+        <p className="mt-5 text-lg text-white/70 max-w-2xl">
+          Entender o Maestro começa desfazendo três ou quatro comparações fáceis. Ele não é mais uma ferramenta
+          no stack. É a camada que faz o stack funcionar de forma coordenada.
+        </p>
+      </Reveal>
+
+      <div className="mt-12 grid sm:grid-cols-2 gap-5">
+        {nots.map(({ Icon, t, d }, i) => (
+          <Reveal key={t} delay={0.05 * i}>
+            <GlowCard customSize glowColor="red" className="p-6 md:p-7 h-full">
+              <div className="flex items-center gap-3">
+                <span className="grid place-items-center w-10 h-10 rounded-xl bg-white/5 border border-white/10">
+                  <Icon size={20} className="text-white/80" />
+                </span>
+                <XCircle size={18} className="text-[#EF4444]" />
+              </div>
+              <h3 className="mt-4 text-xl font-semibold">{t}</h3>
+              <p className="mt-2 text-white/65 leading-relaxed">{d}</p>
+            </GlowCard>
+          </Reveal>
+        ))}
+      </div>
+
+      <HighlightBox
+        miniTag="Em uma frase"
+        bottomLine={<>O Maestro não adiciona mais uma ferramenta ao stack. Ele cria <span className="text-gradient">coordenação</span> entre os ativos que você já tem.</>}
+      />
+    </Section>
+  );
+}
+
+/* ==================== PROBLEMA / POR QUE AGORA ==================== */
+function Problema() {
+  const sequencia = [
+    { n: "01", Icon: Plug, t: "Conectar", d: "Integrar sistemas e fontes internas." },
+    { n: "02", Icon: Brain, t: "Compreender", d: "Usar IA para interpretar os sinais que importam." },
+    { n: "03", Icon: Network, t: "Coordenar", d: "Alinhar ações entre áreas e times." },
+    { n: "04", Icon: Rocket, t: "Agir", d: "Executar rápido e medir o resultado." },
+  ];
+  const cards = [
+    { Icon: Database, t: "Dados de sobra, decisões lentas", d: "As empresas têm mais dados do que nunca, e ainda levam semanas para transformá-los em ação." },
+    { Icon: Shield, t: "IA sem governança é risco", d: "Modelos rodando sem controle criam exposição regulatória, erro operacional e perda de confiança." },
+    { Icon: Boxes, t: "Stack fragmentado", d: "Cada sistema vira um silo. A soma das ferramentas não entrega a soma dos resultados." },
+    { Icon: Network, t: "Coordenação é a nova vantagem", d: "Quem conectar dados, IA e execução primeiro vai definir o padrão do próprio setor." },
+  ];
+  return (
+    <Section id="por-que" className="overflow-hidden">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <motion.div
+          className="absolute -top-16 right-[-8%] w-[520px] h-[520px] rounded-full blur-3xl"
+          style={{ background: "radial-gradient(circle, rgba(124,58,237,0.45), transparent 70%)" }}
+          animate={{ y: [0, 26, 0], scale: [1, 1.06, 1], opacity: [0.35, 0.55, 0.35] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-[-14%] left-[-8%] w-[460px] h-[460px] rounded-full blur-3xl"
+          style={{ background: "radial-gradient(circle, rgba(34,211,238,0.30), transparent 70%)" }}
+          animate={{ y: [0, -22, 0], scale: [1, 1.08, 1], opacity: [0.25, 0.45, 0.25] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        />
+      </div>
+      <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 lg:gap-12 items-center">
+        <div>
+          <Reveal><Tag><Zap size={12} /> O novo gargalo</Tag></Reveal>
+          <Reveal delay={0.08}>
+            <h2 className="mt-6 text-4xl md:text-5xl font-semibold leading-tight">
+              O mundo não precisa de mais sistemas.
+              <span className="block text-white/55 font-light text-2xl md:text-3xl mt-3">
+                Precisa de coordenação entre os que já existem.
+              </span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.14}>
+            <p className="mt-6 text-lg text-white/70 max-w-xl">
+              CRM, ERP, BI, CDP, Data Lake, e-commerce, APIs, várias IAs. O stack nunca esteve tão robusto,
+              e o resultado segue abaixo do potencial. O problema não é falta de tecnologia. É falta de coordenação
+              entre dados, sistemas, inteligência e execução.
+            </p>
+          </Reveal>
+        </div>
+        <Reveal delay={0.1}>
+          <div className="relative h-[320px] md:h-[440px] w-full overflow-hidden">
+            <InteractiveRobotSpline
+              scene="https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode"
+              className="absolute inset-0 w-full h-full"
+            />
+            {/* cobre a marca d'água "Built with Spline" (pintada no canvas) com um fade */}
+            <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#05070F] via-[#05070F]/85 to-transparent pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-52 h-12 bg-[#05070F] blur-xl pointer-events-none" />
+          </div>
+        </Reveal>
+      </div>
+
+      <Reveal delay={0.2}>
+        <p className="mt-16 text-sm uppercase tracking-[0.22em] text-white/45">A sequência que separa quem decide melhor</p>
+      </Reveal>
+      <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {sequencia.map(({ n, Icon, t, d }, i) => (
+          <Reveal key={t} delay={0.06 * i}>
+            <GlowCard customSize glowColor="purple" className="p-6 h-full">
+              <span className="absolute top-5 right-5 text-4xl font-bold text-white/[0.06]">{n}</span>
+              <Icon size={26} style={{ color: CYAN }} />
+              <h3 className="mt-4 text-lg font-semibold">{t}</h3>
+              <p className="mt-1.5 text-sm text-white/60">{d}</p>
+            </GlowCard>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal delay={0.1}>
+        <h3 className="mt-20 text-2xl md:text-3xl font-semibold">Por que agora?</h3>
+        <p className="mt-2 text-white/60 max-w-2xl">
+          A janela de diferenciação está aberta, mas não fica aberta para sempre. Quem constrói a camada de
+          orquestração hoje ganha uma vantagem difícil de copiar.
+        </p>
+      </Reveal>
+      <div className="mt-8 grid sm:grid-cols-2 gap-4">
+        {cards.map(({ Icon, t, d }, i) => (
+          <Reveal key={t} delay={0.05 * i}>
+            <div className="flex gap-4 p-6 rounded-2xl bg-white/[0.02] border border-white/[0.07] h-full hover:border-white/20 transition-colors">
+              <Icon size={24} className="shrink-0 mt-1" style={{ color: "#A855F7" }} />
+              <div>
+                <h4 className="font-semibold text-lg">{t}</h4>
+                <p className="mt-1 text-white/60 text-sm leading-relaxed">{d}</p>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ==================== CATEGORIA · DECISION ORCHESTRATION LAYER ==================== */
+function Categoria() {
+  const base = [
+    { t: "CRM", Icon: Users },
+    { t: "ERP", Icon: Boxes },
+    { t: "BI", Icon: BarChart3 },
+    { t: "CDP", Icon: Database },
+    { t: "Data Lake", Icon: Cloud },
+    { t: "Commerce", Icon: ShoppingCart },
+    { t: "APIs", Icon: Plug },
+  ];
+  const topo = [
+    { Icon: TrendingUp, t: "Crescimento" },
+    { Icon: Target, t: "Metas batidas" },
+    { Icon: Users, t: "Cliente no centro" },
+    { Icon: Zap, t: "Ação rápida" },
+    { Icon: Gauge, t: "Performance" },
+  ];
+  return (
+    <Section id="categoria" className="grid-tech overflow-hidden">
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-70">
+        <PulseBeams beams={CATEGORIA_BEAMS} gradientColors={CATEGORIA_GRADIENT} className="h-full w-full" />
+      </div>
+      <div className="relative z-10">
+      <div className="text-center max-w-3xl mx-auto">
+        <Reveal><span className="tag-pill mx-auto"><Layers size={12} /> Nova categoria</span></Reveal>
+        <Reveal delay={0.08}>
+          <h2 className="mt-6 text-4xl md:text-6xl font-bold leading-[1.05]">
+            Decision <span className="text-gradient-brand">Orchestration Layer</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.14}>
+          <p className="mt-6 text-lg text-white/70">
+            A camada que transforma sistemas, dados e IA em decisões operacionais. O Maestro fica entre o
+            seu stack e a operação do negócio, sem substituir nada, tornando tudo mais inteligente e coordenado.
+          </p>
+        </Reveal>
+      </div>
+
+      {/* Diagrama 3 faixas */}
+      <div className="mt-14 max-w-4xl mx-auto space-y-4">
+        <Reveal>
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+            {topo.map(({ Icon, t }, i) => (
+              <div key={t} className="surface-card px-3 py-4 text-center" style={{ animationDelay: `${i * 0.1}s` }}>
+                <Icon size={22} className="mx-auto" style={{ color: CYAN }} />
+                <p className="mt-2 text-xs text-white/75">{t}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <div className="relative rounded-2xl p-[1.5px]" style={{ background: "linear-gradient(100deg,#7C3AED,#4F46E5 50%,#06B6D4)" }}>
+            <div className="rounded-2xl bg-[#0A0D1C] px-6 py-8 text-center">
+              <div className="flex items-center justify-center gap-3">
+                <img src="/logos/maestro-icon.svg" alt="" className="h-8 w-auto" />
+                <span className="text-xl md:text-2xl font-bold">Maestro</span>
+              </div>
+              <p className="mt-3 text-sm md:text-base text-white/70">
+                Conecta · Compreende · Coordena · Distribui
+              </p>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.13}>
+          <div className="flex justify-center" aria-hidden="true">
+            <div className="w-px h-6 bg-gradient-to-b from-[#22D3EE]/60 to-transparent" />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.16}>
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/40 mb-4 text-center">Camada de sistemas</p>
+            <div className="flex flex-wrap justify-center gap-2.5">
+              {base.map(({ t, Icon }) => (
+                <div key={t} className="w-[86px] md:w-[104px] flex flex-col items-center gap-2 py-4 px-2 rounded-xl bg-white border border-white/70 hover:-translate-y-0.5 transition-transform">
+                  <Icon size={22} style={{ color: "#4F46E5" }} strokeWidth={2} />
+                  <span className="text-xs font-bold text-[#0A0D1C] text-center">{t}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+      </div>
+      </div>
+    </Section>
+  );
+}
+
+/* ==================== AS 5 CAPACIDADES + CICLO ==================== */
+function Capacidades() {
+  const caps = [
+    { Icon: Workflow, t: "Flow", d: "Integra, organiza e governa dados de todas as fontes.", href: "#flow" },
+    { Icon: Lightbulb, t: "Insights", d: "Inteligência analítica que revela o que realmente importa.", href: "#insights" },
+    { Icon: Bot, t: "Decision Teams", d: "Agentes de IA que interpretam contexto e recomendam ações.", href: "#decision-teams" },
+    { Icon: Sparkles, t: "Composer", d: "Criação inteligente de conteúdos e experiências em escala.", href: "#composer" },
+    { Icon: Users, t: "CX", d: "Jornadas e ativações que conectam cada decisão ao cliente.", href: "#cx" },
+  ];
+  return (
+    <Section id="capacidades" className="overflow-hidden">
+      <LampContainer className="-mt-6 mb-[-3.5rem] md:mb-[-4.5rem]">
+        <span className="tag-pill mb-5"><Boxes size={12} /> A plataforma</span>
+        <h2 className="text-4xl md:text-5xl font-semibold">
+          Cinco capacidades. <span className="text-gradient">Uma inteligência contínua.</span>
+        </h2>
+      </LampContainer>
+      <Reveal delay={0.1} className="relative z-10">
+        <p className="text-center text-base md:text-lg text-white max-w-2xl mx-auto">
+          Não são cinco produtos soltos. São capacidades de uma única plataforma, feitas para operar em fluxo:
+          cada interação gera um sinal, cada sinal melhora a próxima decisão.
+        </p>
+      </Reveal>
+
+      <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        {caps.map(({ Icon, t, d, href }, i) => (
+          <Reveal key={t} delay={0.06 * i}>
+            <a href={href} className="block h-full group">
+              <GlowCard customSize glowColor="purple" className="p-6 h-full">
+                <span className="grid place-items-center w-12 h-12 rounded-xl mb-4" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.25), rgba(34,211,238,0.18))" }}>
+                  <Icon size={24} style={{ color: CYAN }} />
+                </span>
+                <h3 className="text-lg font-semibold flex items-center gap-1.5">
+                  {t}
+                  <ArrowRight size={15} className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" />
+                </h3>
+                <p className="mt-2 text-sm text-white/60 leading-relaxed">{d}</p>
+              </GlowCard>
+            </a>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal delay={0.1}>
+        <div className="mt-8 flex items-center justify-center gap-3 text-sm text-white/55">
+          <Repeat size={16} style={{ color: CYAN }} />
+          <span>Aprendizado contínuo: cada ciclo alimenta o próximo e volta ao Flow.</span>
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ==================== helper: cabeçalho de módulo ==================== */
+function ModuleHeader({ eyebrow, Icon, name, title, lead }: { eyebrow: string; Icon: typeof Database; name: string; title: React.ReactNode; lead: string }) {
+  return (
+    <>
+      <Reveal>
+        <span className="tag-pill">
+          <Icon size={12} style={{ color: CYAN }} /> {eyebrow}
+        </span>
+      </Reveal>
+      <Reveal delay={0.08}>
+        <h2 className="mt-6 max-w-4xl leading-tight">
+          <span className="glow-name text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight" data-text={name}>{name}</span>
+          <span className="block mt-4 text-2xl md:text-3xl font-medium text-white/85">{title}</span>
+        </h2>
+      </Reveal>
+      <Reveal delay={0.14}>
+        <p className="mt-5 text-lg text-white/70 max-w-2xl">{lead}</p>
+      </Reveal>
+    </>
+  );
+}
+
+/* ==================== FLOW ==================== */
+function Flow() {
+  const etapas = [
+    { t: "Conectar", Icon: Plug },
+    { t: "Normalizar", Icon: Layers },
+    { t: "Governar", Icon: Shield },
+    { t: "Enriquecer", Icon: Sparkles },
+    { t: "Modelar", Icon: Boxes },
+    { t: "Distribuir", Icon: Send },
+  ];
+  const ativos = [
+    { Icon: Users, t: "Visão de cliente", d: "Perfil unificado, com histórico completo de comportamento e transações." },
+    { Icon: LineChart, t: "Scores & propensão", d: "RFM, churn, LTV, propensão de compra e Next Best Action." },
+    { Icon: Zap, t: "Sinais acionáveis", d: "Recomendações prontas para agentes, canais e sistemas." },
+  ];
+  return (
+    <Section id="flow" bg={<KineticGrid className="opacity-[0.18]" />}>
+      <ModuleHeader
+        eyebrow="Flow · Fundação"
+        Icon={Workflow}
+        name="Maestro Flow"
+        title="conecta todos os dados, de todas as fontes."
+        lead="Integra e move dados com confiabilidade, governança e contexto, para alimentar decisões em tempo real. Do registro disperso ao ativo pronto para usar em toda a operação."
+      />
+
+      <Reveal delay={0.1}>
+        <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
+          <p className="text-xs uppercase tracking-[0.2em] text-white/45 mb-6 text-center">Esteira de processamento</p>
+          <div className="flex flex-wrap items-center justify-center gap-y-4">
+            {etapas.map(({ t, Icon }, i) => (
+              <div key={t} className="flex items-center">
+                <div className="flex flex-col items-center gap-2 w-24 md:w-28 py-4 px-2 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#22D3EE]/40 transition-colors">
+                  <span className="grid place-items-center w-10 h-10 rounded-lg" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.28), rgba(34,211,238,0.2))" }}>
+                    <Icon size={18} style={{ color: CYAN }} />
+                  </span>
+                  <span className="text-xs md:text-sm text-white/80 text-center">{t}</span>
+                </div>
+                {i < etapas.length - 1 && <ArrowRight size={16} className="text-white/25 mx-1 md:mx-2 shrink-0" />}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+
+      <div className="mt-6 grid md:grid-cols-3 gap-4">
+        {ativos.map(({ Icon, t, d }, i) => (
+          <Reveal key={t} delay={0.06 * i}>
+            <GlowCard customSize glowColor="cyan" className="p-6 h-full">
+              <Icon size={24} style={{ color: CYAN }} />
+              <h3 className="mt-4 text-lg font-semibold">{t}</h3>
+              <p className="mt-1.5 text-sm text-white/60 leading-relaxed">{d}</p>
+            </GlowCard>
+          </Reveal>
+        ))}
+      </div>
+
+      <HighlightBox
+        miniTag="O princípio do Flow"
+        bottomLine={<>Dados tratados uma vez. <span className="text-gradient">Inteligência reutilizada</span> em toda a operação.</>}
+      />
+    </Section>
+  );
+}
+
+/* ==================== INSIGHTS ==================== */
+function Insights() {
+  const feats = [
+    { Icon: MessageSquare, t: "Linguagem natural", d: "Qualquer pessoa explora os dados sem escrever uma linha de SQL." },
+    { Icon: BarChart3, t: "Visualização precisa", d: "Gráficos, dashboards e datasets em tempo real." },
+    { Icon: Brain, t: "Interpretação com IA", d: "O assistente explica o dado e orienta a decisão." },
+  ];
+  const estagios = [
+    { t: "Diagnóstico", q: "O que está acontecendo agora?", Icon: Search },
+    { t: "Causa raiz", q: "Por que está acontecendo?", Icon: GitBranch },
+    { t: "Previsão", q: "O que pode acontecer?", Icon: LineChart },
+    { t: "Recomendação", q: "O que fazer agora?", Icon: Target },
+  ];
+  return (
+    <Section id="insights" bg={<KineticGrid className="opacity-[0.18]" />}>
+      <ModuleHeader
+        eyebrow="Insights · Análise"
+        Icon={Lightbulb}
+        name="Maestro Insights"
+        title="deixa você conversar com os seus dados."
+        lead="A profundidade de um BI moderno com um assistente treinado no contexto real do seu negócio. Perguntas em linguagem natural viram análise executiva pronta para agir."
+      />
+
+      <div className="mt-12 grid md:grid-cols-3 gap-4">
+        {feats.map(({ Icon, t, d }, i) => (
+          <Reveal key={t} delay={0.06 * i}>
+            <GlowCard customSize glowColor="cyan" className="p-6 h-full">
+              <Icon size={24} style={{ color: CYAN }} />
+              <h3 className="mt-4 text-lg font-semibold">{t}</h3>
+              <p className="mt-1.5 text-sm text-white/60 leading-relaxed">{d}</p>
+            </GlowCard>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal delay={0.1}>
+        <p className="mt-16 text-sm uppercase tracking-[0.22em] text-white/45">Quatro níveis de profundidade</p>
+      </Reveal>
+      <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {estagios.map(({ t, q, Icon }, i) => (
+          <Reveal key={t} delay={0.06 * i}>
+            <GlowCard customSize glowColor="purple" className="p-6 h-full">
+              <div className="flex items-center justify-between">
+                <span className="grid place-items-center w-11 h-11 rounded-xl" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.3), rgba(34,211,238,0.2))" }}>
+                  <Icon size={19} style={{ color: CYAN }} />
+                </span>
+                <span className="text-4xl md:text-5xl font-extrabold leading-none text-white/15">0{i + 1}</span>
+              </div>
+              <h3 className="mt-4 text-lg font-semibold">{t}</h3>
+              <p className="mt-2 text-white/60 text-sm">{q}</p>
+            </GlowCard>
+          </Reveal>
+        ))}
+      </div>
+
+      <HighlightBox
+        miniTag="O que muda de verdade"
+        bottomLine={<>Não é só dashboard. É <span className="text-gradient">decisão explicada</span>, e o tempo entre entender e decidir encolhe.</>}
+      />
+    </Section>
+  );
+}
+
+/* ==================== DECISION TEAMS ==================== */
+function DecisionTeams() {
+  const agentes = [
+    { Icon: Wallet, t: "Financeiro", d: "Decisões por performance, risco e eficiência." },
+    { Icon: Megaphone, t: "Marketing", d: "Campanhas, audiência e conteúdo com IA no comando." },
+    { Icon: Target, t: "CRM & Vendas", d: "Pipeline inteligente e próximos passos recomendados." },
+    { Icon: Gauge, t: "Operações", d: "Processos autônomos, previsão e otimização." },
+    { Icon: Headphones, t: "Atendimento", d: "Respostas certas e resolução no primeiro contato." },
+    { Icon: Truck, t: "Supply & Trade", d: "Demanda, estoque e parceiros orquestrados por IA." },
+  ];
+  const niveis = [
+    { n: "Nível 1", t: "Responder", Icon: MessageSquare, d: "Consulta direta a dados e contexto. O ponto de partida de qualquer análise." },
+    { n: "Nível 2", t: "Recomendar", Icon: Lightbulb, d: "Interpretação e orientação estratégica. A IA explica e sugere o próximo passo." },
+    { n: "Nível 3", t: "Prever", Icon: LineChart, d: "Modelos, cenários e probabilidades. Antecipe movimentos antes que virem problema." },
+  ];
+  return (
+    <Section id="decision-teams" bg={<KineticGrid className="opacity-[0.18]" />}>
+      <ModuleHeader
+        eyebrow="Decision Teams · Agentes"
+        Icon={Bot}
+        name="Maestro Decision Teams"
+        title="alinha times de IA com contexto, permissão e governança por agente."
+        lead="Agentes especializados atuam com autonomia guiada, acessando apenas o que é relevante para decidir melhor. Nenhum deles opera fora do perímetro que você define."
+      />
+
+      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {agentes.map(({ Icon, t, d }, i) => (
+          <Reveal key={t} delay={0.05 * i}>
+            <GlowCard customSize glowColor="purple" className="p-6 h-full flex gap-4">
+              <span className="grid place-items-center w-11 h-11 rounded-xl shrink-0" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.25), rgba(34,211,238,0.18))" }}>
+                <Icon size={20} style={{ color: CYAN }} />
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold">{t}</h3>
+                <p className="mt-1 text-sm text-white/60">{d}</p>
+              </div>
+            </GlowCard>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal delay={0.1}>
+        <p className="mt-16 text-sm uppercase tracking-[0.22em] text-white/45">De resposta a decisão</p>
+      </Reveal>
+      <div className="mt-6 grid md:grid-cols-3 gap-4">
+        {niveis.map(({ n, t, Icon, d }, i) => (
+          <Reveal key={t} delay={0.08 * i}>
+            <div style={{ marginTop: `${i * 14}px` }} className="h-full">
+              <GlowCard customSize glowColor="purple" className="p-6 h-full">
+                <div className="flex items-center gap-3">
+                  <span className="grid place-items-center w-11 h-11 rounded-xl" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.3), rgba(34,211,238,0.2))" }}>
+                    <Icon size={20} style={{ color: CYAN }} />
+                  </span>
+                  <span className="text-xs uppercase tracking-widest font-semibold" style={{ color: "#A855F7" }}>{n}</span>
+                </div>
+                <h3 className="mt-3 text-xl font-semibold">{t}</h3>
+                <p className="mt-2 text-sm text-white/60 leading-relaxed">{d}</p>
+              </GlowCard>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ==================== COMPOSER (novo) ==================== */
+function Composer() {
+  const entradas = ["Dados e comportamento", "Segmentos e audiências", "Insights e performance", "Diretrizes de marca", "Objetivos e KPIs", "Ativos e referências"];
+  const saidas = ["Conteúdo personalizado", "Variações inteligentes", "Planos e calendários", "Ativações multicanais", "Previsão de performance", "Aprendizado contínuo"];
+  const difs = [
+    { Icon: ShieldCheck, t: "Consistência de marca", d: "DNA e guidelines respeitados em todos os formatos." },
+    { Icon: Zap, t: "Velocidade", d: "Do briefing ao enxoval completo em uma fração do tempo." },
+    { Icon: Repeat, t: "Aprendizado contínuo", d: "Cada campanha alimenta a inteligência da próxima." },
+  ];
+  return (
+    <Section id="composer" bg={<KineticGrid className="opacity-[0.18]" />}>
+      <ModuleHeader
+        eyebrow="Composer · Criação"
+        Icon={Sparkles}
+        name="Maestro Composer"
+        title="cria com inteligência, orquestrada por contexto."
+        lead="Do insight à entrega, com IA e dados trabalhando juntos para gerar experiências que performam. Não é geração de conteúdo: é inteligência criativa conectada ao desempenho."
+      />
+
+      <div className="mt-12 grid lg:grid-cols-[1fr_auto_1fr] gap-6 items-stretch">
+        <Reveal>
+          <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 h-full">
+            <p className="text-xs uppercase tracking-[0.2em] text-white/45 mb-4">Entradas de contexto</p>
+            <ul className="space-y-2.5">
+              {entradas.map((e) => (
+                <li key={e} className="flex items-center gap-2.5 text-sm text-white/75">
+                  <ArrowRight size={14} style={{ color: "#A855F7" }} /> {e}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1} className="hidden lg:flex items-center">
+          <motion.div
+            className="relative grid place-items-center w-16 h-16 rounded-2xl"
+            style={{ background: "linear-gradient(135deg,#7C3AED,#06B6D4)" }}
+            animate={{ boxShadow: ["0 0 0px rgba(34,211,238,0)", "0 0 30px rgba(34,211,238,0.75)", "0 0 0px rgba(34,211,238,0)"] }}
+            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <motion.div
+              animate={{ rotate: [-8, 8, -8], scale: [1, 1.1, 1] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Wand2 size={28} className="text-white" />
+            </motion.div>
+            <motion.span
+              className="absolute -top-1.5 -right-1.5"
+              animate={{ opacity: [0, 1, 0], scale: [0.5, 1, 0.5], rotate: [0, 120, 180] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Sparkles size={14} className="text-white" />
+            </motion.span>
+            <motion.span
+              className="absolute -bottom-1.5 -left-1"
+              animate={{ opacity: [0, 1, 0], scale: [0.4, 0.9, 0.4] }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
+            >
+              <Sparkles size={10} style={{ color: "#E9D5FF" }} />
+            </motion.span>
+          </motion.div>
+        </Reveal>
+
+        <Reveal delay={0.16}>
+          <div
+            className="h-full rounded-2xl"
+            style={{ boxShadow: "0 0 55px -8px rgba(34,211,238,0.5), 0 0 100px -24px rgba(124,58,237,0.55)" }}
+          >
+            <GlowCard customSize glowColor="cyan" className="p-6 h-full">
+              <div className="absolute inset-0 rounded-2xl pointer-events-none" style={{ background: "linear-gradient(160deg, rgba(124,58,237,0.22), rgba(6,182,212,0.15))" }} />
+              <div className="relative z-10">
+                <p className="text-xs uppercase tracking-[0.2em] mb-4 flex items-center gap-2" style={{ color: CYAN }}>
+                  <Sparkles size={13} /> Saídas coordenadas
+                </p>
+                <ul className="space-y-2.5">
+                  {saidas.map((s) => (
+                    <li key={s} className="flex items-center gap-2.5 text-sm text-white/90">
+                      <CheckCircle2 size={14} style={{ color: CYAN }} /> {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </GlowCard>
+          </div>
+        </Reveal>
+      </div>
+
+      <div className="mt-6 grid md:grid-cols-3 gap-4">
+        {difs.map(({ Icon, t, d }, i) => (
+          <Reveal key={t} delay={0.06 * i}>
+            <GlowCard customSize glowColor="cyan" className="p-6 h-full">
+              <Icon size={24} style={{ color: CYAN }} />
+              <h3 className="mt-4 text-lg font-semibold">{t}</h3>
+              <p className="mt-1.5 text-sm text-white/60">{d}</p>
+            </GlowCard>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ==================== CX ==================== */
+function CX() {
+  const certos = [
+    { Icon: Users, t: "Pessoa certa", d: "Segmentação que entende quem é, o que importa e o que motiva cada um." },
+    { Icon: Zap, t: "Momento certo", d: "A IA lê sinais e gatilhos para agir no instante mais relevante da jornada." },
+    { Icon: Network, t: "Canal certo", d: "Escolha dinâmica do melhor canal para atenção, engajamento e conversão." },
+    { Icon: Gauge, t: "Frequência certa", d: "Cadência ideal para gerar impacto sem saturar a experiência." },
+  ];
+  const canais = [
+    { Icon: MessageSquare, t: "WhatsApp" }, { Icon: Mail, t: "E-mail" }, { Icon: Smartphone, t: "App" },
+    { Icon: Send, t: "SMS" }, { Icon: Globe, t: "Web" }, { Icon: Megaphone, t: "Social" },
+  ];
+  return (
+    <Section id="cx" bg={<KineticGrid className="opacity-[0.18]" />}>
+      <ModuleHeader
+        eyebrow="CX · Ativação"
+        Icon={Users}
+        name="Maestro CX"
+        title="conecta intenção, contexto e resultado em cada jornada."
+        lead="O Maestro orquestra cada jornada para entregar a mensagem certa, para a pessoa certa, no momento certo, pelo canal certo e na frequência certa."
+      />
+
+      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {certos.map(({ Icon, t, d }, i) => (
+          <Reveal key={t} delay={0.06 * i}>
+            <GlowCard customSize glowColor="cyan" className="p-6 h-full">
+              <Icon size={24} style={{ color: CYAN }} />
+              <h3 className="mt-4 text-lg font-semibold">{t}</h3>
+              <p className="mt-1.5 text-sm text-white/60 leading-relaxed">{d}</p>
+            </GlowCard>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal delay={0.1}>
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <span className="text-sm text-white/45 mr-1">Canais orquestrados:</span>
+          {canais.map(({ Icon, t }) => (
+            <span key={t} className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/[0.03] border border-white/10 text-sm text-white/75">
+              <Icon size={15} style={{ color: CYAN }} /> {t}
+            </span>
+          ))}
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ==================== GOVERNANÇA ==================== */
+function Governanca() {
+  const pilares = [
+    { Icon: Lock, t: "Segurança", d: "Proteção de dados em trânsito e em repouso." },
+    { Icon: Eye, t: "Rastreabilidade", d: "Log completo de cada decisão e acesso." },
+    { Icon: KeyRound, t: "Permissões", d: "Controle granular por perfil e domínio." },
+    { Icon: ClipboardCheck, t: "Qualidade", d: "Dados tratados, deduplicados e confiáveis." },
+    { Icon: ShieldCheck, t: "Model Governance", d: "Uso controlado de dados reais e sintéticos." },
+  ];
+  const comp = [
+    { trad: "Governança adicionada depois, como camada separada", maestro: "Governança by design: nasce na fundação Flow" },
+    { trad: "Permissões manuais e inconsistentes", maestro: "Permissões granulares por perfil e domínio" },
+    { trad: "Baixa rastreabilidade das decisões de IA", maestro: "Rastreabilidade completa de cada decisão e acesso" },
+    { trad: "Dados expostos a vários modelos sem controle", maestro: "Dados reais e sintéticos sob controle total" },
+  ];
+  return (
+    <Section id="governanca">
+      <ModuleHeader
+        eyebrow="Governança"
+        Icon={Shield}
+        title={<>Governança como <span className="text-gradient-brand">fundação competitiva.</span></>}
+        lead="Com múltiplos agentes, modelos e dados sensíveis, governança deixou de ser compliance. Virou infraestrutura estratégica, e no Maestro ela é operacional desde o primeiro dia."
+      />
+
+      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        {pilares.map(({ Icon, t, d }, i) => (
+          <Reveal key={t} delay={0.05 * i}>
+            <GlowCard customSize glowColor="cyan" className="p-5 h-full text-center">
+              <Icon size={24} className="mx-auto" style={{ color: CYAN }} />
+              <h3 className="mt-3 font-semibold">{t}</h3>
+              <p className="mt-1 text-xs text-white/55 leading-relaxed">{d}</p>
+            </GlowCard>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal delay={0.1}>
+        <div className="mt-10 grid md:grid-cols-2 gap-px rounded-2xl overflow-hidden border border-white/10">
+          <div className="bg-[#1A0B0B]/40 p-6 md:p-8">
+            <div className="flex items-center gap-2 text-[#EF4444] mb-4"><XCircle size={18} /> <span className="font-semibold uppercase text-xs tracking-widest">Abordagem tradicional</span></div>
+            <ul className="space-y-3">
+              {comp.map((c, i) => (
+                <li key={i} className="flex gap-2.5 text-sm text-white/60"><XCircle size={16} className="text-[#EF4444]/70 shrink-0 mt-0.5" /> {c.trad}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="p-6 md:p-8" style={{ background: "linear-gradient(160deg, rgba(124,58,237,0.12), rgba(6,182,212,0.08))" }}>
+            <div className="flex items-center gap-2 mb-4" style={{ color: CYAN }}><ShieldCheck size={18} /> <span className="font-semibold uppercase text-xs tracking-widest">Abordagem Maestro</span></div>
+            <ul className="space-y-3">
+              {comp.map((c, i) => (
+                <li key={i} className="flex gap-2.5 text-sm text-white/85"><CheckCircle2 size={16} className="shrink-0 mt-0.5" style={{ color: CYAN }} /> {c.maestro}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ==================== ARQUITETURA DE REFERÊNCIA ==================== */
+function Arquitetura() {
+  const camadas = [
+    { t: "Fontes", sub: "Dados de todas as origens", items: "Data Lake · CRM · ERP · E-commerce · CDP · APIs · Eventos", Icon: Database, color: "#64748B" },
+    { t: "Flow", sub: "Dados em movimento com confiança", items: "Ingestão → Normalização → Governança → Enriquecimento → Modelos → Distribuição", Icon: Workflow, color: "#06B6D4" },
+    { t: "Inteligência", sub: "IA com contexto, permissão e propósito", items: "Insights · Decision Teams · Composer · CX", Icon: Brain, color: "#7C3AED" },
+    { t: "Resultados", sub: "Impactos que aceleram o negócio", items: "Decisões melhores · Campanhas eficazes · Experiências · Produtividade · Receita", Icon: TrendingUp, color: "#22D3EE" },
+  ];
+  return (
+    <Section id="arquitetura" className="grid-tech">
+      <div className="text-center max-w-3xl mx-auto">
+        <Reveal><span className="tag-pill mx-auto"><Network size={12} /> Arquitetura de referência</span></Reveal>
+        <Reveal delay={0.08}>
+          <h2 className="mt-6 text-4xl md:text-5xl font-semibold">Da fonte ao <span className="text-gradient">resultado.</span></h2>
+        </Reveal>
+        <Reveal delay={0.14}>
+          <p className="mt-5 text-lg text-white/70">Uma plataforma. Fluxo contínuo. Valor real.</p>
+        </Reveal>
+      </div>
+
+      <div className="mt-12 max-w-4xl mx-auto space-y-3">
+        {camadas.map(({ t, sub, items, Icon, color }, i) => (
+          <Reveal key={t} delay={0.08 * i}>
+            <div className="relative rounded-2xl border border-white/10 bg-white/[0.02] p-6 overflow-hidden">
+              <span className="absolute left-0 top-0 bottom-0 w-1" style={{ background: color }} />
+              <div className="flex items-start gap-4">
+                <span className="grid place-items-center w-11 h-11 rounded-xl shrink-0" style={{ background: `${color}22` }}>
+                  <Icon size={22} style={{ color }} />
+                </span>
+                <div>
+                  <div className="flex items-baseline gap-3 flex-wrap">
+                    <h3 className="text-lg font-semibold">{t}</h3>
+                    <span className="text-sm text-white/50">{sub}</span>
+                  </div>
+                  <p className="mt-1.5 text-sm text-white/60">{items}</p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ==================== PLANOS ==================== */
+function Planos({ onDemo }: { onDemo: () => void }) {
+  const planos = [
+    { t: "Professional", d: "Para começar por casos de uso prioritários, com volumes controlados e foco em uma ou poucas áreas.", pts: ["Volumes iniciais de dados", "Menos usuários, agentes e jornadas", "Suporte padrão", "Expansão conforme a adoção"], destaque: false },
+    { t: "Scale", d: "Para ampliar o uso entre áreas, aumentando volumes, usuários, agentes e ativações sobre a mesma fundação.", pts: ["Maior capacidade de dados", "Mais agentes e jornadas simultâneas", "Operação multidisciplinar", "Suporte ampliado"], destaque: true },
+    { t: "Enterprise", d: "Para arquiteturas complexas, múltiplos domínios, governança avançada e integração com stacks de grande porte.", pts: ["Grandes volumes de dados", "Múltiplas áreas e regiões", "Governança e segurança avançadas", "SLA e suporte dedicado"], destaque: false },
+  ];
+  return (
+    <Section id="planos">
+      <div className="text-center max-w-3xl mx-auto">
+        <Reveal><span className="tag-pill mx-auto"><Gauge size={12} /> Como começar</span></Reveal>
+        <Reveal delay={0.08}>
+          <h2 className="mt-6 text-4xl md:text-5xl font-semibold">Uma plataforma. <span className="text-gradient">Três formas de começar.</span></h2>
+        </Reveal>
+        <Reveal delay={0.14}>
+          <p className="mt-5 text-lg text-white/70">
+            Comece por um caso de uso e amplie no seu ritmo, sem migração, sem retrabalho e sem perder contexto.
+            A mesma suíte, a mesma interface, a mesma fundação.
+          </p>
+        </Reveal>
+      </div>
+
+      <div className="mt-14 grid md:grid-cols-3 gap-5 items-start">
+        {planos.map(({ t, d, pts, destaque }, i) => (
+          <Reveal key={t} delay={0.08 * i}>
+            <div className={destaque ? "rounded-2xl p-[1.5px]" : ""} style={destaque ? { background: "linear-gradient(160deg,#7C3AED,#4F46E5 50%,#06B6D4)" } : {}}>
+              <div className={`rounded-2xl p-7 h-full ${destaque ? "bg-[#0A0D1C]" : "border border-white/10 bg-white/[0.02]"}`}>
+                {destaque && <span className="inline-block mb-3 text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full" style={{ background: `${CYAN}22`, color: CYAN }}>Mais adotado</span>}
+                <h3 className="text-2xl font-semibold">{t}</h3>
+                <p className="mt-2 text-sm text-white/60 leading-relaxed min-h-[72px]">{d}</p>
+                <ul className="mt-5 space-y-2.5">
+                  {pts.map((p) => (
+                    <li key={p} className="flex gap-2.5 text-sm text-white/75"><CheckCircle2 size={16} className="shrink-0 mt-0.5" style={{ color: CYAN }} /> {p}</li>
+                  ))}
+                </ul>
+                <button onClick={onDemo} className={`mt-7 w-full justify-center ${destaque ? "btn-primary-light" : "inline-flex items-center gap-2 px-5 py-3 rounded-full border border-white/15 hover:bg-white/5 transition-colors font-medium"}`}>
+                  Falar sobre {t} <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ==================== INDÚSTRIAS / FRENTES DE ENTRADA ==================== */
+function Industrias() {
+  const frentes = [
+    { Icon: TrendingUp, t: "Crescimento", casos: ["Recuperação de receita", "CRM Growth", "Reativação"] },
+    { Icon: Users, t: "Clientes", casos: ["Customer Intelligence", "Reativação", "CRM Growth"] },
+    { Icon: Sparkles, t: "Produtividade", casos: ["Creative Intelligence", "Trade Marketing", "Eficiência operacional"] },
+    { Icon: Shield, t: "Eficiência & Risco", casos: ["Eficiência operacional", "Governança de dados", "Redução de exposição"] },
+  ];
+  return (
+    <Section id="industrias">
+      <div className="max-w-3xl">
+        <Reveal><Tag><Building2 size={12} /> Pontos de entrada</Tag></Reveal>
+        <Reveal delay={0.08}>
+          <h2 className="mt-6 text-4xl md:text-5xl font-semibold">O Maestro entra pela decisão que <span className="text-gradient-brand">mais impacta</span> o negócio.</h2>
+        </Reveal>
+        <Reveal delay={0.14}>
+          <p className="mt-5 text-lg text-white/70">
+            Diferentes pontas de entrada, a mesma camada de inteligência. Cada caso de uso conecta ao Flow,
+            gera aprendizado e expande a inteligência para toda a operação.
+          </p>
+        </Reveal>
+      </div>
+
+      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {frentes.map(({ Icon, t, casos }, i) => (
+          <Reveal key={t} delay={0.06 * i}>
+            <GlowCard customSize glowColor="purple" className="p-6 h-full">
+              <span className="grid place-items-center w-12 h-12 rounded-xl mb-4" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.25), rgba(34,211,238,0.18))" }}>
+                <Icon size={24} style={{ color: CYAN }} />
+              </span>
+              <h3 className="text-lg font-semibold">{t}</h3>
+              <ul className="mt-3 space-y-1.5">
+                {casos.map((c) => (
+                  <li key={c} className="text-sm text-white/60 flex items-center gap-2"><span className="w-1 h-1 rounded-full" style={{ background: CYAN }} /> {c}</li>
+                ))}
+              </ul>
+            </GlowCard>
+          </Reveal>
+        ))}
+      </div>
+
+      <HighlightBox
+        miniTag="Comece por uma dor"
+        bottomLine={<>Comece por uma dor. <span className="text-gradient">Expanda como sistema</span>: valor primeiro, escala depois, governança desde o início.</>}
+      />
+    </Section>
+  );
+}
+
+/* ==================== O QUE DIZEM ==================== */
+function OQueDizem() {
+  const quotes = [
+    { quote: "Assim como a eletricidade transformou as indústrias, a IA fará o mesmo.", name: "Andrew Ng", sub: "Pioneiro em IA e sistemas de decisão" },
+    { quote: "As empresas vencedoras não serão as que têm mais IA. Serão as que coordenam melhor as que já têm.", name: "Manifesto Maestro", sub: "Growth & Decision OS" },
+    { quote: "O valor não está em visualizar o dado. Está em reduzir o tempo entre compreender e decidir.", name: "Princípio de produto", sub: "Camada Insights" },
+  ];
+  return (
+    <Section id="o-que-dizem" className="grid-tech">
+      <div className="max-w-3xl">
+        <Reveal><Tag><MessageSquare size={12} /> O que dizem</Tag></Reveal>
+        <Reveal delay={0.08}>
+          <h2 className="mt-6 text-4xl md:text-5xl font-semibold">A vantagem competitiva vai ser <span className="text-gradient">decidir melhor.</span></h2>
+        </Reveal>
+      </div>
+
+      <div className="mt-12 grid md:grid-cols-3 gap-5">
+        {quotes.map(({ quote, name, sub }, i) => (
+          <Reveal key={name} delay={0.08 * i}>
+            <GlowCard customSize glowColor="purple" className="p-7 h-full flex flex-col">
+              <span className="text-5xl leading-none font-bold" style={{ color: CYAN, opacity: 0.35 }}>&ldquo;</span>
+              <p className="mt-2 text-lg text-white/85 leading-relaxed flex-1">{quote}</p>
+              <div className="mt-6 pt-5 border-t border-white/10">
+                <p className="font-semibold">{name}</p>
+                <p className="text-sm text-white/50">{sub}</p>
+              </div>
+            </GlowCard>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ==================== CTA FINAL ==================== */
+function CTAFinal({ onDemo }: { onDemo: () => void }) {
+  return (
+    <section id="cta-final" className="relative px-6 md:px-10 py-24 md:py-36 overflow-hidden">
+      <div className="absolute inset-0" style={{ background: "radial-gradient(900px 500px at 50% 0%, rgba(124,58,237,0.35), transparent 60%), radial-gradient(700px 500px at 80% 100%, rgba(6,182,212,0.2), transparent 55%)" }} />
+      <div className="relative mx-auto max-w-4xl text-center">
+        <Reveal>
+          <img src="/logos/maestro-icon.svg" alt="" className="h-10 w-auto mx-auto mb-8" />
+        </Reveal>
+        <Reveal delay={0.08}>
+          <h2 className="text-4xl md:text-6xl font-bold leading-[1.08]">
+            A próxima geração de empresas <br className="hidden md:block" />
+            será <span className="text-gradient">orquestrada.</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <p className="mt-6 text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
+            Não serão as que têm mais ferramentas ou mais IAs. Serão as que conectam seus dados,
+            coordenam suas inteligências e transformam decisão em execução contínua. Essa camada chama-se Maestro.
+          </p>
+        </Reveal>
+        <Reveal delay={0.24}>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+            <button onClick={onDemo} className="btn-primary-light">
+              Falar com especialista <ArrowRight size={18} />
+            </button>
+            <a href="#capacidades" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/15 hover:bg-white/5 transition-colors font-medium">
+              Conhecer a arquitetura <Compass size={16} />
+            </a>
+          </div>
+        </Reveal>
+        <Reveal delay={0.32}>
+          <p className="mt-6 text-white/45 text-sm">Conversa executiva de 30 min · sem compromisso · NDA disponível</p>
+        </Reveal>
       </div>
     </section>
   );
 }
 
-/* ============ 2. PARADOXO ============ */
-function Paradoxo() {
-  const items = [
-    { t: "Dados Abundantes", d: "Volume exponencial de informação disponível", Icon: Database },
-    { t: "Decisões Lentas", d: "Processos analíticos que levam semanas", Icon: Clock },
-    { t: "Gargalos Técnicos", d: "Dependência crítica de times especializados", Icon: AlertTriangle },
-    { t: "IA Sem Ação", d: "Insights que raramente viram execução", Icon: Bot },
-  ];
-  return (
-    <Section id="racional">
-      <Reveal><Tag><AlertTriangle size={12} /> Desafio Estratégico</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">
-          O Paradoxo da Era dos Dados
-        </h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-2xl">
-          Nunca tivemos tantos dados disponíveis, mas as decisões estratégicas nunca foram tão lentas e fragmentadas.
-        </p>
-      </Reveal>
-      {/* Desktop grid */}
-      <div className="mt-14 hidden md:grid sm:grid-cols-2 gap-5">
-        {items.map((it, i) => (
-          <Reveal key={it.t} delay={0.1 + i * 0.1}>
-            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-8 h-full`}>
-              <it.Icon className="w-8 h-8 text-[#00D4FF] mb-6" strokeWidth={1.5} />
-              <h3 className="font-display text-xl font-medium">{it.t}</h3>
-              <p className="mt-3 text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-      {/* Mobile carousel */}
-      <div className="mt-10 md:hidden">
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-          {items.map((it, i) => (
-            <div key={it.t} className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 min-h-[220px] flex flex-col gap-3`}>
-              <it.Icon className="w-8 h-8 text-[#00D4FF]" strokeWidth={1.5} />
-              <h3 className="font-display text-xl font-medium text-white">{it.t}</h3>
-              <p className="text-white/70 text-sm leading-relaxed">{it.d}</p>
-            </div>
-          ))}
-        </div>
-        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
-      </div>
-      <HighlightBox
-        variant="danger"
-        miniTag="✦ O resultado?"
-        miniTagColor="#EF4444"
-        bottomLine={<>Decisões tardias, fragmentadas e pouco acionáveis que comprometem a competitividade estratégica.</>}
-      />
-    </Section>
-  );
-}
-
-/* ============ 3. MUDANÇA ============ */
-function Mudanca() {
-  return (
-    <Section>
-      <Reveal><Tag><Sparkles size={12} /> Evolução</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">A Mudança Estrutural em Curso</h2>
-      </Reveal>
-      <div className="mt-14 grid md:grid-cols-2 gap-6 items-stretch">
-        <Reveal>
-          <div className="surface-card p-10 h-full">
-            <p className="text-xs uppercase tracking-widest text-offwhite/60">Ontem</p>
-            <h3 className="mt-3 font-display text-3xl">Analytics</h3>
-            <p className="mt-4 text-offwhite/80">Responder perguntas sobre o passado.</p>
-          </div>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <div className="surface-card p-10 h-full" style={{ background: "linear-gradient(160deg, var(--navy-light), var(--navy))" }}>
-            <p className="text-xs uppercase tracking-widest text-offwhite/60">Agora</p>
-            <h3 className="mt-3 font-display text-3xl text-white">Decision Systems</h3>
-            <p className="mt-4 text-offwhite/80">Decidir, priorizar e executar no presente.</p>
-          </div>
-        </Reveal>
-      </div>
-      <Reveal delay={0.2}>
-        <blockquote className="mt-12 border-l-4 pl-6 max-w-3xl text-2xl md:text-3xl font-display font-light leading-snug" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
-          "A próxima onda da IA não é sobre responder perguntas. É sobre decidir, priorizar, executar e aprender continuamente."
-        </blockquote>
-      </Reveal>
-      <Reveal delay={0.25}>
-        <p className="mt-8 text-offwhite/85 max-w-3xl">
-          Estamos testemunhando a transição fundamental de sistemas que <strong className="text-white">informam</strong> para sistemas que <strong className="text-white">decidem</strong>. Esta mudança redefine como empresas operam e competem.
-        </p>
-      </Reveal>
-    </Section>
-  );
-}
-
-/* ============ 4. POR QUE AGORA ============ */
-function PorQueAgora() {
-  const steps = [
-    { Icon: MessageSquare, t: "LLMs Tornaram SQL Natural Operacional", d: "Acesso à análise deixou de depender de especialistas técnicos. Linguagem natural escalou inteligência analítica." },
-    { Icon: Cpu, t: "AutoML Democratizou Previsão", d: "Modelos preditivos agora são gerados e atualizados automaticamente, com rigor estatístico e velocidade operacional." },
-    { Icon: Cloud, t: "Cloud Eliminou Barreiras de Infraestrutura", d: "Processamento em escala sem CAPEX massivo. Comece pequeno. Escale com valor comprovado." },
-    { Icon: Briefcase, t: "O Board Exige Eficiência", d: "Fazer mais com menos deixou de ser meta. Virou obrigação estratégica." },
-    { Icon: TrendingDown, t: "Margens Sob Pressão Estrutural", d: "Competição intensa. Custos crescentes. Decisão lenta virou desvantagem competitiva." },
-  ];
-  const delays = ["", "delay-1", "delay-2", "delay-3", "delay-4"];
-  return (
-    <Section>
-      <Reveal><Tag><Clock size={12} /> Timing Estratégico</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Por Que Agora</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-2xl">
-          A convergência entre tecnologia madura e pressão estrutural abriu uma janela única.
-        </p>
-      </Reveal>
-
-      {/* DESKTOP — timeline vertical */}
-      <div className="mt-14 relative hidden md:block">
-        <div className="absolute left-5 top-2 bottom-2 w-px bg-white/15" />
-        <div className="space-y-5">
-          {steps.map((s, i) => (
-            <Reveal key={s.t} delay={i * 0.05}>
-              <div className="flex gap-5 items-start">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full grid place-items-center font-display text-sm font-semibold relative z-10" style={{ background: "var(--brand-purple-light)", color: "white" }}>
-                  {i + 1}
-                </div>
-                <div className={`glow-card ${delays[i]} p-6 flex-1`}>
-                  <s.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-                  <h3 className="font-display text-lg font-medium">{s.t}</h3>
-                  <p className="mt-2 text-offwhite/80 text-sm leading-relaxed">{s.d}</p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-
-      {/* MOBILE — carrossel horizontal */}
-      <div className="md:hidden mt-10 flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-        {steps.map((s, i) => (
-          <div
-            key={s.t}
-            className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${delays[i]} p-6 min-h-[280px] flex flex-col gap-3`}
-          >
-            <div className="text-3xl font-bold" style={{ color: "#B847D4" }}>0{i + 1}</div>
-            <s.Icon className="w-8 h-8" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-            <h3 className="font-display text-xl font-medium text-white">{s.t}</h3>
-            <p className="text-white/70 text-sm leading-relaxed">{s.d}</p>
-          </div>
-        ))}
-      </div>
-      <p className="md:hidden text-center text-xs text-white/40 mt-3">← deslize →</p>
-
-      <HighlightBox
-        miniTag="✦ Por Que Agora"
-        topLine="A tecnologia amadureceu. A pressão aumentou. A decisão precisa evoluir."
-        bottomLine={<>Não é sobre inovação — é sobre sobrevivência competitiva.</>}
-      />
-    </Section>
-  );
-}
-
-/* ============ 5. CUSTO INAÇÃO ============ */
-function CustoInacao() {
-  const items = [
-    { Icon: TrendingDown, t: "Margem Corroída por Atraso", d: "Promoções tardias, preços desatualizados e oportunidades de upsell perdidas reduzem margem silenciosamente." },
-    { Icon: PieChart, t: "Orçamento Mal Alocado", d: "Investimento em canais de baixo retorno enquanto oportunidades de alto impacto ficam sem recursos." },
-    { Icon: Package, t: "Estoque Mal Planejado", d: "Excesso onde não vende, falta onde há demanda — capital parado e vendas perdidas simultaneamente." },
-    { Icon: Target, t: "Oportunidades Não Capturadas", d: "Janelas de conversão fechadas, clientes de alto valor não identificados, momentos críticos ignorados." },
-    { Icon: Users, t: "Dependência de Análise Manual", d: "Times estratégicos consumidos por tarefas operacionais. Decisões atrasadas por falta de capacidade analítica." },
-  ];
-  const Card = ({ it, i }: { it: typeof items[number]; i: number }) => (
-    <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 min-h-[260px] h-full flex flex-col gap-4`}>
-      <it.Icon className="w-8 h-8" style={{ color: "#EF4444" }} strokeWidth={1.5} />
-      <h3 className="font-display text-lg font-medium">{it.t}</h3>
-      <p className="text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
-    </div>
-  );
-  return (
-    <Section>
-      <Reveal><Tag><Shield size={12} /> Urgência</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">O Custo Invisível da Inação</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
-          A decisão lenta não é neutra — ela corrói valor, desperdiça recursos e entrega vantagem competitiva aos concorrentes que agem mais rápido.
-        </p>
-      </Reveal>
-
-      {/* Desktop / tablet grid */}
-      <div className="mt-14 hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-        {items.map((it, i) => (
-          <Reveal key={it.t} delay={i * 0.05}>
-            <Card it={it} i={i} />
-          </Reveal>
-        ))}
-      </div>
-
-      {/* Mobile carousel */}
-      <div className="mt-14 md:hidden">
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-          {items.map((it, i) => (
-            <div key={it.t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
-              <Card it={it} i={i} />
-            </div>
-          ))}
-        </div>
-        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
-      </div>
-
-      <Reveal delay={0.3}>
-        <p className="mt-12 max-w-3xl text-2xl md:text-3xl font-display font-light leading-snug border-l-4 pl-6" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
-          Decisão tardia é perda estrutural. Não é sobre fazer mais rápido — é sobre <strong>decidir melhor, no momento certo, com dados vivos</strong>.
-        </p>
-      </Reveal>
-    </Section>
-  );
-}
-
-/* ============ 6. TESE ============ */
-function NossaTese() {
-  const pilares = [
-    "Estruturam Dados Antes de Automatizar Decisões",
-    "Transformam Dados em Contexto de Negócio",
-    "Antecipam Cenários com Modelos Explicáveis",
-    "Operam com Times Digitais Especializados",
-    "Executam com Governança e Escala",
-  ];
-  const Card = ({ p, i }: { p: string; i: number }) => (
-    <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 min-h-[180px] h-full flex items-center gap-4`}>
-      <span className="font-display text-2xl text-brand-purple-light flex-shrink-0" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
-      <p className="font-display text-base lg:text-lg leading-snug">{p}</p>
-    </div>
-  );
-  return (
-    <Section>
-      <Reveal>
-        <h2 className="text-4xl md:text-5xl font-light max-w-3xl">Nossa Tese</h2>
-      </Reveal>
-      <Reveal delay={0.1}>
-        <p className="mt-3 text-xl text-offwhite/80">O Sistema Operacional para Decisão Empresarial</p>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-6 text-lg text-offwhite/85 max-w-3xl">
-          Empresas vencedoras não terão apenas uma IA. Terão uma <strong className="text-white">arquitetura integrada de inteligência</strong> — capaz de estruturar dados, compreender contexto, antecipar cenários e executar com precisão.
-        </p>
-      </Reveal>
-
-      {/* Desktop / tablet grid */}
-      <div className="mt-14 hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-        {pilares.map((p, i) => (
-          <Reveal key={p} delay={i * 0.05}>
-            <Card p={p} i={i} />
-          </Reveal>
-        ))}
-      </div>
-
-      {/* Mobile carousel */}
-      <div className="mt-14 md:hidden">
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-          {pilares.map((p, i) => (
-            <div key={p} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
-              <Card p={p} i={i} />
-            </div>
-          ))}
-        </div>
-        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
-      </div>
-
-      <HighlightBox
-        miniTag="✦ Nossa Tese"
-        topLine="O futuro não pertence às empresas com mais dados."
-        bottomLine={<>Pertence às empresas que conseguem: orquestrar, contextualizar e executar mais rápido.</>}
-      />
-    </Section>
-  );
-}
-
-/* ============ 7. NÃO É ============ */
-function NaoE() {
-  const items = [
-    { t: "Não é Chatbot", d: "Chatbots respondem perguntas. Maestro analisa, diagnostica, prevê e executa ações estratégicas com governança corporativa." },
-    { t: "Não é BI (Business Intelligence)", d: "BI mostra o que aconteceu. Maestro explica por que aconteceu, prevê o que vai acontecer e recomenda o que fazer agora." },
-    { t: "Não é Copilot", d: "Copilots assistem tarefas individuais. Maestro orquestra times digitais especializados que operam de forma autônoma e coordenada." },
-    { t: "Não é Ferramenta Isolada", d: "Ferramentas resolvem problemas pontuais. Maestro é uma camada estratégica que unifica dados, inteligência e execução em toda a empresa." },
-  ];
-  return (
-    <Section id="nao-somos">
-      <Reveal><Tag><XIcon size={12} /> Posicionamento</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">O Que o Maestro NÃO É</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
-          Antes de mostrar a arquitetura, é fundamental entender o que nos diferencia de ferramentas pontuais e chatbots genéricos.
-        </p>
-      </Reveal>
-
-      <div className="mt-14 grid md:grid-cols-2 gap-5">
-        {items.map((it, i) => (
-          <Reveal key={it.t} delay={i * 0.05}>
-            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-7 h-full`}>
-              <div className="flex items-center gap-3">
-                <span className="w-9 h-9 rounded-lg grid place-items-center" style={{ background: "oklch(0.65 0.22 25 / 0.15)", color: "var(--danger)" }}>
-                  <XIcon size={18} />
-                </span>
-                <h3 className="font-display text-xl font-medium">{it.t}</h3>
-              </div>
-              <p className="mt-4 text-offwhite/80 text-sm leading-relaxed">{it.d}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      <HighlightBox
-        variant="danger"
-        miniTag="✦ Maestro AI OS"
-        miniTagColor="#EF4444"
-        topLine="Maestro AI OS é uma fundação estratégica — não uma feature."
-        bottomLine={<>É a diferença entre ter respostas e ter decisões acionáveis com impacto mensurável.</>}
-      />
-    </Section>
-  );
-}
-
-/* ============ 8. ARQUITETURA ============ */
-function Arquitetura() {
-  const cards = [
-    { Icon: Database, t: "Maestro Data Flow", d: "Dados unificados, governados e auditáveis em tempo real" },
-    { Icon: Lightbulb, t: "Maestro Insights", d: "Diagnóstico, análise, prescrição e previsão integrados" },
-    { Icon: Users, t: "Maestro CX", d: "Ativação omnichannel e execução automatizada" },
-    { Icon: Bot, t: "Maestro Decision Teams", d: "Criação, treino, governança e orquestração de agentes" },
-  ];
-  return (
-    <Section id="arquitetura">
-      <Reveal><Tag>◇ Arquitetura</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro AI Operating System</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
-          Uma fundação estratégica que coordena dados, inteligência e execução para decisões empresariais escaláveis.
-        </p>
-      </Reveal>
-
-      <div className="mt-14 grid md:grid-cols-2 gap-5">
-        {cards.map(({ Icon, t, d }, i) => (
-          <Reveal key={t} delay={i * 0.05}>
-            <div className="surface-card p-8 h-full">
-              <span className="w-12 h-12 rounded-xl grid place-items-center mb-5" style={{ background: "var(--brand-purple-light)" }}>
-                <Icon size={22} />
-              </span>
-              <h3 className="font-display text-2xl font-medium">{t}</h3>
-              <p className="mt-3 text-offwhite/80">{d}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      <Reveal delay={0.3}>
-        <div className="mt-6 rounded-2xl p-8 md:p-10 border border-[#00D4FF]/30 bg-gradient-to-br from-[#8B1FA9]/30 via-[#6B1583]/20 to-[#0F1B3D]/60">
-          <div className="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#00D4FF" }}>
-            ✦ Flexibilidade Estrutural
-          </div>
-          <p className="text-lg md:text-xl text-white/90 leading-relaxed">
-            O Maestro Data Flow opera como camada fundacional independente e modular, permitindo <strong className="font-semibold text-white">integração progressiva</strong> ao ecossistema do cliente, <strong className="font-semibold text-white">rápida ativação de valor</strong> e <strong className="font-semibold text-white">expansão escalável</strong> conforme a complexidade e maturidade da organização.
-          </p>
-        </div>
-      </Reveal>
-    </Section>
-  );
-}
-
-/* ============ 9. DATA FLOW ============ */
-function DataFlow() {
-  const caps = [
-    "Conecta Múltiplas Fontes",
-    "Integra e Unifica",
-    "Governa com Segurança",
-    "Processa em Tempo Real",
-    "Distribui com Inteligência",
-    "Orquestração Inteligente",
-  ];
-  const impactos = [
-    { Icon: Zap, t: "Decisão em horas, não semanas" },
-    { Icon: BarChart3, t: "Fonte única de verdade" },
-    { Icon: Shield, t: "Governança por design" },
-    { Icon: Rocket, t: "Base para IA escalável" },
-  ];
-  return (
-    <Section id="data-flow">
-      <Reveal><Tag><Database size={12} /> Infraestrutura Estratégica</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro Data Flow</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-3 text-xl text-offwhite/80">A fundação que transforma dados em vantagem competitiva</p>
-      </Reveal>
-      <Reveal delay={0.2}>
-        <p className="mt-8 font-display text-3xl md:text-4xl font-light">Sem infraestrutura, não existe decisão.</p>
-      </Reveal>
-
-      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {caps.map((c, i) => (
-          <Reveal key={c} delay={i * 0.04}>
-            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 h-full`}>
-              <div className="flex items-center gap-3">
-                <CheckCircle2 size={18} className="text-brand-purple-light" style={{ color: "var(--brand-purple-light)" }} />
-                <p className="font-medium">{c}</p>
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {impactos.map(({ Icon, t }, i) => (
-          <Reveal key={t} delay={i * 0.05}>
-            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 h-full`}>
-              <Icon size={22} style={{ color: "var(--brand-purple-light)" }} />
-              <p className="mt-3 text-sm font-medium">{t}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      <HighlightBox
-        miniTag="✦ Maestro Data Flow"
-        topLine="Infraestrutura invisível."
-        bottomLine={<>Impacto organizacional visível.</>}
-      />
-    </Section>
-  );
-}
-
-/* ============ 10. INSIGHTS ============ */
-function Insights() {
-  const caps = [
-    { Icon: Search, t: "Diagnóstico Inteligente", d: "Identifica padrões, anomalias e gargalos com contexto de negócio e priorização por impacto." },
-    { Icon: GitMerge, t: "Análise Contextualizada", d: "Cruza múltiplas fontes para visão holística, conectando causa e efeito com rigor estatístico." },
-    { Icon: TrendingUp, t: "Previsão Probabilística", d: "Forecast com incerteza explícita e simulação de cenários para decisões baseadas em probabilidades." },
-    { Icon: Target, t: "Prescrição por Impacto", d: "Recomendações priorizadas por ROI esperado, viabilidade e alinhamento estratégico." },
-  ];
-  const pratica: Array<{ Icon: typeof Search; t: string }> = [
-    { Icon: AlertCircle, t: "Identificação automática de queda de margem por cluster" },
-    { Icon: FlaskConical, t: "Simulação de política comercial antes da ativação" },
-    { Icon: BarChart3, t: "Forecast de vendas com faixa de risco e cenários alternativos" },
-    { Icon: Filter, t: "Detecção de gargalos de conversão e priorização de ação" },
-    { Icon: Calculator, t: "Projeção de impacto antes da execução de campanha" },
-  ];
-  return (
-    <Section id="insights">
-      <Reveal><Tag><Lightbulb size={12} /> Intelligence Layer</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro Insights</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-3 text-xl text-offwhite/80">A inteligência que transforma dados em decisões acionáveis</p>
-      </Reveal>
-      <Reveal delay={0.2}>
-        <p className="mt-10 text-center font-display text-3xl md:text-4xl font-light italic">
-          Se o Data Flow organiza, o Insights pensa.
-        </p>
-      </Reveal>
-
-      {/* Desktop */}
-      <div className="mt-12 hidden md:grid grid-cols-1 md:grid-cols-2 gap-6">
-        {caps.map((c, i) => (
-          <Reveal key={c.t} delay={i * 0.05}>
-            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-8 min-h-[240px] flex flex-col`}>
-              <c.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-              <h3 className="font-display text-xl md:text-2xl font-medium">{c.t}</h3>
-              <p className="mt-3 text-white/70 text-sm leading-relaxed">{c.d}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-      {/* Mobile carousel */}
-      <div className="mt-10 md:hidden">
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-          {caps.map((c, i) => (
-            <div key={c.t} className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 min-h-[220px] flex flex-col`}>
-              <c.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-              <h3 className="font-display text-xl font-medium text-white">{c.t}</h3>
-              <p className="mt-3 text-white/70 text-sm leading-relaxed">{c.d}</p>
-            </div>
-          ))}
-        </div>
-        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
-      </div>
-
-      <Reveal delay={0.3}>
-        <h3 className="mt-16 font-display text-2xl">Insights na Prática</h3>
-      </Reveal>
-      {/* Desktop */}
-      <div className="mt-6 hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-        {pratica.map((p, i) => (
-          <Reveal key={p.t} delay={i * 0.04}>
-            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-5 min-h-[140px] h-full flex flex-col items-start gap-3`}>
-              <p.Icon className="w-5 h-5 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-              <p className="text-white/85 text-sm">{p.t}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-      {/* Mobile carousel */}
-      <div className="mt-6 md:hidden">
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-          {pratica.map((p, i) => (
-            <div key={p.t} className={`snap-center flex-shrink-0 w-[70vw] max-w-[280px] glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-5 min-h-[160px] flex flex-col items-start gap-3`}>
-              <p.Icon className="w-6 h-6 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-              <p className="text-white/85 text-sm">{p.t}</p>
-            </div>
-          ))}
-        </div>
-        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
-      </div>
-
-      <HighlightBox
-        miniTag="✦ Insights na Prática"
-        bottomLine={<>Antes de executar, o Maestro mede, simula e prioriza.</>}
-      />
-    </Section>
-  );
-}
-
-/* ============ 11. CX ============ */
-function CX() {
-  const pilares = [
-    {
-      Icon: User,
-      t: "Customer Profile Vivo (Progressive Profiling)",
-      bullets: ["Dados online + offline + IoT + loja física", "Atualização near real-time", "Enriquecimento contínuo", "Visão omnichannel unificada"],
-    },
-    {
-      Icon: Users,
-      t: "Segmentação Inteligente (LLM + SQL + Estatística)",
-      bullets: ["Linguagem natural vira query", "Segmentação 1:1 e 1:N", "Presets estratégicos", "Controle estatístico"],
-    },
-    {
-      Icon: Radio,
-      t: "Orquestração com Inteligência de Frequência",
-      bullets: ["Identifica saturação por CPF", "Limite ideal por canal", "Distribuição estatística", "Reduz descadastro"],
-    },
-    {
-      Icon: BarChart2,
-      t: "Análise de Campanhas com IA",
-      bullets: ["Lift automático vs grupo controle", "Alertas de performance", "Recomenda pausar/escalar", "Análise por canal, horário e jornada"],
-    },
-  ];
-  return (
-    <Section id="cx">
-      <Reveal><Tag><Users size={12} /> Customer First</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro CX</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-3 text-xl text-offwhite/80">Orquestração Inteligente da Experiência em Tempo Real</p>
-      </Reveal>
-      <Reveal delay={0.2}>
-        <p className="mt-6 text-lg text-offwhite/85 max-w-3xl">
-          Da jornada fragmentada à experiência contínua e personalizada. O Maestro CX ativa decisões geradas pela camada de Insights, conectando dados vivos a canais, campanhas e pontos de contato.
-        </p>
-      </Reveal>
-
-      {/* Desktop */}
-      <div className="mt-14 hidden md:grid grid-cols-1 md:grid-cols-2 gap-5">
-        {pilares.map((p, i) => (
-          <Reveal key={p.t} delay={i * 0.05}>
-            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-7 min-h-[320px] flex flex-col`}>
-              <p.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-              <h3 className="font-display text-lg font-medium">{p.t}</h3>
-              <ul className="mt-4 space-y-2">
-                {p.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-sm text-offwhite/85">
-                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: "var(--brand-purple-light)" }} />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-      {/* Mobile carousel */}
-      <div className="mt-10 md:hidden">
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-          {pilares.map((p, i) => (
-            <div key={p.t} className={`snap-center flex-shrink-0 w-[80vw] max-w-[320px] glow-card ${["", "delay-1", "delay-2", "delay-3"][i % 4]} p-6 min-h-[300px] flex flex-col`}>
-              <p.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-              <h3 className="font-display text-base font-medium text-white">{p.t}</h3>
-              <ul className="mt-4 space-y-2">
-                {p.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-sm text-white/80">
-                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: "var(--brand-purple-light)" }} />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
-      </div>
-
-      <Reveal delay={0.3}>
-        <div className="mt-12 py-10 px-8 bg-gradient-to-r from-[#8B1FA9]/40 via-[#6B1583]/30 to-[#0F1B3D]/60 border border-[#00D4FF]/30 rounded-2xl text-center">
-          <span className="text-xs uppercase tracking-[0.3em] text-[#00D4FF] font-bold mb-4 block">
-            ✦ Cada interação
-          </span>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-2xl md:text-4xl font-bold">
-            <span className="text-white">Contextual</span>
-            <span className="text-[#00D4FF]">·</span>
-            <span className="text-white">Oportuna</span>
-            <span className="text-[#00D4FF]">·</span>
-            <span className="text-white">Personalizada</span>
-            <span className="text-[#00D4FF]">·</span>
-            <span className="bg-gradient-to-r from-white to-[#00D4FF] bg-clip-text text-transparent">Mensurável</span>
-          </div>
-        </div>
-      </Reveal>
-    </Section>
-  );
-}
-
-/* ============ 12. DECISION TEAMS ============ */
-function DecisionTeams() {
-  const attrs: Array<{ Icon: typeof Sparkles; t: string }> = [
-    { Icon: Crosshair, t: "Domínio Específico" },
-    { Icon: Workflow, t: "Execução Integrada" },
-    { Icon: Sparkles, t: "Insights Preditivos" },
-    { Icon: ListChecks, t: "Ações Priorizadas" },
-    { Icon: Database, t: "Decisões Baseadas em Dados" },
-    { Icon: BrainCircuit, t: "Aprendizado Controlado" },
-  ];
-  const teams = [
-    { t: "Maestro IA Sales Team", d: "Qualificação de carteira, cross-sell preditivo e otimização de política comercial", Icon: Target },
-    { t: "Maestro IA Trade & PDV Team", d: "Gestão de ponto de venda, execução no varejo e otimização de presença", Icon: ShoppingCart },
-    { t: "Maestro IA Marketing Team", d: "Segmentação inteligente, ROI de campanhas e automação de jornadas", Icon: Rocket },
-    { t: "Maestro IA Customer Team", d: "Retenção preditiva, NPS driver analysis e experiência personalizada", Icon: Users },
-    { t: "Maestro IA Planning Team", d: "Forecasting, simulação de cenários e alocação otimizada de recursos", Icon: BarChart3 },
-  ];
-  return (
-    <Section id="decision-teams">
-      <span id="teams" className="sr-only" aria-hidden="true" />
-      <Reveal><Tag><Bot size={12} /> Digital Decision Teams</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Maestro Decision Teams</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-3 text-xl text-offwhite/80">Times Digitais de Decisão</p>
-      </Reveal>
-      <Reveal delay={0.2}>
-        <p className="mt-6 text-lg text-offwhite/85 max-w-3xl">
-          Times digitais especializados, estruturados para assumir responsabilidades contínuas de decisão e execução dentro de domínios estratégicos do negócio.
-        </p>
-      </Reveal>
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {attrs.map((a, i) => (
-          <Reveal key={a.t} delay={i * 0.04}>
-            <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 flex items-center gap-4 h-full`}>
-              <a.Icon className="w-6 h-6 flex-shrink-0" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-              <span className="font-medium">{a.t}</span>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-      <Reveal delay={0.3}>
-        <div className="mt-16 py-12 px-10 bg-gradient-to-r from-[#0F1B3D] to-[#1A2B5C] border-l-4 border-l-[#00D4FF] rounded-2xl">
-          <p className="text-2xl md:text-4xl text-white/60 font-light mb-3">
-            Não são ferramentas que sugerem.
-          </p>
-          <p className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white to-[#00D4FF] bg-clip-text text-transparent">
-            São times digitais que operam decisões.
-          </p>
-        </div>
-      </Reveal>
-
-      {/* Sub-seção fundida: Portfólio */}
-      <hr className="my-12 border-t border-white/10" />
-      <Reveal><Tag>Portfólio Inicial</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h3 className="mt-6 text-3xl font-light max-w-3xl">Portfólio Inicial do Maestro Teams</h3>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-4 text-base text-offwhite/85 max-w-3xl">
-          Times pré-construídos, prontos para acelerar valor em domínios estratégicos comuns. Cada Team é especializado em um domínio de negócio.
-        </p>
-      </Reveal>
-
-      {/* Desktop: 3 + 2 centered */}
-      <div className="mt-10 hidden md:block">
-        <div className="grid md:grid-cols-3 gap-5">
-          {teams.slice(0, 3).map((t, i) => (
-            <Reveal key={t.t} delay={i * 0.05}>
-              <div className={`glow-card ${["", "delay-1", "delay-2"][i % 3]} p-6 h-full`}>
-                <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-                <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
-                <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-        {teams.length > 3 && (
-          <div className="mt-5 grid md:grid-cols-3 gap-5">
-            <div className="hidden md:block" />
-            {teams.slice(3, 5).map((t, i) => (
-              <Reveal key={t.t} delay={i * 0.05}>
-                <div className={`glow-card ${["delay-3", "delay-4"][i % 2]} p-6 h-full`}>
-                  <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-                  <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
-                  <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Mobile carousel */}
-      <div className="mt-10 md:hidden">
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-          {teams.map((t, i) => (
-            <div key={t.t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
-              <div className={`glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-6 h-full`}>
-                <t.Icon className="w-8 h-8 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-                <h4 className="font-display text-lg font-medium text-white">{t.t}</h4>
-                <p className="mt-2 text-sm text-white/75 leading-relaxed">{t.d}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
-      </div>
-    </Section>
-  );
-}
-
-/* ============ 14. MATURIDADE ============ */
-function Maturidade() {
-  const niveis = [
-    { Icon: Sprout, t: "Básico", d: "Suporte analítico e respostas assistidas" },
-    { Icon: BookOpen, t: "Aprendendo", d: "Reconhecimento de padrões e contexto recorrente" },
-    { Icon: ThumbsUp, t: "Capaz", d: "Recomendações consistentes e priorizadas" },
-    { Icon: Zap, t: "Avançado", d: "Execução assistida e otimização contínua" },
-    { Icon: Award, t: "Especialista", d: "Autonomia ampliada com supervisão e governança plena" },
-  ];
-  return (
-    <Section>
-      <Reveal>
-        <h2 className="text-4xl md:text-5xl font-light max-w-3xl">Evolução Controlada e Segura</h2>
-      </Reveal>
-      <Reveal delay={0.1}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
-          Cada Maestro IA Team evolui de forma estruturada, ampliando sua autonomia somente quando critérios claros de governança, desempenho e segurança são atendidos.
-        </p>
-      </Reveal>
-
-      <div className="mt-14 relative">
-        <div className="hidden md:block absolute top-5 left-5 right-5 h-px bg-white/15" />
-        <div className="grid md:grid-cols-5 gap-5">
-          {niveis.map((n, i) => (
-            <Reveal key={n.t} delay={i * 0.05}>
-              <div className="text-center flex flex-col items-center">
-                <n.Icon className="w-7 h-7 mb-2" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-                <div className="mx-auto w-10 h-10 rounded-full grid place-items-center font-display font-semibold relative z-10" style={{ background: "var(--brand-purple-light)" }}>
-                  {i + 1}
-                </div>
-                <h3 className="mt-4 font-display text-base font-medium">{n.t}</h3>
-                <p className="mt-2 text-xs text-offwhite/75 leading-relaxed">{n.d}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-
-      <HighlightBox
-        miniTag="✦ Governança por Design"
-        bottomLine={<>Cada avanço de nível exige validações formais, critérios de performance e trilhas completas de auditoria.</>}
-      />
-    </Section>
-  );
-}
-
-/* ============ 15. WORKFLOW ============ */
-function Workflow6() {
-  const steps = [
-    "Pergunta em linguagem natural",
-    "Interpretação do contexto de negócio",
-    "Escolha automática do melhor modelo",
-    "Análise ou previsão",
-    "Explicação de risco e incerteza",
-    "Ativação via processos, sistemas e integrações",
-  ];
-  return (
-    <Section id="metodologia">
-      <Reveal><Tag><Workflow size={12} /> Workflow</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light">Do Dado à Decisão</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-3 text-xl text-offwhite/80">Como funciona na prática</p>
-      </Reveal>
-
-      {/* Desktop */}
-      <div className="mt-14 hidden md:grid md:grid-cols-3 lg:grid-cols-6 gap-4">
-        {steps.map((s, i) => (
-          <Reveal key={s} delay={i * 0.05}>
-            <div className="surface-card p-5 h-full relative">
-              <span className="text-xs font-display text-brand-purple-light font-semibold" style={{ color: "var(--brand-purple-light)" }}>
-                ETAPA {i + 1}
-              </span>
-              <p className="mt-2 text-sm font-medium">{s}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-      {/* Mobile carousel */}
-      <div className="mt-10 md:hidden">
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-          {steps.map((s, i) => (
-            <div key={s} className={`snap-center flex-shrink-0 w-[70vw] max-w-[280px] glow-card ${["", "delay-1", "delay-2", "delay-3", "delay-4"][i % 5]} p-5 min-h-[160px] flex flex-col gap-2`}>
-              <span className="text-xs font-display font-semibold" style={{ color: "var(--brand-purple-light)" }}>
-                ETAPA {i + 1}
-              </span>
-              <p className="text-sm font-medium text-white">{s}</p>
-            </div>
-          ))}
-        </div>
-        <p className="text-center text-xs text-white/40 mt-3">← deslize →</p>
-      </div>
-
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-        {[
-          {
-            Icon: UserCog,
-            content: (
-              <>O Maestro atua como um <strong className="text-white font-semibold">gestor especialista</strong>, não como um chatbot.</>
-            ),
-          },
-          {
-            Icon: Workflow,
-            content: (
-              <>Cada interação percorre <strong className="text-white font-semibold">contextualização, validação e priorização</strong>.</>
-            ),
-          },
-          {
-            Icon: Gauge,
-            content: (
-              <>Permite <strong className="text-white font-semibold">decisões complexas com rapidez</strong> — sem abrir mão de <strong className="text-white font-semibold">rigor analítico</strong>.</>
-            ),
-          },
-        ].map((b, i) => (
-          <Reveal key={i} delay={i * 0.05}>
-            <div className={`glow-card ${["", "delay-1", "delay-2"][i]} p-8 min-h-[180px] h-full flex flex-col gap-4`}>
-              <b.Icon className="w-10 h-10" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-              <p className="text-base md:text-lg text-white/85 leading-relaxed">{b.content}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      <HighlightBox
-        miniTag="✦ Do Dado à Decisão"
-        bottomLine={<>Não é resposta. É decisão operacionalizada.</>}
-      />
-    </Section>
-  );
-}
-
-/* ============ 16. COMPARA ============ */
-function ComparaCopilots() {
-  const rows: Array<[string, string, string]> = [
-    ["Papel", "Assistem indivíduos", "Orquestra decisões organizacionais"],
-    ["Escopo", "Tarefas pontuais", "Domínios completos de negócio"],
-    ["Contexto", "Limitado, reativo", "Profundo, contínuo e estratégico"],
-    ["Dados", "Parcialmente conectados", "Governados, auditáveis e confiáveis"],
-    ["Decisão", "Sugestão isolada", "Decisão coordenada entre áreas"],
-    ["Execução", "Manual", "Automatizada via sistemas"],
-    ["Aprendizado", "Implícito, não controlado", "Estruturado e governado"],
-    ["Responsabilidade", "Do usuário", "Do sistema de decisão"],
-    ["Escalabilidade", "Individual", "Organizacional"],
-    ["Risco", "Alto (uso ad-hoc)", "Controlado (enterprise-grade)"],
-  ];
-  return (
-    <Section id="comparativo">
-      <Reveal>
-        <h2 className="text-4xl md:text-5xl font-light max-w-3xl">Maestro AI OS vs Copilots & GenAI Tools</h2>
-      </Reveal>
-      <Reveal delay={0.1}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl italic">
-          Pergunta real do Board: "Por que eu não resolvo isso com Copilots ou ferramentas GenAI?"
-        </p>
-      </Reveal>
-
-      {/* Desktop / tablet table */}
-      <Reveal delay={0.2}>
-        <div className="mt-12 hidden md:block rounded-2xl overflow-hidden border border-white/10">
-          <table className="w-full text-left">
-            <thead>
-              <tr>
-                <th className="p-4 text-xs uppercase tracking-widest text-white/90 font-semibold bg-[#0F1B3D]/60">Dimensão</th>
-                <th className="p-4 text-xs uppercase tracking-widest text-white/60 font-semibold bg-[#0F1B3D]/50">Copilots / GenAI</th>
-                <th className="p-4 bg-[#8B1FA9] border-l-2 border-l-[#00D4FF]">
-                  <div className="flex items-center gap-3">
-                    <img src="/aodigital.png" alt="Always On" className="h-5 w-auto" />
-                    <span className="text-white/30">·</span>
-                    <span className="text-xs uppercase tracking-widest text-white font-bold">Maestro AI OS</span>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/15">
-              {rows.map((r, i) => (
-                <tr key={r[0]} className={`hover:bg-white/[0.05] ${i % 2 === 1 ? "bg-white/[0.04]" : ""}`}>
-                  <td className="p-4 font-medium text-white/90 align-top">{r[0]}</td>
-                  <td className="p-4 text-sm text-white/70 bg-[#0F1B3D]/50 align-top">
-                    <div className="flex items-start gap-2">
-                      <XCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#EF4444" }} />
-                      <span>{r[1]}</span>
-                    </div>
-                  </td>
-                  <td
-                    className="p-4 text-sm text-white font-medium border-l-2 border-l-[#00D4FF] align-top"
-                    style={{ background: "linear-gradient(180deg, #1A0B2E, #0A0419)" }}
-                  >
-                    <div className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#10D981" }} />
-                      <span>{r[2]}</span>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Reveal>
-
-      {/* Mobile stacked cards */}
-      <div className="mt-12 md:hidden space-y-4">
-        {rows.map((r, i) => (
-          <Reveal key={r[0]} delay={i * 0.03}>
-            <div className="rounded-2xl border border-white/10 bg-[#0F1B3D]/60 p-5">
-              <p className="text-xs uppercase tracking-widest text-white/90 font-bold mb-4">{r[0]}</p>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-lg p-3 bg-[#0F1B3D]/50">
-                  <p className="text-[10px] uppercase tracking-widest text-white/50 mb-2">Copilots</p>
-                  <div className="flex items-start gap-1.5">
-                    <XCircle className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" style={{ color: "#EF4444" }} />
-                    <span className="text-xs text-white/70">{r[1]}</span>
-                  </div>
-                </div>
-                <div
-                  className="rounded-lg p-3 border-l-2 border-l-[#00D4FF]"
-                  style={{ background: "linear-gradient(180deg, #1A0B2E, #0A0419)" }}
-                >
-                  <p className="text-[10px] uppercase tracking-widest text-white/80 mb-2 font-bold">Maestro</p>
-                  <div className="flex items-start gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" style={{ color: "#10D981" }} />
-                    <span className="text-xs text-white font-medium">{r[2]}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-    </Section>
-  );
-}
-
-/* ============ 17. SEGURANÇA ============ */
-function Seguranca() {
-  const items = [
-    { Icon: Lock, t: "Infraestrutura Isolada", d: "Dados nunca saem do ambiente do cliente" },
-    { Icon: KeyRound, t: "Criptografia Total", d: "Conexões e armazenamento end-to-end" },
-    { Icon: ClipboardList, t: "Auditoria Completa", d: "Logs detalhados de todas as decisões e ações" },
-    { Icon: UserCog, t: "Governança Nativa", d: "Controles de acesso, aprovação e compliance por design" },
-  ];
-  return (
-    <Section id="seguranca">
-      <Reveal><Tag><Shield size={12} /> Enterprise Grade</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Segurança e Governança</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
-          IA sem controle gera risco operacional e regulatório. O Maestro nasce <strong className="text-white">enterprise-grade</strong> com segurança e governança embutidas na arquitetura.
-        </p>
-      </Reveal>
-
-      <Reveal delay={0.2}>
-        <div className="mt-12 rounded-2xl p-8" style={{ background: "linear-gradient(135deg, var(--brand-purple-dark), var(--brand-purple-light))" }}>
-          <h3 className="font-display text-2xl">Conformidade Regulatória</h3>
-          <p className="mt-3 text-offwhite/95">
-            Atende LGPD, SOX, GDPR e frameworks setoriais. Certificações alinhadas aos mais altos padrões corporativos.
-          </p>
-        </div>
-      </Reveal>
-
-      {(() => {
-        const SegCard = ({ Icon, t, d }: { Icon: typeof Lock; t: string; d: string }) => (
-          <div className="surface-card p-7 h-full flex items-start gap-4">
-            <span className="w-11 h-11 rounded-lg grid place-items-center flex-shrink-0" style={{ background: "var(--brand-purple-light)" }}>
-              <Icon size={20} />
-            </span>
-            <div>
-              <h3 className="font-display text-lg font-medium">{t}</h3>
-              <p className="mt-2 text-sm text-offwhite/80">{d}</p>
-            </div>
-          </div>
-        );
-        return (
-          <>
-            {/* Desktop / tablet grid 2x2 */}
-            <div className="mt-6 hidden md:grid sm:grid-cols-2 gap-5">
-              {items.map(({ Icon, t, d }, i) => (
-                <Reveal key={t} delay={i * 0.05}>
-                  <SegCard Icon={Icon} t={t} d={d} />
-                </Reveal>
-              ))}
-            </div>
-            {/* Mobile carousel */}
-            <div className="mt-6 md:hidden">
-              <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-                {items.map(({ Icon, t, d }) => (
-                  <div key={t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
-                    <SegCard Icon={Icon} t={t} d={d} />
-                  </div>
-                ))}
-              </div>
-              <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
-            </div>
-          </>
-        );
-      })()}
-    </Section>
-  );
-}
-
-/* ============ 18. DIFERENCIAÇÃO ============ */
-function Diferenciacao() {
-  const items = [
-    { t: "Integração das 4 Camadas", d: "Data Flow + CX + Teams + Governança como sistema único. Replicar uma camada é possível. Replicar a orquestração entre todas é exponencialmente mais difícil." },
-    { t: "Governança por Design", d: "Segurança, auditoria e compliance não são add-ons — estão embutidos desde o primeiro dia. Exige anos de maturidade técnica e regulatória." },
-    { t: "Modularidade Estratégica", d: "Cada Team é independente mas conectado. Comece com um, expanda sem refazer infraestrutura. Lock-in positivo baseado em valor." },
-    { t: "Land & Expand Natural", d: "Cliente valida com um Team e expande organicamente. Cada novo Team aumenta o valor da plataforma inteira (efeito de rede interno)." },
-    { t: "Dados Soberanos (Datamart First)", d: "Processamento no ambiente do cliente, zero retenção de dados proprietários. Posicionamento que SaaS tradicionais não replicam sem refazer modelo de negócio." },
-  ];
-  return (
-    <Section id="porque-maestro">
-      <Reveal><Tag>◆ Diferencial Competitivo</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-light max-w-3xl">05 Motivos pelos quais o Maestro é Único</h2>
-      </Reveal>
-
-      <Reveal delay={0.15}>
-        <p className="mt-6 text-lg text-offwhite/85 max-w-3xl">
-          Não é apenas tecnologia. É arquitetura estratégica que cria barreiras naturais de entrada e vantagem competitiva sustentável.
-        </p>
-      </Reveal>
-
-      {/* Desktop / tablet grid */}
-      <div className="mt-14 hidden md:grid md:grid-cols-3 xl:grid-cols-5 gap-5">
-        {items.map((it, i) => (
-          <Reveal key={it.t} delay={i * 0.05}>
-            <div className="bg-[#0F1B3D] rounded-2xl p-6 min-h-[320px] flex flex-col gap-3">
-              <span className="font-display text-3xl" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
-              <h3 className="font-display text-lg font-medium">{it.t}</h3>
-              <p className="text-sm text-offwhite/80 leading-relaxed">{it.d}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      {/* Mobile carousel */}
-      <div className="mt-14 md:hidden">
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
-          {items.map((it, i) => (
-            <div key={it.t} className="snap-center flex-shrink-0 w-[80vw] max-w-[320px]">
-              <div className="bg-[#0F1B3D] rounded-2xl p-6 min-h-[320px] flex flex-col gap-3">
-                <span className="font-display text-3xl" style={{ color: "var(--brand-purple-light)" }}>0{i + 1}</span>
-                <h3 className="font-display text-lg font-medium">{it.t}</h3>
-                <p className="text-sm text-offwhite/80 leading-relaxed">{it.d}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-        <p className="text-center text-white/40 text-xs mt-2">← deslize →</p>
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative overflow-hidden mt-16 rounded-3xl border border-[#00D4FF]/30 p-10 md:p-16 bg-gradient-to-br from-[#8B1FA9]/40 via-[#6B1583]/30 to-[#0F1B3D]/60"
-      >
-        <div className="absolute -top-20 -right-20 w-64 h-64 bg-[#00D4FF]/10 rounded-full blur-3xl" />
-        <div className="relative text-center">
-          <span className="inline-block text-xs uppercase tracking-[0.3em] text-[#00D4FF] font-bold mb-6">
-            ◆ A pergunta que define tudo
-          </span>
-          <p className="text-2xl md:text-4xl lg:text-5xl text-white/60 font-light text-balance">
-            Copilots ajudam pessoas a trabalhar melhor.
-          </p>
-          <p className="mt-3 md:mt-4 text-3xl md:text-5xl lg:text-6xl font-bold text-balance bg-gradient-to-r from-white via-[#E8E4F0] to-[#00D4FF] bg-clip-text text-transparent">
-            O Maestro ajuda empresas a decidir melhor.
-          </p>
-        </div>
-      </motion.div>
-
-      <Reveal delay={0.3}>
-        <p className="mt-12 max-w-3xl text-2xl md:text-3xl font-display font-light leading-snug border-l-4 pl-6" style={{ borderLeftColor: "var(--brand-purple-light)" }}>
-          Defensabilidade não vem de uma feature. Vem da <strong>complexidade sistêmica</strong>, da <strong>governança nativa</strong> e do <strong>modelo de valor</strong> que se auto-reforça a cada expansão.
-        </p>
-      </Reveal>
-    </Section>
-  );
-}
-
-/* ============ 19. INDÚSTRIAS ============ */
-function Industrias() {
-  const inds = [
-    { Icon: ShoppingCart, k: "Varejo", probs: "Margem pressionada · Ruptura + excesso de estoque · Churn silencioso", sols: "Previsão de demanda granular · Otimização comercial · Retenção preditiva" },
-    { Icon: CreditCard, k: "Financeiro", probs: "Inadimplência crescente · CAC alto · Cross-sell ineficiente", sols: "Score preditivo dinâmico · Next best offer · Monitoramento de churn" },
-    { Icon: Smartphone, k: "Telecom", probs: "Alto churn · Desconto reativo · Atendimento caro", sols: "Previsão de churn · Next best action · Redução de call center" },
-    { Icon: Plane, k: "Viagens / Aéreas", probs: "Yield management complexo · No-show · Experiência fragmentada", sols: "Previsão de ocupação · Política de precificação · Upsell contextual" },
-    { Icon: GraduationCap, k: "Educação", probs: "Evasão · Captação ineficiente · Jornada fragmentada", sols: "Previsão de evasão · Otimização de bolsas · Priorização de leads" },
-    { Icon: Car, k: "Mobilidade", probs: "Frota ociosa · Pricing ineficiente · Manutenção imprevisível", sols: "Previsão de utilização · Pricing dinâmico · Otimização de frota" },
-    { Icon: Factory, k: "Indústrias DTC", probs: "Canal conflitante · Estoque desalinhado · Visão fragmentada", sols: "Previsão por canal · Harmonização de preço · Planejamento por demanda" },
-  ];
-  const [active, setActive] = useState(0);
-  const cur = inds[active];
-  const CurIcon = cur.Icon;
-  return (
-    <Section id="industrias">
-      <Reveal><Tag><Target size={12} /> Mercado-alvo</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Soluções Reais por Indústria</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
-          Como o Maestro AI OS resolve dores estruturais que impactam margem, crescimento e risco em setores estratégicos.
-        </p>
-      </Reveal>
-
-      <div className="mt-12 grid lg:grid-cols-12 gap-6">
-        {/* Lista */}
-        <div className="lg:col-span-5 flex flex-col gap-2">
-          {inds.map((ind, i) => {
-            const Icon = ind.Icon;
-            const isActive = i === active;
-            return (
-              <button
-                key={ind.k}
-                onClick={() => setActive(i)}
-                className={`flex items-center gap-3 px-5 py-4 rounded-xl text-left transition-all ${
-                  isActive
-                    ? "bg-gradient-to-r from-[#8B1FA9] to-[#B847D4] text-white scale-[1.03] shadow-lg shadow-[#8B1FA9]/30"
-                    : "bg-[#0F1B3D]/50 text-white/70 hover:bg-white/5"
-                }`}
-              >
-                <Icon size={20} className="flex-shrink-0" strokeWidth={1.75} />
-                <span className="font-medium">{ind.k}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Painel */}
-        <div className="lg:col-span-7">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={cur.k}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
-              className="rounded-2xl p-10 h-full"
-              style={{ backgroundColor: "#0F1B3D" }}
-            >
-              <div className="flex items-center gap-4 mb-8">
-                <CurIcon className="w-12 h-12" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-                <h3 className="font-display text-3xl font-medium text-white">{cur.k}</h3>
-              </div>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="rounded-xl p-6" style={{ backgroundColor: "rgba(239,68,68,0.05)" }}>
-                  <div className="flex items-center gap-2 mb-4">
-                    <AlertCircle className="w-5 h-5" style={{ color: "#EF4444" }} />
-                    <span className="text-xs uppercase tracking-widest font-bold" style={{ color: "#F87171" }}>Problemas</span>
-                  </div>
-                  <ul className="space-y-3">
-                    {cur.probs.split(" · ").map((p) => (
-                      <li key={p} className="flex items-start gap-2 text-sm text-white/85">
-                        <XCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#EF4444" }} />
-                        <span>{p}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="rounded-xl p-6" style={{ backgroundColor: "rgba(0,212,255,0.05)" }}>
-                  <div className="flex items-center gap-2 mb-4">
-                    <CheckCircle2 className="w-5 h-5" style={{ color: "#00D4FF" }} />
-                    <span className="text-xs uppercase tracking-widest font-bold" style={{ color: "#00D4FF" }}>Soluções Maestro</span>
-                  </div>
-                  <ul className="space-y-3">
-                    {cur.sols.split(" · ").map((s) => (
-                      <li key={s} className="flex items-start gap-2 text-sm text-white font-medium">
-                        <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#00D4FF" }} />
-                        <span>{s}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
-
-      <Reveal delay={0.3}>
-        <p className="mt-12 max-w-3xl text-xl md:text-2xl font-display font-light">
-          Não é tecnologia genérica. É <strong>inteligência aplicada a problemas reais</strong> que impactam P&L, risco e crescimento.
-        </p>
-      </Reveal>
-    </Section>
-  );
-}
-
-/* ============ 20. MODELOS DE ADOÇÃO ============ */
-function ModelosAdocao() {
-  const cards = [
-    {
-      n: "01",
-      t: "Entry Mode — Decision Team First",
-      bullets: ["Teams conectados ao stack atual", "POV típico de 6–8 semanas", "Valor rápido e champions internos"],
-      minH: "min-h-[280px]",
-      bg: "bg-[#0F1B3D]",
-      label: undefined as string | undefined,
-      border: "",
-    },
-    {
-      n: "02",
-      t: "Scale Mode — Hybrid",
-      bullets: ["Agentic + dados parcialmente unificados", "Múltiplos Teams coordenados", "Redução de silos"],
-      minH: "min-h-[340px]",
-      bg: "bg-gradient-to-b from-[#0F1B3D] to-[#1A2B5C]",
-      label: undefined,
-      border: "",
-    },
-    {
-      n: "03",
-      t: "Enterprise Mode — Full Maestro AI OS",
-      bullets: ["Core Data como fundação única", "Governança total", "Decisão distribuída e auditável"],
-      minH: "min-h-[400px]",
-      bg: "bg-gradient-to-b from-[#1A2B5C] to-[#8B1FA9]/30",
-      label: "Enterprise",
-      border: "border border-[#00D4FF]/30",
-    },
-  ];
-  return (
-    <Section>
-      <Reveal>
-        <h2 className="text-4xl md:text-5xl font-light max-w-3xl">Modelos de Adoção</h2>
-      </Reveal>
-      <Reveal delay={0.1}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
-          Entrada rápida com valor imediato. Escala progressiva conforme maturidade.
-        </p>
-      </Reveal>
-
-      <div className="mt-14 flex flex-col md:flex-row md:items-end gap-5">
-        {cards.map((c, i) => (
-          <div key={c.n} className="flex items-end flex-1 gap-3">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
-              className={`rounded-2xl p-7 w-full ${c.minH} ${c.bg} ${c.border} flex flex-col`}
-            >
-              {c.label && (
-                <p className="text-xs uppercase tracking-widest mb-3 font-semibold" style={{ color: "#00D4FF" }}>
-                  {c.label}
-                </p>
-              )}
-              <span className="font-display text-5xl font-bold" style={{ color: "#00D4FF" }}>{c.n}</span>
-              <h3 className="mt-4 font-display text-lg font-medium text-white">{c.t}</h3>
-              <ul className="mt-5 space-y-2.5">
-                {c.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-sm text-white/85">
-                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: "#00D4FF" }} />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-            {i < cards.length - 1 && (
-              <div className="hidden md:flex items-center justify-center pb-20 text-white/30 text-2xl flex-shrink-0">
-                →
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-/* ============ 21. GANHOS ============ */
-function GanhosChart({ bars }: { bars: { l: string; v: number }[] }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [animate, setAnimate] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      const t = setTimeout(() => setAnimate(true), 200);
-      return () => clearTimeout(t);
-    }
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setAnimate(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.05, rootMargin: "0px 0px -10% 0px" }
-    );
-    observer.observe(el);
-    const fallback = setTimeout(() => {
-      setAnimate(true);
-      observer.disconnect();
-    }, 4000);
-    return () => {
-      observer.disconnect();
-      clearTimeout(fallback);
-    };
-  }, []);
-  return (
-    <div ref={ref} className="rounded-2xl p-10 h-full flex flex-col" style={{ backgroundColor: "#0F1B3D" }}>
-      <p className="text-xs uppercase tracking-widest text-white/60 mb-8 font-semibold">Indicadores</p>
-      <div className="space-y-7 flex-1 flex flex-col justify-center">
-        {bars.map((b, i) => (
-          <div key={b.l}>
-            <div className="flex justify-between mb-2">
-              <span className="text-white text-sm">{b.l}</span>
-              <span className="font-bold" style={{ color: "#00D4FF" }}>+{b.v}%</span>
-            </div>
-            <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-              <div
-                className="h-full rounded-full"
-                style={{
-                  background: "linear-gradient(90deg, #8B1FA9, #00D4FF)",
-                  width: animate ? `${b.v}%` : "0%",
-                  transition: `width 1500ms ease-out ${i * 150}ms`,
-                }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Ganhos() {
-  const bars = [
-    { l: "Velocidade de Decisão", v: 60 },
-    { l: "Previsibilidade", v: 80 },
-    { l: "Execução Conectada", v: 55 },
-    { l: "Eficiência Operacional", v: 45 },
-  ];
-  const pillars = [
-    { Icon: Zap, t: "Decisões Mais Rápidas", d: "Redução de 60%+ no tempo entre insight e ação" },
-    { Icon: TrendingDown, t: "Menos Dependência Operacional", d: "Times focam em estratégia, não em análise manual" },
-    { Icon: Target, t: "Mais Previsibilidade", d: "Antecipação de cenários com 80%+ de acurácia" },
-    { Icon: Network, t: "Execução Conectada", d: "Estratégia traduzida em ação automaticamente" },
-  ];
-  return (
-    <Section id="ganhos">
-      <Reveal><Tag><Trophy size={12} /> Impacto Board</Tag></Reveal>
-      <Reveal delay={0.1}>
-        <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">Ganhos</h2>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <p className="mt-5 text-lg text-offwhite/85 max-w-3xl">
-          O impacto mensurável de operar com o Maestro AI OS.
-        </p>
-      </Reveal>
-
-      <div className="mt-12 grid lg:grid-cols-2 gap-6 items-stretch">
-        {/* Gráfico (sem Reveal por fora — anima sozinho via IntersectionObserver) */}
-        <GanhosChart bars={bars} />
-
-        {/* Grid 2x2 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {pillars.map((p, i) => (
-            <Reveal key={p.t} delay={i * 0.08}>
-              <div className="rounded-2xl p-6 h-full transition-all hover:border-[#00D4FF]/30 border border-transparent" style={{ backgroundColor: "#0F1B3D" }}>
-                <p.Icon className="w-10 h-10 mb-4" style={{ color: "#00D4FF" }} strokeWidth={1.5} />
-                <h3 className="font-bold text-lg text-white">{p.t}</h3>
-                <p className="mt-2 text-sm text-white/70 leading-relaxed">{p.d}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-
-      <HighlightBox
-        miniTag="✦ Ganhos"
-        topLine="Em mercados onde margem é pressionada,"
-        bottomLine={<>velocidade de decisão é vantagem estrutural.</>}
-      />
-    </Section>
-  );
-}
-
-/* ============ 22. VALIDAÇÃO + CTA ============ */
-function ValidacaoCTA({ onDemo }: { onDemo: () => void }) {
-  const stats = [
-    { firm: "McKinsey Global Institute", num: "45%", text: "de ganho de produtividade com IA aplicada à decisão estratégica e operacional" },
-    { firm: "Gartner Research", num: "75%", text: "das organizações terão Decision Intelligence como vantagem competitiva crítica até 2026" },
-    { firm: "PwC Global AI Study", num: "340%", text: "de ROI médio em iniciativas prescritivas, vs. 180% em analytics descritivo" },
-  ];
-  const quotes = [
-    { initials: "PD", quote: "O que pode ser medido pode ser gerenciado.", name: "Peter Drucker", sub: "Pai da Administração Moderna" },
-    { initials: "AN", quote: "Assim como a eletricidade transformou as indústrias, a IA fará o mesmo.", name: "Andrew Ng", sub: "Pioneiro em IA e Decision Systems" },
-  ];
-  return (
-    <>
-      <Section id="o-que-dizem">
-        <Reveal><Tag><Award size={12} /> Validação</Tag></Reveal>
-        <Reveal delay={0.1}>
-          <h2 className="mt-6 text-4xl md:text-5xl font-light max-w-3xl">O Que o Mercado Diz</h2>
-        </Reveal>
-
-        {/* Sub-bloco A: Números do Mercado */}
-        <Reveal delay={0.15}>
-          <p className="mt-10 text-xs uppercase tracking-widest font-semibold" style={{ color: "#00D4FF" }}>
-            Números do Mercado
-          </p>
-        </Reveal>
-        <div className="mt-6 grid md:grid-cols-3 gap-5">
-          {stats.map((c, i) => (
-            <Reveal key={c.firm} delay={i * 0.08}>
-              <div className="rounded-2xl p-10 h-full text-center" style={{ backgroundColor: "#0F1B3D" }}>
-                <p className="text-xs uppercase tracking-widest font-semibold" style={{ color: "#00D4FF" }}>{c.firm}</p>
-                <p
-                  className="my-6 text-6xl md:text-7xl font-bold bg-clip-text text-transparent"
-                  style={{ backgroundImage: "linear-gradient(90deg, #8B1FA9, #00D4FF)" }}
-                >
-                  {c.num}
-                </p>
-                <p className="text-base text-white/80 leading-relaxed">{c.text}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        {/* Sub-bloco B: Pensadores */}
-        <Reveal delay={0.2}>
-          <p className="mt-16 text-xs uppercase tracking-widest font-semibold" style={{ color: "#00D4FF" }}>
-            Pensadores que Inspiram
-          </p>
-        </Reveal>
-        <div className="mt-6 grid md:grid-cols-2 gap-5">
-          {quotes.map((q, i) => (
-            <Reveal key={q.name} delay={i * 0.1}>
-              <div
-                className="rounded-2xl p-8 h-full flex items-start gap-5 border-l-4"
-                style={{ backgroundColor: "#0F1B3D", borderLeftColor: "#00D4FF" }}
-              >
-                <div
-                  className="w-20 h-20 rounded-full grid place-items-center flex-shrink-0 font-bold text-2xl text-white"
-                  style={{ background: "linear-gradient(135deg, #8B1FA9, #00D4FF)" }}
-                >
-                  {q.initials}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-white text-lg italic leading-relaxed">"{q.quote}"</p>
-                  <p className="mt-4 font-bold text-white">{q.name}</p>
-                  <p className="text-sm text-white/60">{q.sub}</p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      <section id="cta-final" className="relative px-6 md:px-10 py-24 md:py-32" style={{ background: "linear-gradient(135deg, var(--brand-purple-dark), var(--brand-purple) 50%, var(--brand-purple-light))" }}>
-        <div className="mx-auto max-w-5xl text-center">
-          <Reveal>
-            <h2 className="text-4xl md:text-6xl font-light leading-[1.1] tracking-tight">
-              Maestro AI OS não é um software. É a arquitetura que permite que sua empresa{" "}
-              <strong className="font-medium">pense, decida e execute em escala.</strong>
-            </h2>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="mt-8 text-lg text-offwhite/95 max-w-3xl mx-auto">
-              Agende uma demo executiva de 30 minutos. Sem compromisso. Cobrimos sua realidade, sua arquitetura atual e o caminho mais curto para o primeiro Team em produção.
-            </p>
-          </Reveal>
-          <Reveal delay={0.25}>
-            <div className="mt-10 flex justify-center">
-              <button onClick={onDemo} className="btn-primary-light text-base">
-                Agendar Demo Estratégica <ArrowRight size={18} />
-              </button>
-            </div>
-            <p className="mt-4 text-xs text-white/80">
-              Resposta em até 24h úteis · NDA disponível · Conversamos antes de propor
-            </p>
-          </Reveal>
-        </div>
-      </section>
-    </>
-  );
-}
-
-/* ============ FOOTER ============ */
+/* ==================== FOOTER ==================== */
 function Footer({ onDemo }: { onDemo: () => void }) {
-  const wa =
-    "https://wa.me/5511917830499?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Maestro%20AI%20OS";
+  const solLinks = SOLUCOES;
+  const platLinks = PLATAFORMA;
   return (
-    <footer
-      className="px-6 md:px-10 py-16 border-t border-white/10 text-white/70"
-      style={{ backgroundColor: "#0A1228" }}
-    >
-      <div className="mx-auto max-w-7xl grid md:grid-cols-4 gap-10">
-        <div>
-          <img src="/aodigital.png" alt="Always On" className="h-8 w-auto" />
-          <p className="mt-2 text-xs uppercase tracking-widest text-white/60">Maestro AI OS</p>
-          <p className="mt-4 text-sm max-w-xs">
-            Decisão orientada por dados, operada por times de IA.
-          </p>
+    <footer className="border-t border-white/10 bg-[#05070F]">
+      <div className="mx-auto max-w-7xl px-6 md:px-10 py-16">
+        <div className="grid md:grid-cols-[1.4fr_1fr_1fr] gap-10">
+          <div>
+            <img src="/logos/maestro-wordmark.svg" alt="Maestro" className="h-7 w-auto" />
+            <p className="mt-4 text-sm text-white/55 max-w-xs leading-relaxed">
+              Growth &amp; Decision Operating System. A camada de orquestração que transforma ruído em resultado.
+            </p>
+            <button onClick={onDemo} className="mt-6 inline-flex items-center gap-2 text-sm font-medium" style={{ color: CYAN }}>
+              Falar com especialista <ArrowRight size={15} />
+            </button>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-widest text-white/40 mb-4">Soluções</p>
+            <ul className="space-y-2.5">
+              {solLinks.map(({ label, href }) => (
+                <li key={href}><a href={href} className="text-sm text-white/65 hover:text-white transition-colors">{label}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-widest text-white/40 mb-4">Plataforma</p>
+            <ul className="space-y-2.5">
+              {platLinks.map(({ label, href }) => (
+                <li key={href}><a href={href} className="text-sm text-white/65 hover:text-white transition-colors">{label}</a></li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div>
-          <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Soluções</p>
-          <ul className="space-y-2.5 text-sm">
-            {SOLUCOES.map(({ Icon, label, href }) => (
-              <li key={href}>
-                <a href={href} className="flex items-center gap-2 hover:text-white">
-                  <Icon size={14} style={{ color: "#00D4FF" }} />
-                  <span>{label}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div className="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3 text-sm text-white/50">
+            <span>powered by</span>
+            <img src="/alwayson-logo.png" alt="Always On" className="h-6 w-auto opacity-90" />
+          </div>
+          <p className="text-xs text-white/40">© {new Date().getFullYear()} Maestro · Always On. Todos os direitos reservados.</p>
         </div>
-
-        <div>
-          <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Navegação</p>
-          <ul className="space-y-2.5 text-sm">
-            <li><a href="#racional" className="hover:text-white">Racional</a></li>
-            <li><a href="#nao-somos" className="hover:text-white">Não Somos</a></li>
-            <li><a href="#data-flow" className="hover:text-white">Soluções</a></li>
-            <li><a href="#metodologia" className="hover:text-white">Metodologia</a></li>
-            <li><a href="#comparativo" className="hover:text-white">Comparativo</a></li>
-            <li><a href="#seguranca" className="hover:text-white">Segurança</a></li>
-            <li><a href="#porque-maestro" className="hover:text-white">Porque Maestro?</a></li>
-            <li><a href="#industrias" className="hover:text-white">Indústrias</a></li>
-            <li><a href="#ganhos" className="hover:text-white">Ganhos</a></li>
-            <li><a href="#o-que-dizem" className="hover:text-white">O que dizem</a></li>
-            <li>
-              <button onClick={onDemo} className="hover:text-white text-left">
-                Agendar Demo
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <p className="text-xs uppercase tracking-widest text-white/50 font-semibold mb-4">Contato</p>
-          <ul className="space-y-2.5 text-sm">
-            <li>
-              <a href={wa} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white">
-                <MessageCircle size={14} /> (11) 91783-0499
-              </a>
-            </li>
-            <li>
-              <a href="mailto:contato@aodigital.com.br" className="flex items-center gap-2 hover:text-white">
-                <Mail size={14} /> contato@aodigital.com.br
-              </a>
-            </li>
-            <li>
-              <a href="https://aodigital.com.br" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white">
-                <Globe size={14} /> aodigital.com.br
-              </a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white">
-                <Linkedin size={14} /> LinkedIn
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-7xl mt-12 mb-8 py-6 px-8 bg-gradient-to-r from-[#8B1FA9]/20 via-[#6B1583]/10 to-transparent border-l-4 border-l-[#00D4FF] rounded-r-xl flex items-center gap-4 flex-wrap">
-        <img src="/aodigital.png" alt="Always On" className="h-7 w-auto flex-shrink-0" />
-        <p className="text-base md:text-lg text-white/90 flex-1 min-w-[240px]">
-          Maestro AI OS é uma solução{" "}
-          <a
-            href="https://aodigital.com.br"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-[#E8E4F0] to-[#00D4FF] hover:opacity-90 inline-flex items-center gap-1.5"
-          >
-            Always On
-            <ExternalLink className="w-3.5 h-3.5 text-[#00D4FF]" />
-          </a>
-        </p>
-      </div>
-
-      <div className="mx-auto max-w-7xl pt-6 border-t border-white/10 text-xs text-white/60 text-center md:text-left">
-        <p className="inline-flex items-center gap-2 flex-wrap justify-center md:justify-start">
-          <span>© 2026 Always On. Todos os direitos reservados.</span>
-          <span>·</span>
-          <a
-            href="https://aodigital.com.br/termos-e-politicas/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white inline-flex items-center gap-1"
-          >
-            Política de Privacidade <ExternalLink className="w-3 h-3" />
-          </a>
-          <span>·</span>
-          <a
-            href="https://aodigital.com.br/termos-e-politicas/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white inline-flex items-center gap-1"
-          >
-            LGPD <ExternalLink className="w-3 h-3" />
-          </a>
-        </p>
       </div>
     </footer>
   );

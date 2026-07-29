@@ -27,17 +27,20 @@ export function Section({
   id,
   children,
   className = "",
+  bg,
 }: {
   id?: string;
   children: ReactNode;
   className?: string;
+  bg?: ReactNode;
 }) {
   return (
     <section
       id={id}
-      className={`relative px-6 md:px-10 py-20 md:py-28 ${className}`}
+      className={`relative px-6 md:px-10 py-12 md:py-16 ${className}`}
     >
-      <div className="mx-auto max-w-7xl">{children}</div>
+      {bg}
+      <div className="relative z-10 mx-auto max-w-7xl">{children}</div>
     </section>
   );
 }
