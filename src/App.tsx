@@ -589,9 +589,9 @@ function Problema() {
               scene="https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode"
               className="absolute inset-0 w-full h-full"
             />
-            {/* cobre a marca d'água "Built with Spline" (pintada no canvas) com um fade */}
-            <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#05070F] via-[#05070F]/85 to-transparent pointer-events-none" />
-            <div className="absolute bottom-0 right-0 w-52 h-12 bg-[#05070F] blur-xl pointer-events-none" />
+            {/* cobre a marca d'água "Built with Spline" (pintada no canvas) — só dá pra cobrir */}
+            <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-[#05070F] via-[#05070F]/92 to-transparent pointer-events-none" />
+            <div className="absolute bottom-1.5 right-1.5 w-56 h-12 rounded-xl bg-[#05070F] pointer-events-none" />
           </div>
         </Reveal>
       </div>
@@ -692,7 +692,7 @@ function Categoria() {
           <div className="relative rounded-2xl p-[1.5px]" style={{ background: "linear-gradient(100deg,#7C3AED,#4F46E5 50%,#06B6D4)" }}>
             <div className="rounded-2xl bg-[#0A0D1C] px-6 py-8 text-center">
               <div className="flex items-center justify-center gap-3">
-                <img src="/logos/maestro-icon.svg" alt="" className="h-8 w-auto" />
+                <img src="/logos/maestro-icon2.png" alt="" className="h-8 w-auto" />
                 <span className="text-xl md:text-2xl font-bold">Maestro</span>
               </div>
               <p className="mt-3 text-sm md:text-base text-white/70">
@@ -1387,7 +1387,7 @@ function CTAFinal({ onDemo }: { onDemo: () => void }) {
       <div className="absolute inset-0" style={{ background: "radial-gradient(900px 500px at 50% 0%, rgba(124,58,237,0.35), transparent 60%), radial-gradient(700px 500px at 80% 100%, rgba(6,182,212,0.2), transparent 55%)" }} />
       <div className="relative mx-auto max-w-4xl text-center">
         <Reveal>
-          <img src="/logos/maestro-icon.svg" alt="" className="h-10 w-auto mx-auto mb-8" />
+          <img src="/logos/maestro-icon2.png" alt="" className="h-10 w-auto mx-auto mb-8" />
         </Reveal>
         <Reveal delay={0.08}>
           <h2 className="text-4xl md:text-6xl font-bold leading-[1.08]">
