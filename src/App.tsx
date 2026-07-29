@@ -60,7 +60,7 @@ import { GlowCard } from "@/components/ui/spotlight-card";
 import KineticGrid from "@/components/ui/kinetic-grid";
 import { PulseBeams, type Beam } from "@/components/ui/pulse-beams";
 import { LampContainer } from "@/components/ui/lamp";
-import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot";
+import { DeferredRobot } from "@/components/ui/deferred-robot";
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import { MaestroIntro } from "@/components/ui/maestro-intro";
 
@@ -407,7 +407,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
     <section id="top" className="relative min-h-[100svh] w-full overflow-hidden">
       <video
         ref={videoRef}
-        autoPlay loop muted playsInline preload="auto" disablePictureInPicture
+        autoPlay loop muted playsInline preload="metadata" poster="/maestro-poster.jpg" disablePictureInPicture
         {...({ "webkit-playsinline": "true" } as Record<string, string>)}
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
@@ -585,16 +585,11 @@ function Problema() {
             </p>
           </Reveal>
         </div>
-        <Reveal delay={0.1}>
-          <div className="relative h-[320px] md:h-[440px] w-full overflow-hidden">
-            <InteractiveRobotSpline
-              scene="https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode"
-              className="absolute inset-0 w-full h-full"
-            />
-            {/* cobre a marca d'água "Built with Spline" (pintada no canvas) — só dá pra cobrir */}
-            <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-[#05070F] via-[#05070F]/92 to-transparent pointer-events-none" />
-            <div className="absolute bottom-1.5 right-1.5 w-56 h-12 rounded-xl bg-[#05070F] pointer-events-none" />
-          </div>
+        <Reveal delay={0.1} className="hidden lg:block">
+          <DeferredRobot
+            scene="https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode"
+            className="relative h-[440px] w-full overflow-hidden"
+          />
         </Reveal>
       </div>
 
