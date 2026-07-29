@@ -71,7 +71,7 @@ export function SolutionsNav() {
     >
       <div className="flex items-center gap-1.5 md:gap-2 rounded-full border border-white/[0.14] bg-[#0A0D1C]/90 backdrop-blur-xl shadow-[0_14px_36px_-10px_rgba(34,211,238,0.45)] px-2 py-1.5 overflow-x-auto scrollbar-hide">
         <span className="hidden lg:flex items-center pl-2 pr-1 shrink-0 pointer-events-none">
-          <img src="/logos/maestro-icon2.png" alt="" className="h-4 w-auto opacity-90" />
+          <img src="/logos/maestro-icon2.svg" alt="" className="h-4 w-auto opacity-90" />
         </span>
         {solutions.map(({ id, label, icon: Icon }) => {
           const active = activeId === id;
