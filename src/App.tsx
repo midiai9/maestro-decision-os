@@ -693,7 +693,7 @@ function Categoria() {
           <div className="relative rounded-2xl p-[1.5px]" style={{ background: "linear-gradient(100deg,#7C3AED,#4F46E5 50%,#06B6D4)" }}>
             <div className="rounded-2xl bg-[#0A0D1C] px-6 py-8 text-center">
               <div className="flex items-center justify-center gap-3">
-                <img src="/logos/maestro-icon2.svg" alt="" width={36} height={36} className="h-9 w-9 object-contain shrink-0" />
+                <img src="/logos/maestro-icon2.png" alt="" width={36} height={36} className="h-9 w-9 object-contain shrink-0" />
                 <span className="text-xl md:text-2xl font-bold">Maestro</span>
               </div>
               <p className="mt-3 text-sm md:text-base text-white/70">
@@ -1391,7 +1391,7 @@ function CTAFinal({ onDemo }: { onDemo: () => void }) {
       <BackgroundPaths className="opacity-70" />
       <div className="relative mx-auto max-w-4xl text-center">
         <Reveal>
-          <img src="/logos/maestro-icon2.svg" alt="" width={40} height={40} className="h-10 w-10 object-contain mx-auto mb-8" />
+          <img src="/logos/maestro-icon2.png" alt="" width={40} height={40} className="h-10 w-10 object-contain mx-auto mb-8" />
         </Reveal>
         <Reveal delay={0.08}>
           <h2 className="text-4xl md:text-6xl font-bold leading-[1.08]">
