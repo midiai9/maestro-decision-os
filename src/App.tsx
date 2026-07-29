@@ -61,6 +61,7 @@ import KineticGrid from "@/components/ui/kinetic-grid";
 import { PulseBeams, type Beam } from "@/components/ui/pulse-beams";
 import { LampContainer } from "@/components/ui/lamp";
 import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot";
+import { BackgroundPaths } from "@/components/ui/background-paths";
 
 const CYAN = "#22D3EE";
 
@@ -1385,6 +1386,7 @@ function CTAFinal({ onDemo }: { onDemo: () => void }) {
   return (
     <section id="cta-final" className="relative px-6 md:px-10 py-24 md:py-36 overflow-hidden">
       <div className="absolute inset-0" style={{ background: "radial-gradient(900px 500px at 50% 0%, rgba(124,58,237,0.35), transparent 60%), radial-gradient(700px 500px at 80% 100%, rgba(6,182,212,0.2), transparent 55%)" }} />
+      <BackgroundPaths className="opacity-70" />
       <div className="relative mx-auto max-w-4xl text-center">
         <Reveal>
           <img src="/logos/maestro-icon2.png" alt="" className="h-10 w-auto mx-auto mb-8" />
