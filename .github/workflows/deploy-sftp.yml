@@ -59,12 +59,13 @@ jobs:
           SFTP_PASS: ${{ secrets.SFTP_PASS }}
         run: |
           lftp -u "$SFTP_USER,$SFTP_PASS" "$SFTP_HOST" <<EOF
-          cd httpdocs
           glob -a chmod 644 *
           glob -a chmod 644 .htaccess
           glob -a chmod 644 .nojekyll
           chmod 755 assets
           glob chmod 644 assets/*
-          quit
+          chmod 755 logos
+          glob chmod 644 logos/*
+          bye
           EOF
         continue-on-error: true

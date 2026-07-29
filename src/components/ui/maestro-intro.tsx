@@ -52,7 +52,7 @@ export function MaestroIntro() {
 
   return (
     <div ref={root} className="flex items-end justify-center gap-3 md:gap-4 drop-shadow-[0_2px_26px_rgba(124,58,237,0.4)]">
-      <svg viewBox="0 0 72 80" className="h-14 md:h-20 w-auto" aria-hidden="true">
+      <svg viewBox="0 0 72 80" className="h-16 md:h-24 w-auto" aria-hidden="true">
         <defs>
           <linearGradient id="mi-grad" x1="0" y1="1" x2="0" y2="0">
             <stop offset="0" stopColor="#22D3EE" />
@@ -77,11 +77,11 @@ export function MaestroIntro() {
         })}
       </svg>
 
-      <div className="flex overflow-hidden pb-1.5" aria-label="Maestro">
+      <div className="flex overflow-hidden leading-none" aria-label="Maestro">
         {word.map((ch, i) => (
           <span
             key={i}
-            className="mi-letter inline-block text-gradient-brand text-6xl md:text-8xl font-bold tracking-tight"
+            className="mi-letter inline-block leading-none text-gradient-brand text-6xl md:text-8xl font-bold tracking-tight"
           >
             {ch}
           </span>
