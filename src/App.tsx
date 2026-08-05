@@ -437,7 +437,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
           <span className="text-white/90 font-light">Transforme </span>
           <span className="text-gradient">ruído</span>
           <span className="text-white/90 font-light"> em </span>
-          <span className="text-gradient-brand">resultado.</span>
+          <span className="text-gradient-brand">resultado!</span>
         </motion.h1>
 
         <motion.p {...fadeUp(0.26)} className="text-white/70 text-sm md:text-lg max-w-xl mb-10 leading-relaxed">
